@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <title>Header</title>
+    <style>    
+        .search 
+        {
+            position: relative;
+            box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+        }
+
+        .search input 
+        {
+            height: 50px;
+            text-indent: 25px;
+            border: 2px solid #d6d4d4;
+        }
+
+        .search input:focus 
+        {
+            box-shadow: none;
+            border: 2px solid blue;
+        }
+
+        .search .fa-search 
+        {
+            position: absolute;
+            top: 20px;
+            left: 16px;
+        }
+
+        .search button 
+        {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 40px;
+            width: 80px;
+            background: blue;
+        }
+    </style>
+</head>
+
+<body class="p-3 m-0 border-0 bd-example">
+
+    <!-- Example Code -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Dashboard</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-9 text-center">
+                        <div class="row height d-flex justify-content-center align-items-center">
+                            <div class="col-md-5">
+                                <div class="search">
+                                    <i class="fa fa-search"></i>
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm thức ăn nước uống ...">
+                                    <button class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 justify-content-end align-items-end">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-primary me-3">
+                                Login
+                            </button>
+                            <button type="button" class="btn btn-primary me-3">
+                                Sign up
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <h5 class="text-white h4">Collapsed content</h5>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+        </div>
+    </div>
+
+    <!-- End Example Code -->
+</body>
+
+</html>
