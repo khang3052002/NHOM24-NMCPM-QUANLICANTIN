@@ -67,7 +67,7 @@ app.set('view engine', 'ejs');
 // }
 
 app.use('/', loginRoutes);
-app.post('/logged-in', auth);
+app.post('/logged-in',  auth);
 app.get('/logged-in', auth);
 app.post('/logout', (req, res, next) => {
     req.session.destroy(function (err) {
@@ -94,7 +94,7 @@ async function query_acc(){
     console.log(res);
 }
 
-function auth(req, res, next) {
+async function auth(req, res, next) {
     // Checking for the session
 
     // Checking for the authorization
@@ -105,7 +105,7 @@ function auth(req, res, next) {
         var password = req.body.password;
 
         //------------
-        query_acc();
+       await  query_acc();
         console.log('end query');
 
         //---------------------------------------
@@ -139,10 +139,10 @@ function auth(req, res, next) {
         //     check = 1;
         // })
         // console.log(check);
-        //var check=1;
+        var check=1;
         if (Object.keys(req.body).length != 0) {
-            console.log('success');
             if (check == 1) {
+                console.log('success1');
                 req.session.user = "admin2"
                 res.render('admin')
             }
