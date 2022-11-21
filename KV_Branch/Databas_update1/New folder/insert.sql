@@ -21,9 +21,9 @@ INCREMENT 1
 MINVALUE 0
 START 0 ; 
 ---------------------------------
-CREATE OR REPLACE FUNCTION updateStorage() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION nhapKho() RETURNS trigger AS $$
 DECLARE expiredDate date;
-DECLARE shelfTime date;
+DECLARE shelfTime int;
 BEGIN
 	shelfTime:=(SELECT MH.HAN_SU_DUNG 
 		FROM MAT_HANG AS MH 
@@ -59,21 +59,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS addOrUpdateStorage on CHI_TIET_NHAP_KHO;
-CREATE TRIGGER addOrUpdateStorage
+DROP TRIGGER IF EXISTS nhapKho on CHI_TIET_NHAP_KHO;
+CREATE TRIGGER nhapKho
 AFTER INSERT ON CHI_TIET_NHAP_KHO
-FOR EACH ROW EXECUTE PROCEDURE updateStorage();
+FOR EACH ROW EXECUTE PROCEDURE	nhapKho();
 ----------------------------------------------------
 
-CREATE OR REPLACE FUNCTION exportGoods() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION xuatKho() RETURNS trigger AS $$
 DECLARE expiredDate date;
 BEGIN
+	raise info 'heehe %', 'hehe' ;
 	expiredDate:=(SELECT MHTK.NGAY_HET_HAN 
 		FROM MAT_HANG_TRONG_KHO AS MHTK 
 		WHERE MHTK.MA_MAT_HANG=NEW.MA_MAT_HANG AND MHTK.NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT) ;
-	IF EXISTS(SELECT * FROM MAT_HANG_CANTEEN AS MHC
-			 WHERE MHC.MA_MAT_HANG=NEW.MA_MAT_HANG 
-			  and MHC.NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT) THEN
+	IF EXISTS(SELECT * FROM MAT_HANG_CANTEEN
+			 WHERE MA_MAT_HANG=NEW.MA_MAT_HANG 
+			  and NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT) THEN
 			  UPDATE MAT_HANG_CANTEEN 
 			  SET SO_LUONG=SO_LUONG+NEW.SO_LUONG
 			  WHERE MA_MAT_HANG=NEW.MA_MAT_HANG and NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT;
@@ -93,12 +94,12 @@ BEGIN
 			  GIA=NEW.DON_GIA
 			  WHERE MA_MAT_HANG=NEW.MA_MAT_HANG ;
 	ELSE
-		INSERT INTO SL_HANG_TRONG_KHO(MA_MAT_HANG,SO_LUONG,GIA) 
+		INSERT INTO SL_HANG_CANTEEN(MA_MAT_HANG,SO_LUONG,GIA) 
 		VALUES (NEW.MA_MAT_HANG,NEW.SO_LUONG,NEW.DON_GIA);
 	END IF;
 	-------------------------------------------------
 	IF (SELECT MHTK.SO_LUONG FROM MAT_HANG_TRONG_KHO AS MHTK
-		 WHERE MHC.MA_MAT_HANG=NEW.MA_MAT_HANG and MHC.NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT) > NEW.SO_LUONG THEN
+		 WHERE MHTK.MA_MAT_HANG=NEW.MA_MAT_HANG and MHTK.NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT) > NEW.SO_LUONG THEN
 		 UPDATE MAT_HANG_TRONG_KHO
 		 SET SO_LUONG=SO_LUONG-NEW.SO_LUONG
 		 WHERE MA_MAT_HANG=NEW.MA_MAT_HANG and NGAY_SAN_XUAT=NEW.NGAY_SAN_XUAT;
@@ -108,7 +109,7 @@ BEGIN
 	END IF;
 	--------------------------------------------------
 	IF (SELECT SLHTK.SO_LUONG FROM SL_HANG_TRONG_KHO AS SLHTK
-		 WHERE MHC.MA_MAT_HANG=NEW.MA_MAT_HANG) > NEW.SO_LUONG THEN
+		 WHERE SLHTK.MA_MAT_HANG=NEW.MA_MAT_HANG) > NEW.SO_LUONG THEN
 		 UPDATE SL_HANG_TRONG_KHO
 		 SET SO_LUONG=(SELECT SUM(KHO.SO_LUONG) 
 							FROM MAT_HANG_TRONG_KHO AS KHO
@@ -123,14 +124,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS exportGoods on CHI_TIET_XUAT_KHO;
-CREATE TRIGGER exportGoods
+DROP TRIGGER IF EXISTS xuatKho on CHI_TIET_XUAT_KHO;
+CREATE TRIGGER xuatKho
 AFTER INSERT ON CHI_TIET_XUAT_KHO
-FOR EACH ROW EXECUTE PROCEDURE exportGoods();
+FOR EACH ROW EXECUTE PROCEDURE xuatKho();
 ------------------------------------------------------
-CREATE OR REPLACE FUNCTION updateState() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION capNhatTrangThaiDonHang() RETURNS trigger AS $$
 BEGIN
-	IF NEW.TRANG_THAI == 'DA NHAN HOA DON' THEN
+	IF NEW.TRANG_THAI = 'DA NHAN HOA DON' THEN
 		UPDATE CHI_TIET_DON_HANG
 		SET TRANG_THAI = 'DA NHAN HOA DON'
 		WHERE MA_DON_HANG=NEW.MA_DON_HANG;
@@ -147,25 +148,34 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS updateState on DON_HANG;
-CREATE TRIGGER updateState
+DROP TRIGGER IF EXISTS capNhatTrangThaiDonHang on DON_HANG;
+CREATE TRIGGER capNhatTrangThaiDonHang
 AFTER UPDATE OF TRANG_THAI ON DON_HANG
-FOR EACH ROW EXECUTE PROCEDURE updateState();
+FOR EACH ROW EXECUTE PROCEDURE capNhatTrangThaiDonHang();
 
 ------------------------------------------------------------
 
 -- ------------------------------------------------------
-CREATE OR REPLACE FUNCTION updateGoods() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION nhanHang() RETURNS trigger AS $$
 DECLARE SLMUA int = NEW.SO_LUONG; SLTL int; MFDate date; tempValue int; MAMH text=NEW.MA_MAT_HANG;
 BEGIN
-	IF NEW.TRANG_THAI == 'DA NHAN HOA DON' THEN
+	
+-- 	SLMUA:=1;
+	IF NEW.TRANG_THAI = 'DA NHAN HOA DON' THEN
+	IF EXISTS (SELECT * FROM SL_HANG_CANTEEN WHERE MA_MAT_HANG=NEW.MA_MAT_HANG) THEN
+		IF (SELECT SO_LUONG FROM SL_HANG_CANTEEN WHERE MA_MAT_HANG=NEW.MA_MAT_HANG)>SLMUA THEN
+			UPDATE SL_HANG_CANTEEN  SET SO_LUONG=SO_LUONG-SLMUA WHERE MA_MAT_HANG=NEW.MA_MAT_HANG;
+		ELSE
+			DELETE FROM SL_HANG_CANTEEN  WHERE MA_MAT_HANG=NEW.MA_MAT_HANG;
+		END IF;
+	END IF;
+		
 	WHILE SLMUA>0 LOOP
-		IF SLMUA==0 THEN RETURN NEW; END IF;
-		FOR SLTL, MFDate IN (SELECT KHO.SO_LUONG,KHO.NGAY_SAN_XUAT FROM MAT_HANG_TRONG_KHO AS KHO 
+		IF SLMUA=0 THEN RETURN NEW; END IF;
+		FOR SLTL, MFDate IN (SELECT KHO.SO_LUONG,KHO.NGAY_SAN_XUAT FROM MAT_HANG_CANTEEN AS KHO 
 			WHERE KHO.MA_MAT_HANG=NEW.MA_MAT_HANG ORDER BY KHO.NGAY_SAN_XUAT)
 		LOOP
-				IF SLMUA==0 THEN RETURN NEW; END IF;
-				IF EXISTS(SELECT * FROM MAT_HANG_CANTEEN WHERE MA_MAT_HANG=MAMH) THEN
+				IF SLMUA=0 THEN RETURN NEW; END IF;
 					tempValue:=SLMUA-SLTL;
 					IF tempValue<0 THEN
 						UPDATE MAT_HANG_CANTEEN
@@ -174,7 +184,7 @@ BEGIN
 						SLMUA:=0;
 					END IF;
 
-					IF tempValue==0 THEN
+					IF tempValue=0 THEN
 						DELETE FROM MAT_HANG_CANTEEN
 						WHERE MA_MAT_HANG=MAMH and MFDate=NGAY_SAN_XUAT;
 						SLMUA:=0;
@@ -185,8 +195,9 @@ BEGIN
 						WHERE MA_MAT_HANG=MAMH and MFDate=NGAY_SAN_XUAT;
 						SLMUA:=tempValue;
 					END IF;
-				END IF;
+					IF SLMUA=0 THEN RETURN NEW; END IF;
 		END LOOP;
+		IF SLMUA=0 THEN RETURN NEW; END IF;
 	END LOOP;
 	END IF;
 	
@@ -194,41 +205,68 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS updateState on CHI_TIET_DON_HANG;
-CREATE TRIGGER updateGoods
+DROP TRIGGER IF EXISTS nhanHang on CHI_TIET_DON_HANG;
+CREATE TRIGGER nhanHang
 AFTER UPDATE OF TRANG_THAI ON CHI_TIET_DON_HANG
-FOR EACH ROW EXECUTE PROCEDURE updateGoods();
+FOR EACH ROW EXECUTE PROCEDURE nhanHang();
 
 ------------------------------------------------------------
-
-create or replace procedure addNewBill(
-	maMH text, soLuong int, giaBan int
+create or replace procedure themDonHang(
+	maMH text[], soLuong int[]
 )
 language plpgsql    
 as $$
-DECLARE idDonHang text; thanhTien int;
+DECLARE idDonHang text; thanhTien int; index int:=1; giaBan int;
 begin
-    INSERT INTO DON_HANG VALUES(DEFAULT,DEFAULT);
+    INSERT INTO DON_HANG VALUES(DEFAULT,DEFAULT,DEFAULT,DEFAULT);
 	idDonHang:=(SELECT MA_DON_HANG FROM DON_HANG ORDER BY NGAY_MUA DESC LIMIT 1);
-	thanhTien:=soLuong*giaBan;
-	INSERT INTO CHI_TIET_DON_HANG(MA_DON_HANG,MA_MAT_HANG,SO_LUONG,GIA_BAN,THANH_TIEN ) VALUES (idDonHang,maMH,soLuong,giaBan,thanhTien);
-end;$$
+	WHILE index <= array_length(maMH, 1) LOOP
+	giaBan:=(SELECT GIA FROM SL_HANG_CANTEEN WHERE MA_MAT_HANG=maMH[index]);
+	thanhTien:=soLuong[index]*giaBan;
+	INSERT INTO CHI_TIET_DON_HANG(MA_DON_HANG,MA_MAT_HANG,SO_LUONG,GIA_BAN,THANH_TIEN ) VALUES (idDonHang,maMH[index],soLuong[index],giaBan,thanhTien);
+	index:=index+1;
+	END LOOP;
+	
+
+end;$$;
 
 -- call addNewBill('HJHJHJHJ',2,15000);
 -----------------------------------------------------
--- create or replace procedure addNewExport(
--- 	maMH text, soLuong int, giaBan int
--- )
--- language plpgsql    
--- as $$
--- DECLARE idDonHang text; thanhTien int;
--- begin
---     INSERT INTO DON_HANG VALUES(DEFAULT,DEFAULT);
--- 	idDonHang:=(SELECT MA_DON_HANG FROM DON_HANG ORDER BY NGAY_MUA DESC LIMIT 1);
--- 	thanhTien:=soLuong*giaBan;
--- 	INSERT INTO CHI_TIET_DON_HANG(MA_DON_HANG,MA_MAT_HANG,SO_LUONG,GIA_BAN,THANH_TIEN ) VALUES (idDonHang,maMH,soLuong,giaBan,thanhTien);
--- end;$$
+create or replace procedure themPhieuNhapHang(
+	maMH text[], soLuong int[], donGia int[], ngaySX date[]
+)
+language plpgsql    
+as $$
+DECLARE idNhapHang text; index int:=1;
+begin
+    INSERT INTO PHIEU_NHAP_KHO VALUES(DEFAULT,DEFAULT);
+	idNhapHang:=(SELECT MA_PHIEU FROM PHIEU_NHAP_KHO ORDER BY NGAY_NHAP DESC LIMIT 1);
+	WHILE index <= array_length(maMH, 1) LOOP
+	INSERT INTO CHI_TIET_NHAP_KHO(MA_PHIEU,MA_MAT_HANG,NGAY_SAN_XUAT,DON_GIA,SO_LUONG) VALUES (idNhapHang,maMH[index],ngaySX[index],donGia[index],soLuong[index]);
+	index:=index+1;
+	END LOOP;
+end;$$;
+
+---------------------------------------------------------------
+create or replace procedure themPhieuXuatHang(
+	maMH text[], soLuong int[], donGia int[], ngaySX date[]
+)
+language plpgsql    
+as $$
+DECLARE idXuatHang text;index int:=1;
+begin
+    INSERT INTO PHIEU_XUAT_KHO VALUES(DEFAULT,DEFAULT);
+	idXuatHang:=(SELECT MA_PHIEU FROM PHIEU_XUAT_KHO ORDER BY NGAY_XUAT DESC LIMIT 1);
+	WHILE index <= array_length(maMH, 1) LOOP
+	INSERT INTO CHI_TIET_XUAT_KHO(MA_PHIEU,MA_MAT_HANG,NGAY_SAN_XUAT,DON_GIA,SO_LUONG) VALUES (idXuatHang,maMH[index],ngaySX[index],donGia[index],soLuong[index]);
+	index:=index+1;
+	END LOOP;
+end;$$;
 --------------------------------------------------------------
+
+
+
+
 DROP TABLE IF EXISTS NGUOI_BAN CASCADE;
 CREATE TABLE NGUOI_BAN (
 	ID text DEFAULT 'ADMS' || lpad(nextval('AdminId')::text, 4, '0') NOT NULL,
@@ -310,7 +348,6 @@ CREATE TABLE CHI_TIET_XUAT_KHO(
 	SO_LUONG int
 );
 ALTER TABLE CHI_TIET_XUAT_KHO ADD CONSTRAINT "PK_Chi_tiet_xuat_kho" PRIMARY KEY (MA_PHIEU,MA_MAT_HANG,NGAY_SAN_XUAT);
-ALTER TABLE CHI_TIET_XUAT_KHO ADD CONSTRAINT "FK_CT_MHTK" FOREIGN KEY (MA_MAT_HANG,NGAY_SAN_XUAT) REFERENCES MAT_HANG_TRONG_KHO(MA_MAT_HANG,NGAY_SAN_XUAT);
 ALTER TABLE CHI_TIET_XUAT_KHO ADD CONSTRAINT "FK_CTXK_PXK" FOREIGN KEY (MA_PHIEU) REFERENCES PHIEU_XUAT_KHO(MA_PHIEU);
 -------------------------------------------------
 
@@ -390,32 +427,28 @@ CREATE TABLE THUC_AN_TRONG_KHO(
 ALTER TABLE THUC_AN_TRONG_KHO ADD CONSTRAINT "PK_TATK" PRIMARY KEY (MA_MON_AN);
 ALTER TABLE THUC_AN_TRONG_KHO ADD CONSTRAINT "FK_TATK_MA" FOREIGN KEY (MA_MON_AN) REFERENCES MON_AN(MA_MON_AN);
 ---------------------------------------------
--- INSERT INTO KHACH_HANG(TAI_KHOAN,MAT_KHAU,SDT,EMAIL,SO_DU) VALUES 
--- ('khoamagjk','hjhjhj','079546556','khoacamrank@gmail.com',1500000),
--- ('khanhtrumpc2','hjhjhj','035674032','khanhtrumpc2@gmail.com',1500000),
--- ('hoangkhanhs','hjhjhj','0642138','khang300502@gmail.com',1500000),
--- ('khangchan','hjhjhj','85656554','khoacamrank@gmail.com',1500000);
+INSERT INTO KHACH_HANG(TAI_KHOAN,MAT_KHAU,SDT,EMAIL,SO_DU) VALUES 
+('khoamagjk','hjhjhj','079546556','khoacamrank@gmail.com',1500000),
+('khanhtrumpc2','hjhjhj','035674032','khanhtrumpc2@gmail.com',1500000),
+('hoangkhanhs','hjhjhj','0642138','khang300502@gmail.com',1500000),
+('khangchan','hjhjhj','85656554','khoacamrank@gmail.com',1500000);
 
--- INSERT INTO DON_HANG(MA_KHACH_HANG,NGAY_MUA) VALUES 
--- ('CTMS0001','2017-03-14'),
--- ('CTMS0002','2017-01-14'),
--- ('CTMS0003','2017-03-14'),
--- ('CTMS0004','2017-03-14');
+INSERT INTO NGUOI_BAN(TAI_KHOAN,MAT_KHAU,HO_TEN) VALUES 
+('KhanhHEHE','lameo','uhuhu'),
+('Khanhasjfh','lameoasfd','uhuhuasdf'),
+('Khasfsjfh','laasfsfd','uasdfuasdf');
 
--- INSERT INTO NGUOI_BAN(TAI_KHOAN,MAT_KHAU,HO_TEN) VALUES 
--- ('KhanhHEHE','lameo','uhuhu'),
--- ('Khanhasjfh','lameoasfd','uhuhuasdf'),
--- ('Khasfsjfh','laasfsfd','uasdfuasdf');
+INSERT INTO LOAI_HANG(MA_LOAI_HANG,TEN_LOAI_HANG) VALUES 
+('#TYNU','NUOC UONG'),
+('#TYDCHT','DC HOC TAP'),
+('#TYDAV','DO AN VAT');
 
--- INSERT INTO LOAI_HANG(MA_LOAI_HANG,TEN_LOAI_HANG) VALUES 
--- ('#TYNU','NUOC UONG'),
--- ('#TYDCHT','DC HOC TAP'),
--- ('#TYDAV','DO AN VAT');
+INSERT INTO MAT_HANG(MA_LOAI_HANG,TEN_MAT_HANG) VALUES 
+('#TYNU','Sting dâu'),
+('#TYNU','Pepsi'),
+('#TYNU','Cocacola');
 
--- INSERT INTO MAT_HANG(MA_LOAI_HANG,TEN_LOAI_HANG) VALUES 
--- ('#TYNU','Sting dâu'),
--- ('#TYNU','Pepsi'),
--- ('#TYNU','Cocacola');
--- INSERT INTO DON_HANG VALUES(DEFAULT,DEFAULT);
+
+
 
 
