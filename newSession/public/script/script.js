@@ -1,5 +1,3 @@
-
-
 $('#login').click(function (e) { 
     e.preventDefault();
     window.location.href='/sign_in';
@@ -40,4 +38,8 @@ $('#products').click(function(e){
 $('#stock').click(function(e){
     e.preventDefault();
     window.location.href='/stocks';
+})
+$('#signup').click(function(e){
+    e.preventDefault();
+    window.location.href='/sign_up';
 })

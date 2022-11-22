@@ -7,20 +7,23 @@ const session=require('express-session')
 //routes module
 const mainRoutes=require('./routes/homeRoutes');
 const sign_inRoutes=require('./routes/sign_inRoutes');
-const auth_Routes=require('./authencation/authRoutes')
-const restrict=require('./authencation/restrictRoutes');
+const stocksRoutes=require('./routes/stockRoutes');
+const sign_upRoutes = require('./routes/sign_upRoutes');
 const profileRoutes=require('./routes/profileRoutes');
 const productsRoutes = require('./routes/productsRoutes');
+//restrict 
+const auth_Routes=require('./authencation/authRoutes')
+const restrict=require('./authencation/restrictRoutes');
+const restrictRegister=require('./authencation/restrictRegister');
 const restrictForUser = require('./authencation/restrictForUser');
 const restrictForAdmin=require('./authencation/restrictForAdmin')
-const stocksRoutes=require('./routes/stockRoutes');
 
 //session config
 const sessionConfig={
     name:'canteen',
     secret:'secretKey',
     cookie:{
-        maxAge:100*60*60,
+        maxAge:1000*60*60*4,
         secure:false,
         httpOnly:true,
     },
@@ -44,7 +47,8 @@ app.get('/',(req,res)=>{
     res.redirect('/home')
 });
 app.use('/home',mainRoutes);
-app.use('/sign_in',sign_inRoutes);
+app.use('/sign_in',restrictRegister,sign_inRoutes);
+app.use('/sign_up',restrictRegister,sign_upRoutes);
 app.use('/auth',auth_Routes)
 app.use('/profile',restrict,profileRoutes);
 app.use('/logout',auth_Routes)
