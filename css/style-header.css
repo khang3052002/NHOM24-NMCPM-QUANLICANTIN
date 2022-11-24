@@ -33,3 +33,13 @@
     width: 80px;
     background: blue;
 }
+
+.navbar-color {
+    background-color: #DAE5FC;
+}
+
+.nav-css {
+    background-color: #809ddc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
