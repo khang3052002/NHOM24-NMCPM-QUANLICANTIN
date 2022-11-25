@@ -1,0 +1,39 @@
+
+<div id="spin" class="spinner-border d-none" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<form id="form" class="row g-3">
+  <div class="col-auto">
+    <label for="staticEmail2" class="visually-hidden">Email</label>
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+  </div>
+  <div class="col-auto">
+    <label for="inputPassword2" class="visually-hidden">Password</label>
+    <input type="text" name="input" class="form-control" id="input" placeholder="Value">
+  </div>
+  <div class="col-auto">
+    <button type="submit" id="Zalo" class="btn btn-primary mb-3">Zalo Pay</button>
+  </div>
+
+  <div class="col-auto">
+    <button type="submit" id="Momo" class="btn btn-primary mb-3">Momo</button>
+  </div>
+
+    {{#if show}}
+  {{#if ../result}}
+    <div class="col-auto">
+    <button type="submit" id="Momo" class="btn btn-primary mb-3">THÀNH CÔNG</button>
+  </div>
+  {{else}}
+  <div class="col-auto">
+    <button type="submit" id="Momo" class="btn btn-primary mb-3">THẤT BẠI</button>
+  </div>
+  {{/if}}
+
+  {{/if}}
+
+</form>
+<div class="notify">
+  
+
+</div>

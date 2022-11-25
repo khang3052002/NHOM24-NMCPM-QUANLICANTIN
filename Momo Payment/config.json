@@ -1,0 +1,15 @@
+{
+    "appid": "2554",
+    "key1": "sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn",
+    "key2": "trMrHtvjo6myautxDUiAcYsVtaeQ8nhf",
+    "ngrok": {
+      "tunnels": "http://localhost:3000/api/tunnels"
+    },
+    "api": {
+      "createorder": "https://sb-openapi.zalopay.vn/v2/create",
+      "gateway": "https://sbgateway.zalopay.vn/openinapp?order=",
+      "qr": "https://qcgateway.zalopay.vn/openinapp?order="
+      
+    }
+    
+  }
