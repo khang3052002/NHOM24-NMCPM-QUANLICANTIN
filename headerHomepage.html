@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style-header.css">
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <title>Header</title>
+    <title>Header Homepage</title>
 </head>
 
 <body>
@@ -52,14 +52,20 @@
                         </div>
                     </div>
                     
-                    <div class="col-3 justify-content-center align-items-center">
-                        <div class="d-flex align-items-end justify-content-end">
-                            <button type="button" class="btn me-3">
-                                <i class="fa fa-user-plus" style="padding-right: 0.5rem;"></i>Signup
+                    <div class="col-2"></div>
+                    <div class="col-1 text-end">
+                        <div class="dropdown">
+                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="./images/avatar.png" alt="Avatar" style="width: 2rem; height: 2rem;"/>
                             </button>
-                            <button type="button" class="btn me-3">
-                                <i class="fa fa-sign-in" style="padding-right: 0.5rem;"></i>Login
-                            </button>
+                            <ul class="dropdown-menu dropdown-menu-lg-end">
+                                <li><button class="dropdown-item" type="button">Trang cá nhân</button></li>
+                                <li><button class="dropdown-item" type="button">Giỏ hàng</button></li>
+                                <li><button class="dropdown-item" type="button">Số dư tài khoản: 1.000.000</button></li>
+                                <li><button class="dropdown-item" type="button">Lịch sử mua hàng</button></li>
+                                <li><button class="dropdown-item" type="button">Đăng xuất 
+                                    <i class="fa fa-sign-out" style="margin-left: 0.5rem;"></i></button></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
