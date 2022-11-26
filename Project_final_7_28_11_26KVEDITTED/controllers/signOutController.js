@@ -1,5 +1,9 @@
 const signOut=(req,res,next)=>{
     try{
+        user={}
+        if(req.session.user){
+            user=req.session.user;
+        }
         msg='Bạn đã đăng xuất thành công'
         if (req.session) {
             req.session.destroy(error => {
@@ -8,13 +12,13 @@ const signOut=(req,res,next)=>{
                 }
             })
 
-            res.render('signOutPage.hbs',{message: msg});
+            res.render('signOutPage.hbs',{message: msg,user:user});
         }
         else {
-            res.render('signOutPage.hbs',{message: msg});
+            res.render('signOutPage.hbs',{message: msg,user:user});
         }
     }catch(err){
-        res.render('signOutPage.hbs',{message: err.message});
+        res.render('signOutPage.hbs',{message: err.message,user:user});
     }
 }
 module.exports={

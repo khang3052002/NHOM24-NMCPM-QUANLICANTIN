@@ -3,20 +3,23 @@ const dbModel = require('../models/dbHelpers/dbHelpers');
 const loadHomePage=async(req,res,next)=>{
     try{
         var foodList
+        user={}
+        if(req.session.user){
+            user=req.session.user
+            console.log(user)
+        }
         foodList=await dbModel.getTodayFood();
         if(!(req.session&&req.session.role=='admin')){
-            var isLoggedIn=false;
-            if(req.session.role=='user'){
-                isLoggedIn=true 
-            }
             res.render('homePageNeutral',{
-                isLoggedIn:isLoggedIn,
-                foodList:foodList
+                role:req.session.role,
+                foodList:foodList,
+                user:user
             });
         }
         else if(req.session&&req.session.role=='admin'){
             res.render('homeAdminPage',{
-                isLoggedIn:true
+                role:req.session.role,
+                user:user
             });
         }
     }catch(err){

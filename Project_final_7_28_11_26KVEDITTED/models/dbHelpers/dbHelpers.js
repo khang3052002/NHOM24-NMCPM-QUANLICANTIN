@@ -32,7 +32,6 @@ const addNewUser = async (user) => {
 
 const userAuthentication = async (user) => {
 
-  console.log("user log in", user);
   try{
     const res= await dbConnector.query(`SELECT * FROM KHACH_HANG WHERE TAI_KHOAN='${user.username}'`);
     return res.rows
@@ -43,11 +42,8 @@ const userAuthentication = async (user) => {
 };
 
 const adminAuthentication = async (user) => {
-
-  console.log("user log in", user);
   try{
     const res= await dbConnector.query(`SELECT * FROM NGUOI_BAN WHERE TAI_KHOAN='${user.username}'`);
-    //console.log(res.rows)
     return res.rows
   }
   catch(err){
@@ -59,6 +55,16 @@ const adminAuthentication = async (user) => {
 const getTodayFood =async () => {
   try{
     const res= await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`);
+    return res.rows;
+  }
+  catch(err){
+    return err;
+  } 
+};
+
+const getUserInfo =async (id) => {
+  try{
+    const res= await dbConnector.query(`SELECT * FROM KHACH_HANG WHERE id='${id}'`);
     return res.rows;
   }
   catch(err){
@@ -78,5 +84,6 @@ module.exports = {
   addNewUser,
   userAuthentication,
   adminAuthentication,
-  getTodayFood
+  getTodayFood,
+  getUserInfo
 };

@@ -3,7 +3,7 @@ const CryptoJS = require("crypto-js");
 const hashLength = 64;
 const loadSignInPage = async (req, res, next) => {
     try {
-        res.render('signInPage');
+        res.render('signInPage',{user:{}});
     }
     catch (err) {
         next()
@@ -28,7 +28,6 @@ const authentication = async (req, res, next) => {
             uDb = await dbModel.adminAuthentication(user);
         }
 
-        console.log(uDb);
         if (uDb.length == 0) {
             res.send('tai khoan hoac mat khau khong dung');
         }
@@ -37,17 +36,15 @@ const authentication = async (req, res, next) => {
         const passwordSalt = password + salt;
         const passwordHashed = CryptoJS.SHA3(passwordSalt, { outputLength: hashLength * 4 }).toString
             (CryptoJS.enc.Hex);
-        console.log(passwordHashed + salt);
         if (passwordDb === (passwordHashed + salt)) {
             if (uDb[0].id.includes('CTMS')) {
  
                 //req.session.user = 'user';
-                req.session.user = { 'role': 'user', 'id': uDb[0].id, 'cartID': uDb[0].id_gio_hang };
+                req.session.user = { 'role': 'user', 'id': uDb[0].id, 'cartID': uDb[0].id_gio_hang,'img_url':uDb[0].img_url };
                 req.session.role='user'
-                console.log('session',req.session.user);
             }
             else if (uDb[0].id.includes('ADMS')) {
-                req.session.user = { 'role': 'admin', 'id': uDb[0].id }
+                req.session.user = { 'role': 'admin', 'id': uDb[0].id,'img_url':uDb[0].img_url }
                 req.session.role='admin'
             }
             //{'role':'admin', "id":'id','cart':'cart'};

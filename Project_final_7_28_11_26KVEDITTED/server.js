@@ -38,6 +38,7 @@ const signUpRoutes=require('./routers/signUpRoutes')
 const signInRoutes=require('./routers/signInRoutes')
 const signOutRoutes=require('./routers/signOutRoutes')
 const homeRoutes=require('./routers/homeRoutes')
+const getUserInfoRoutes=require('./routers/getUserInfoRoutes')
 // const mainRoutes=require('./routes/homeRoutes');
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const stocksRoutes=require('./routes/stockRoutes');
@@ -61,6 +62,7 @@ app.use('/sign-up',signUpRoutes)
 app.use('/sign-in',signInRoutes)
 app.use('/sign-out',signOutRoutes)
 app.use('/home',homeRoutes)
+app.use('/get-user-info',getUserInfoRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');
     // dbConnector.query('SELECT * FROM KHACH_HANG', (error, results) => {
