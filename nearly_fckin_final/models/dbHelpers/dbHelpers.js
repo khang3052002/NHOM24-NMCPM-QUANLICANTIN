@@ -56,8 +56,27 @@ const adminAuthentication = async (user) => {
 
   
 };
+const getTodayFood =async () => {
+  try{
+    const res= await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`);
+    return res.rows;
+  }
+  catch(err){
+    return err;
+  } 
+};
+// const getFoodInfo =async (foodID) => {
+//   try{
+//     const res= await dbConnector.query(`SELECT * FROM MON_AN WHERE MA_MON_AN='${foodID}'`);
+//     return res.rows;
+//   }
+//   catch(err){
+//     return err;
+//   } 
+// };
 module.exports = {
   addNewUser,
   userAuthentication,
   adminAuthentication,
+  getTodayFood
 };

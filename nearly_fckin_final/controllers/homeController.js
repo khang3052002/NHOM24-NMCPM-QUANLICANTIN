@@ -1,15 +1,17 @@
 const session = require("express-session");
-
-const loadHomePage=(req,res,next)=>{
+const dbModel = require('../models/dbHelpers/dbHelpers');
+const loadHomePage=async(req,res,next)=>{
     try{
-        console.log(req.session)
+        var foodList
+        foodList=await dbModel.getTodayFood();
         if(!(req.session&&req.session.role=='admin')){
             var isLoggedIn=false;
             if(req.session.role=='user'){
-                isLoggedIn=true;
+                isLoggedIn=true 
             }
             res.render('homePageNeutral',{
-                isLoggedIn:isLoggedIn
+                isLoggedIn:isLoggedIn,
+                foodList:foodList
             });
         }
         else if(req.session&&req.session.role=='admin'){
