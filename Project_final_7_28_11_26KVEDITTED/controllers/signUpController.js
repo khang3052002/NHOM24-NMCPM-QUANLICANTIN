@@ -3,7 +3,11 @@ const CryptoJS = require("crypto-js");
 const hashLength = 64;
 const loadSignUpPage = async(req,res,next)=>{
     try{
-        res.render('signUpPage',{user:{}});
+        user={}
+        if(req.session.user){
+            user=req.session.user
+        }
+        res.render('signUpPage',{user:user});
     }
     catch(err){
         next()

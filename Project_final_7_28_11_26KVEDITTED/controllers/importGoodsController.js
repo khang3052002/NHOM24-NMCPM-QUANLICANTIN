@@ -1,17 +1,17 @@
 
 const dbModel = require('../models/dbHelpers/dbHelpers');
-const loadItemDetail=async(req,res,next)=>{
+const loadPage=async(req,res,next)=>{
     try{
-        query=req.query
         user={}
         if(req.session.user){
             user=req.session.user
         }
-        item=await dbModel.getFoodById(query.id);
-        res.render('itemDetailPage',{user:user,item:item[0]})
+        allGoods=await dbModel.getAllGoods()
+        // console.log(allGoods)
+        res.render('importGoodsPage',{user:user,goodsList:allGoods})
     }
     catch(err){
         console.log(err)
     }
 }
-module.exports={loadItemDetail};
+module.exports={loadPage};
