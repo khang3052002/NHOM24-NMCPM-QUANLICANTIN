@@ -9,8 +9,8 @@
                             <div class="col-md-4 gradient-custom text-center text-white"
                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                 <img src="{{info.img_url}}" alt="Avatar" class="user-avatar" style="width: 100px;" />
-                                <h5>{{info.id}}</h5>
-                                <p>{{info.ho_ten}}</p>
+                                <h5 id="userID">{{info.id}}</h5>
+                                <p>{{info.ten_kh}}</p>
                                 <i id="edit-profile-btn" class="fa fa-edit mb-5" style="font-size: 1.5rem;"></i>
                             </div>
                             <div class="col-md-8">
@@ -63,10 +63,10 @@
                                         <label for="formFile" class="input-group-text"
                                             style="margin-left: 1rem;">Tên</label>
                                         <input id="name-input-field" class="form-control" type="text"
-                                            value="{{info.ho_ten}}">
+                                            value="{{info.ten_kh}}">
                                     </div>
 
-                                    <button type="button" class="btn btn-sucess">Cập nhật</button>
+                                    <button id="update-btn" type="button" class="btn btn-sucess">Cập nhật</button>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body p-4">
@@ -78,13 +78,13 @@
 
                                                 <div class="mb-3">
                                                     <label for="formFile" class="input-group-text">Email</label>
-                                                    <input class="form-control" type="text" value="{{info.email}}">
+                                                    <input id="email-input-field" class="form-control" type="text" value="{{info.email}}">
                                                 </div>
                                             </div>
                                             <div class="col-4 mb-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="input-group-text">SDT</label>
-                                                    <input class="form-control" type="text" value="{{info.sdt}}">
+                                                    <input class="form-control"  id="phone-input-field" type="text" value="{{info.sdt}}">
                                                 </div>
                                             </div>
                                         </div>

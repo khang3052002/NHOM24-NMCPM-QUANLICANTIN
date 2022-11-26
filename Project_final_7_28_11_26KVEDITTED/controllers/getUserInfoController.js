@@ -23,4 +23,16 @@ const getUserInfo=async(req,res,next)=>{
         console.log(err);
     }
 }
-module.exports={getUserInfo,loadUserProfile};
+const updateUser=async(req,res,next)=>{
+    const idUser = req.session.user.id
+    const name = req.body.name
+    const email = req.body.email
+    const phone = req.body.phone
+    try {
+        var res = await dbModel.updateUserInfo(idUser,name,email,phone)
+        console.log(res)
+    } catch (error) {
+        console.log(error)
+    }
+}
+module.exports={getUserInfo,loadUserProfile,updateUser};

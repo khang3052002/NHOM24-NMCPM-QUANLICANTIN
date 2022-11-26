@@ -8,3 +8,18 @@ $('#close-edit-panel').click(()=>{
     $('#edit-user-profile-panel').addClass('hidden').removeClass('show');
 })
 
+
+$('#update-btn').click(()=>
+{
+    const name = $('#name-input-field').val()
+    const email = $('#email-input-field').val()
+    const phone = $('#phone-input-field').val()
+    // const id = $('#userID').text()
+    // console.log(name,email,phone,id)
+
+    $.ajax({
+        method: 'put',
+        data: {name: name, email:email, phone:phone},
+        url: '/get-user-info'
+    })
+})
