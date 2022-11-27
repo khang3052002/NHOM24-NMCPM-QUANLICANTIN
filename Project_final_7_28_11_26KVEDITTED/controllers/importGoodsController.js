@@ -50,8 +50,8 @@ const addNewReceipt=async(req,res,next)=>{
         queryStr=categoryStr+","+amountStr+","+priceStr+","+mfDateStr
 
         result=await dbModel.addNewReceipt(queryStr)
-        if(result.command){
-            res.send("Thao tác thành công")
+        if(result.rows){
+            res.send(result.rows[0])
         }
         else{
             res.send(result)

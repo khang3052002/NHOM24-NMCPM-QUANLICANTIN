@@ -100,7 +100,6 @@ $("#confirm-btn").click(function () {
   if (checkFlag == false) {
     return;
   } else {
-    console.log(mfDateArr)
     $.ajax({
       method: "post",
       data: {
@@ -111,8 +110,15 @@ $("#confirm-btn").click(function () {
       },
       url: "/import-goods",
       success: function (data) {
+        if(data.trangthai){
+          $('.noti-content').html(`Thao tác thành công. <br>Mã đơn hàng của bạn: ${data.trangthai}`)
+        }
+        else{
+          $('.noti-content').html(data)
+        }
         $('.popup-container').removeClass('hidden')
       },
     });
   }
 });
+

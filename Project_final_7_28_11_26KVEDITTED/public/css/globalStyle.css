@@ -12,10 +12,72 @@ a{
 }
 .show{
     display: block !important;
+
 }
 .hidden{
     display: none !important;
+
 }
 .super-container{
     min-height: calc(100vh - 540px);
+}
+
+.popup-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.232);
+    /* backdrop-filter: blur(2px); */
+    height: 100vh;
+    width: 100%;
+    z-index: 100;
+    top:0;
+}
+.notification{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 25rem;
+    height: 15rem;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.181);
+    margin-top: 5rem;
+    overflow: hidden;
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
+    /* margin: 30vh auto 0 auto; */
+}
+
+
+.fa-window-close{
+    margin-right: auto ;
+    color: #ff3333;
+    margin: 5px;
+    border-radius: 50%;
+    font-size: larger;
+    cursor: pointer;
+}
+.noti-header{
+    height: fit-content;
+    display: flex;
+    justify-content: flex-end;
+    background-color: aliceblue;
+}
+.noti-content{
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#475D8F;
+    text-align: center;
+    margin: auto 0;
+}
+.fa-check{
+    margin-left: 2rem;
+    color: #0e532c;
+}
+
+.noti-content-container{
+    display: flex;
+    align-items: center;
+    height: calc(100% - 40px);
+    justify-content: center;
 }
