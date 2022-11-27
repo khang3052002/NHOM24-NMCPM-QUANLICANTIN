@@ -5,26 +5,19 @@
             <div class="container-fluid ">
                 <div class="meunu">
                     <div id="mySidenav" class="sidenav">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="#">About</a>
+                        <div class="close-btn-container">
+                            <i id="close-nav-btn" class="fas fa-bars" ></i>
+                        </div>
+                        <a href="/import-goods-history">Lịch sử nhập kho</a>
                         <a href="#">Services</a>
                         <a href="#">Clients</a>
                         <a href="#">Contact</a>
                     </div>
-                    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+                    <button class="nav-menu">
+                        <i id="menu-icon" class="fas fa-bars"></i>
+                    </button>
                 </div>
-                <script>
-                    function openNav() {
-                        document.getElementById("mySidenav").style.width = "250px";
-                    }
 
-                    function closeNav() {
-                        document.getElementById("mySidenav").style.width = "0";
-                    }
-                </script>
-                {{!-- <button class="nav-menu">
-                    <i id="menu-icon" class="fas fa-bars"></i>
-                </button> --}}
                 <div class="container">
                     <div class="row">
                         <div class="col-2">

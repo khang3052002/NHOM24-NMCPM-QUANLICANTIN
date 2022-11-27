@@ -1,4 +1,8 @@
 $('.fa-window-close').click(function(){
-    $('.popup-container').addClass('hidden')
     $('.noti-content').html('')
+    if(!($('.pop-up').hasClass('hidden'))){
+      $('.pop-up').addClass('hidden')
+    }
   })
+
+

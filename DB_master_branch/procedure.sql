@@ -265,7 +265,7 @@ end;$$;
 
 -----------------------------------------------------
 create or replace procedure themPhieuNhapHang(
-	maMH text[], soLuong int[], donGia int[], ngaySX date[]
+	maMH text[], soLuong int[], donGia int[], ngaySX date[], INOUT trangThai text DEFAULT NULL
 )
 language plpgsql    
 as $$
@@ -277,6 +277,7 @@ begin
 	INSERT INTO CHI_TIET_NHAP_KHO(MA_PHIEU,MA_MAT_HANG,NGAY_SAN_XUAT,DON_GIA,SO_LUONG) VALUES (idNhapHang,maMH[index],ngaySX[index],donGia[index],soLuong[index]);
 	index:=index+1;
 	END LOOP;
+	trangThai:=idNhapHang;
 end;$$;
 
 ---------------------------------------------------------------

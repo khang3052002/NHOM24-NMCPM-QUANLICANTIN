@@ -27,7 +27,11 @@ INSERT INTO THUC_AN_TRONG_KHO(MA_MON_AN,SO_LUONG) VALUES
 call suaDoiKhoThucAn(ARRAY['#DH88DibV','#DHZE4dgg'],ARRAY[25,30]);
 --ma mh, so luong, don gia, ngay_san_xuat
 call themPhieuNhapHang(ARRAY['#GDCxZxJT','#GDCxZxJT','#GDx3VH16','#GDCnX6D1'],ARRAY[10,10,15,20],ARRAY[17000,20000,30000,40000],'{2012-05-05,
-ma mh, so luong																											 2012-07-07,2017-03-03,2019-01-01}');
+
+					   ma mh, so luong
+					   2012-07-07,2017-03-03,2019-01-01}');
+					   
+call themPhieuNhapHang(ARRAY['GDaTCUXn','GDwGi8kG'],ARRAY[2,3],ARRAY[2,3],'{2022-11-27,2022-11-27}');
 call themPhieuXuatHang(ARRAY['#GDCxZxJT','#GDx3VH16','#GDCnX6D1'],ARRAY[15,8,7]);
 --ma kh, ma mh, so luong
 call themDonHang('CTMS0000',ARRAY['#GDCxZxJT','#DH88DibV'],ARRAY[2,3]);

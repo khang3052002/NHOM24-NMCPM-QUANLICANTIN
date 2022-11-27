@@ -116,9 +116,20 @@ $("#confirm-btn").click(function () {
         else{
           $('.noti-content').html(data)
         }
-        $('.popup-container').removeClass('hidden')
+        $('.pop-up').removeClass('hidden')
       },
     });
   }
 });
 
+
+$('.pop-up').click(function()
+{
+  $(this).addClass('hidden')
+
+})
+
+$('.popup-container').click(function(event)
+{
+  event.stopPropagation()
+})

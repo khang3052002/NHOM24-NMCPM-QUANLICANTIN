@@ -21,3 +21,21 @@ $('#user-avatar-btn').click(()=>{
     })
 })
 
+
+function openNav() {
+    $("#mySidenav").css('width',"250px");
+}
+
+function closeNav() {
+    $("#mySidenav").css('width',"0px");
+}
+$('.close-btn-container').click(function(){
+    closeNav()
+})
+$('#close-nav-btn').click(function(){
+    closeNav()
+})
+
+$('#menu-icon').click(function(){
+    openNav()
+})
