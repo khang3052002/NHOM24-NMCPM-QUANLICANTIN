@@ -11,7 +11,7 @@ $(window).on("popstate", function(e) {
     change(e.originalEvent.state);
 });
 
-$('.too-much-item-container').click(()=>{
+$('.item-container').click(function(){
     id=$(this).attr('id');
-    console.log(id)
+    window.location.href=`/item-detail?id=${id}`
 })

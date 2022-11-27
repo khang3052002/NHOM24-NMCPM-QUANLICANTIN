@@ -1,0 +1,83 @@
+.panel-container{
+    max-width: 1200px;
+    margin: 2rem auto 0 auto;
+}
+h3{
+    text-align: center;
+    margin-top: 2rem ;
+    color: #475D8F;
+}
+.input-group-text{
+    background-color: #475D8F;
+    color:white
+}
+.input-row{
+    display: flex;
+    align-items: center;
+    border: 2px rgba(0, 0, 0, 0.045) ;
+}
+.fa-plus{
+    float: right;
+    margin-bottom: 1rem;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding: 5px;
+}
+.fa-delete-left{
+    cursor: pointer;
+    padding-left: 1rem;
+    font-size: 25px;
+}
+
+.confirm-btn-div{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3rem;
+    margin-right: 2.5rem;
+}
+
+.red-border{
+    outline: 2px solid #ff3333;
+    outline-offset: -2.5px;
+    background-color: #ff33330d;
+}
+.popup-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.232);
+    /* backdrop-filter: blur(2px); */
+    height: 100vh;
+    width: 100%;
+    z-index: 100;
+    top:0;
+}
+.notification{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 25rem;
+    height: 15rem;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.181);
+    margin-top: 5rem;
+    overflow: hidden;
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
+    /* margin: 30vh auto 0 auto; */
+}
+.notification:active{
+    background-color: #ffcccc;
+    width: 200px;
+    height: 200px;
+    rotate: 180deg;
+}
+
+.fa-window-close{
+    float: right;
+    color: #ff3333;
+    margin: 5px;
+    border-radius: 50%;
+    font-size: larger;
+    cursor: pointer;
+}
