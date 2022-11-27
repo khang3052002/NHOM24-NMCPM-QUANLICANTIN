@@ -1,4 +1,5 @@
 
+const { query } = require('express');
 const dbModel = require('../models/dbHelpers/dbHelpers');
 const loadPage=async(req,res,next)=>{
     try{
@@ -14,4 +15,51 @@ const loadPage=async(req,res,next)=>{
         console.log(err)
     }
 }
-module.exports={loadPage};
+
+const addNewReceipt=async(req,res,next)=>{
+    try{
+
+        // console.log(req.body)
+        list=req.body;
+
+        category=list.category
+        amount=list.amount
+        price=list.price
+        mfDate=list.mfDate
+
+        categoryStr='ARRAY['
+        amountStr='ARRAY['
+        priceStr='ARRAY['
+        mfDateStr="'{"
+
+        console.log(category.length)
+        for(i=0;i<category.length;i++){
+            if(i!=category.length-1){
+                categoryStr= categoryStr.concat("'",category[i],"'",",")
+                amountStr= amountStr.concat(amount[i],",")
+                priceStr= priceStr.concat(price[i],",")
+                mfDateStr= mfDateStr.concat(mfDate[i],",")
+            }
+            else{
+                categoryStr=categoryStr.concat("'",category[i],"']")
+                amountStr= amountStr.concat(amount[i],"]")
+                priceStr= priceStr.concat(price[i],"]")
+                mfDateStr= mfDateStr.concat(mfDate[i],"}'")
+            }
+        }
+        queryStr=categoryStr+","+amountStr+","+priceStr+","+mfDateStr
+
+        result=await dbModel.addNewReceipt(queryStr)
+        if(result.command){
+            res.send("Thao tác thành công")
+        }
+        else{
+            res.send(result)
+        }
+        
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+module.exports={loadPage,addNewReceipt};

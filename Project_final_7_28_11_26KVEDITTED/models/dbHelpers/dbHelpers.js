@@ -109,6 +109,18 @@ const getAllGoods = async () => {
     return error
   }
 }
+
+// call themPhieuNhapHang(ARRAY['#GDCxZxJT','#GDCxZxJT','#GDx3VH16','#GDCnX6D1'],ARRAY[10,10,15,20],ARRAY[17000,20000,30000,40000],'{2012-05-05,
+//   ma mh, so luong																											 2012-07-07,2017-03-03,2019-01-01}');
+const addNewReceipt = async (queryStringArr) => {
+  try {
+    const res = await dbConnector.query(`call themPhieuNhapHang(${queryStringArr})`)
+    return res
+  } catch (error) {
+    return error.message
+  }
+}
+
 // const getPopularItems = async (amount) => {
 //   try {
 //     const res = await dbConnector.query(`SELECT * FROM MAT_HANG `)
@@ -126,5 +138,6 @@ module.exports = {
   getUserInfo,
   updateUserInfo,
   getFoodById,
-  getAllGoods
+  getAllGoods,
+  addNewReceipt
 };
