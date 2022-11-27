@@ -111,8 +111,27 @@ $("#confirm-btn").click(function () {
       },
       url: "/import-goods",
       success: function (data) {
-        $('.popup-container').removeClass('hidden')
+        $('.pop-up').removeClass('hidden')
+        //  $('.pop-up').addClass('show')
       },
     });
   }
 });
+
+$('.pop-up').click(function()
+{
+  console.log('hahah')
+  $(this).addClass('hidden')
+  // $(this).addClass('hidden')
+  // event.stopPropagation()
+
+})
+$('.popup-container').click(function(event)
+{
+  // $(this).addClass('hidden')
+  event.stopPropagation()
+
+})
+  // event.stopPropagation() // sẽ dừng hiện tượng nổi bọt khi nhấn vào modal container
+  // 
+

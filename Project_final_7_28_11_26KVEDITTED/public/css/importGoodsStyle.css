@@ -43,35 +43,58 @@ h3{
     outline-offset: -2.5px;
     background-color: #ff33330d;
 }
+.pop-up
+{
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    /* display:none; */
+    align-items: center;
+    justify-content: center;
+}
 .popup-container{
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.232);
-    /* backdrop-filter: blur(2px); */
-    height: 100vh;
-    width: 100%;
-    z-index: 100;
-    top:0;
+    margin: 0 auto;
+    width: 25rem;
+    height: 15rem;
+    position: relative;
+    animation: modalHideIn ease 0.35s;
+
+}
+@keyframes modalHideIn {
+    from{
+        transform: translateY(-140px);
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 .notification{
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    width: 25rem;
-    height: 15rem;
+    /* width: 25rem;
+    height: 15rem; */
+    width: 100%;
     -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.181);
     margin-top: 5rem;
     overflow: hidden;
-    transition: width 2s, height 2s, background-color 2s, transform 2s;
+   
     /* margin: 30vh auto 0 auto; */
 }
-.notification:active{
+
+
+/* .notification:active{
     background-color: #ffcccc;
     width: 200px;
     height: 200px;
     rotate: 180deg;
-}
+} */
 
 .fa-window-close{
     float: right;
