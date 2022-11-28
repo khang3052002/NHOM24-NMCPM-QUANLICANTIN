@@ -262,7 +262,20 @@ const setUsersBalance=async users =>{
      await setUserBalance(users[i]);
   }
 }
+const editCart = async(idUser, queryStr) =>
+{
+  try {
+    console.log(idUser)
+    console.log(queryStr)
+      console.log(`call capnhatgiohang('${idUser}', ${queryStr})`)
+      const res = await dbConnector.query(`call capnhatgiohang('${idUser}', ${queryStr})`)
+      // console.log(res)
+      return res
 
+  } catch (error) {
+    return error
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -285,5 +298,6 @@ module.exports = {
   getPopularItems,
   getAllUserInfo,
   setUserBalance,
-  setUsersBalance
+  setUsersBalance,
+  editCart
 };

@@ -38,9 +38,12 @@
                                                         <tr>
                                                             <th scope="col">Sản phẩm</th>
                                                             <th scope="col">Số lượng</th>
+                                                            <th scope="col">Số lượng trong kho</th>
                                                             <th scope="col">Đơn giá</th>
                                                             <th scope="col" class="text-right">Thành tiền</th>
-                                                            <th scope="col">Chỉnh sửa</th>
+                                                            {{!-- {{#if showEdit}} --}}
+                                                            <th scope="col" class="visibility-change visibility-hidden">Chỉnh sửa</th>
+                                                            {{!-- {{/if}} --}}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -53,14 +56,17 @@
                                                                         name="cartQty1"  value="{{this.so_luong}}">
                                                                 </div>
                                                             </td>
+                                                            <td>12</td>
                                                             <td>{{ConvertToVND this.gia_ban}}</td>
                                                             <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-link btn-sm px-3"
-                                                                    data-ripple-color="dark">
+                                                            {{!-- {{#if ../showEdit}} --}}
+                                                            <td class="visibility-change visibility-hidden">
+                                                                <button type="button" class="btn btn-link btn-sm px-3 delete-product-btn"
+                                                                    data-ripple-color="dark" id="{{this.id}}" >
                                                                     <i class="fa fa-edit"></i>
                                                                 </button>
                                                             </td>
+                                                            {{!-- {{/if}} --}}
                                                         </tr>
                                                         {{/each}}
                                                         
@@ -70,45 +76,18 @@
                                         </div>
                                         <div class="cart-body">
                                             <div class="row">
-                                                <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
-                                                    <div class="order-note">
-                                                        <form>
-                                                            <div class="form-group">
-                                                                <div class="input-group">
-                                                                    <input type="search" class="form-control"
-                                                                        placeholder="Mã giảm giá" aria-label="Search"
-                                                                        aria-describedby="button-addonTags">
-                                                                    <div class="input-group-append">
-                                                                        <button class="input-group-text" type="submit"
-                                                                            id="button-addonTags">Áp dụng</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="specialNotes">Yêu cầu khác cho đơn
-                                                                    hàng:</label>
-                                                                <textarea class="form-control" name="specialNotes"
-                                                                    id="specialNotes" rows="3"
-                                                                    placeholder="Ghi chú ở đây"></textarea>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
                                                     <div class="order-total table-responsive ">
                                                         <table class="table table-borderless text-right">
                                                             <tbody>
-                                                                {{!-- <tr>
-                                                                    <td>Tổng tiền :</td>
-                                                                    <td>{{ConvertToVND total}}</td>
-                                                                </tr> --}}
                                                                 
                                                                 <tr>
                                                                     <td class="f-w-7 font-18">
                                                                         <h4>Tổng tiền :</h4>
                                                                     </td>
                                                                     <td class="f-w-7 font-18">
-                                                                        <h4>{{ ConvertToVND total}}</h4>
+                                                                        <h4 id="total">{{ ConvertToVND total}}</h4>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -118,10 +97,12 @@
                                             </div>
                                         </div>
                                         <div class="cart-footer text-center mt-3">
-                                            <button type="button" id="continue" class="btn btn-info my-1"><i
-                                                    class="ri-save-line mr-2"></i>Tiếp tục mua hàng</button>
+                                            <button type="button" id="edit-cart" class="btn btn-info my-1"><i
+                                                    class="ri-save-line mr-2"></i>Chỉnh sửa giỏ hàng</button>
                                             <a class="btn btn-info my-1" id="payment">Thanh toán
                                                 <i class="ri-arrow-right-line ml-2"></i></a>
+                                                <button type="button" id="update-cart" class="btn btn-info my-1"><i
+                                                    class="ri-save-line mr-2"></i>Cập nhật</button>
                                         </div>
                                     </div>
                                 </div>

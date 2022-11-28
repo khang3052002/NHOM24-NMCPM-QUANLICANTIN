@@ -68,8 +68,14 @@ const ifCond = (v1, operator, v2, options) => {
 }
     const ConvertToVND = (value) =>
     {
-        gia_ban = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-        return gia_ban
+        // console.log(value)
+        try {
+            gia_ban = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+            return gia_ban
+        } catch (error) {
+            return value
+        }
+       
     
     }
 module.exports={
