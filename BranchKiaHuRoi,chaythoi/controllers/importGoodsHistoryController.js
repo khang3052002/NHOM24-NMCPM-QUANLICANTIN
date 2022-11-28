@@ -1,4 +1,8 @@
 const dbModel = require("../models/dbHelpers/dbHelpers");
+var itemPerPage=12
+var totalPage=0
+var currentPage=0
+
 const loadHistory = async (req, res, next) => {
   try {
     user = {};
@@ -6,20 +10,37 @@ const loadHistory = async (req, res, next) => {
       user = req.session.user;
     }
 
-    receiptIDArr = await dbModel.getAllReCeiptID();
+    if(req.query.page){
+      if(req.query.page!=""){
+        currentPage=parseInt(req.query.page)
+      }
+    }
+
+    var receiptIDArr 
+    if(req.query.searchID){
+      if(req.query.searchID!=""){
+        receiptIDArr = await dbModel.getReCeiptsByID(req.query.searchID);
+      }
+    }
+    else{
+      receiptIDArr = await dbModel.getAllReCeiptID();
+    }
+
+    var tempReceiptIDArr=receiptIDArr.slice(currentPage*itemPerPage,currentPage*itemPerPage+itemPerPage)
+    totalPage=parseInt(receiptIDArr.length/itemPerPage) + (receiptIDArr.length%itemPerPage>0?1:0)
     // console.log(receiptIDArr)
     detailArr = [];
     temp = {};
     // console.log(Array.from({hehe:3}))
-    for (i = 0; i < receiptIDArr.length; i++) {
-      temp[receiptIDArr[i].ma_phieu] = { ngaynhap: receiptIDArr[i].ngay_nhap };
+    for (i = 0; i < tempReceiptIDArr.length; i++) {
+      temp[tempReceiptIDArr[i].ma_phieu] = { ngaynhap: tempReceiptIDArr[i].ngay_nhap };
       detailArr.push(temp);
       temp = {};
     }
     var preparedArr = [];
-    for (i = 0; i < receiptIDArr.length; i++) {
+    for (i = 0; i < tempReceiptIDArr.length; i++) {
       var result;
-      detail = await dbModel.getReCeiptInfo(receiptIDArr[i].ma_phieu);
+      detail = await dbModel.getReCeiptInfo(tempReceiptIDArr[i].ma_phieu);
       result = Object.keys(detailArr[i]).map((key) => [
         key,
         Object.keys(detailArr[i][key]).map((key1) => [
@@ -55,9 +76,14 @@ const loadHistory = async (req, res, next) => {
       res.render("importGoodsHistoryPage", {
         user: user,
         transactionsList: preparedArr,
+        totalPage:totalPage,
+        currentPage:currentPage
       });
     } else {
-      res.send("Thành công");
+      res.render("importGoodsHistoryPage", {
+        user: user,
+        transactionsList: preparedArr,
+      });
     }
     // console.log(preparedArr)
   } catch (err) {

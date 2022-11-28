@@ -1,24 +1,46 @@
 const dbModel = require("../models/dbHelpers/dbHelpers");
+var itemPerPage=12
+var totalPage=0
+var currentPage=0
+
 const loadHistory = async (req, res, next) => {
   try {
     user = {};
     if (req.session.user) {
       user = req.session.user;
     }
+    if(req.query.page){
+      if(req.query.page!=""){
+        currentPage=parseInt(req.query.page)
+      }
+    }
 
-    receiptIDArr = await dbModel.getAllReCeiptID();
+    var receiptIDArr 
+    if(req.query.searchID){
+      if(req.query.searchID!=""){
+        receiptIDArr = await dbModel.getExportReCeiptsByID(req.query.searchID);
+      }
+    }
+    else{
+      receiptIDArr = await dbModel.getAllExportReCeiptID();
+    }
+    console.log(receiptIDArr)
+
+    var tempReceiptIDArr=receiptIDArr.slice(currentPage*itemPerPage,currentPage*itemPerPage+itemPerPage)
+    totalPage=parseInt(receiptIDArr.length/itemPerPage) + (receiptIDArr.length%itemPerPage>0?1:0)
+    
     detailArr = [];
     temp = {};
-
-    for (i = 0; i < receiptIDArr.length; i++) {
-      temp[receiptIDArr[i].ma_phieu] = { ngaynhap: receiptIDArr[i].ngay_nhap };
+    for (i = 0; i < tempReceiptIDArr.length; i++) {
+      temp[tempReceiptIDArr[i].ma_phieu] = { ngay_xuat: tempReceiptIDArr[i].ngay_xuat };
       detailArr.push(temp);
       temp = {};
     }
+
     var preparedArr = [];
-    for (i = 0; i < receiptIDArr.length; i++) {
+    for (i = 0; i < tempReceiptIDArr.length; i++) {
       var result;
-      detail = await dbModel.getReCeiptInfo(receiptIDArr[i].ma_phieu);
+      detail = await dbModel.getExportReCeiptInfo(tempReceiptIDArr[i].ma_phieu);
       result = Object.keys(detailArr[i]).map((key) => [
         key,
         Object.keys(detailArr[i][key]).map((key1) => [
@@ -51,14 +73,19 @@ const loadHistory = async (req, res, next) => {
       preparedArr.push(c[0]);
     }
     if (preparedArr.length > 0) {
-      res.render("importGoodsHistoryPage", {
+      res.render("exportGoodsHistoryPage", {
         user: user,
         transactionsList: preparedArr,
+        totalPage:totalPage,
+        currentPage:currentPage,
+  
       });
     } else {
-      res.send("Thành công");
+      res.render("exportGoodsHistoryPage", {
+        user: user,
+        transactionsList: preparedArr
+      });
     }
-    // console.log(preparedArr)
   } catch (err) {
     console.log(err.message)
   }

@@ -44,7 +44,7 @@ $('#shopping-cart').click(function(){
 
 
 function openNav() {
-    $("#mySidenav").css('width',"250px");
+    $("#mySidenav").css('width',"400px");
 }
 
 function closeNav() {

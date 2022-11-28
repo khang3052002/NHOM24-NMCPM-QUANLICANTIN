@@ -1,6 +1,6 @@
 const app = require('express');
 const router = app.Router();
-const exportGoodsHistoryController=require('../controllers/importGoodsHistoryController')
+const exportGoodsHistoryController=require('../controllers/exportGoodsHistoryController')
 
 router.get('/', exportGoodsHistoryController.loadHistory)
 

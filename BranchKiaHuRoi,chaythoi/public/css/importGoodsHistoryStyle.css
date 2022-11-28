@@ -40,3 +40,7 @@ th, td{
 .add-new-rec .fa-plus{
  margin-left: 0.3rem;
 }
+
+.receipt-search{
+    max-width: 500px;
+}
