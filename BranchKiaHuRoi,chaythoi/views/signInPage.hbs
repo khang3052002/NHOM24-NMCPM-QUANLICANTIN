@@ -1,29 +1,30 @@
-{{!--
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style-login-signup.css">
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/jquery-3.6.1.min.js"></script>
-    <title>Login</title>
-</head> --}}
-
 <body>
-        {{!-- <script src="./js/bootstrap.bundle.min.js"></script> --}}
-    {{!-- <script src="./js/bootstrap.min.js"></script> --}}
+    {{!--
+    <script src="./js/bootstrap.bundle.min.js"></script> --}}
+    {{!--
+    <script src="./js/bootstrap.min.js"></script> --}}
     <link rel="stylesheet" href="css/login-signupStyle.css">
+
+    <div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="login-parent-container">
-                 
+
         <div class="container">
-            <h3 >Đăng nhập</h3>
-            <ul class="nav nav-tabs nav-justified mb-3 nav-pills col-sm-12 col-lg-6 offset-lg-3" id="myTab" role="tablist">
+            <h3>Đăng nhập</h3>
+            <ul class="nav nav-tabs nav-justified mb-3 nav-pills col-sm-12 col-lg-6 offset-lg-3" id="myTab"
+                role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
                         type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Người dùng</button>
@@ -66,7 +67,8 @@
                                     </div>
 
                                     <div class="mb-4 col d-flex justify-content-center">
-                                        <button type="button" class="btn btn-log btn-block btn-thm2" id="user-login-btn">Login</button>
+                                        <button type="button" class="btn btn-log btn-block btn-thm2"
+                                            id="user-login-btn">Login</button>
                                     </div>
 
                                     <div class="row mb-4">
@@ -111,7 +113,8 @@
                                     </div>
 
                                     <div class="mb-4 col d-flex justify-content-center">
-                                        <button type="button" class="btn btn-log btn-block btn-thm2" id="admin-login-btn">Login</button>
+                                        <button type="button" class="btn btn-log btn-block btn-thm2"
+                                            id="admin-login-btn">Login</button>
                                     </div>
 
                                     <div class="row mb-4">

@@ -1,11 +1,12 @@
 <body>
     <link rel="stylesheet" href="css/importGoodsHistoryStyle.css" />
-
+    <link rel="stylesheet" href="css/exportGoodsHistoryStyle.css" />
     <div class="container">
         <div class="records-container">
             <h3>
-                Lịch sử nhập hàng
+                Lịch sử xuất hàng
             </h3>
+
             <div class="input-group receipt-search">
                 <input type="search" placeholder="Tìm kiếm đơn theo mã" aria-describedby="button-addon1"
                     class="rounded rounded-pill form-control border-0 bg-light" id="search-rec-id" value="">
@@ -14,12 +15,18 @@
                             class="fa fa-search"></i></button>
                 </div>
             </div>
+
             <a href="/import-goods">
                 <div class="add-new-rec btn btn-primary">
-                    Thêm đơn hàng
+
+                    Thêm đơn xuất hàng
                     <i class="fa-solid fa-plus"></i>
+
+
                 </div>
             </a>
+
+
 
             <div class="accordion" id="accordionExample">
                 {{#each transactionsList as |parentList|}}
@@ -46,7 +53,6 @@
                                             <th scope="col">Số lượng</th>
                                             <th scope="col">Đơn giá</th>
                                             <th scope="col" class="text-right">Thành tiền</th>
-                                            <th scope="col">Ngày sản xuất</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,10 +60,8 @@
                                         <tr>
                                             <td scope="row">{{this.ten_mat_hang}}</td>
                                             <td>{{this.so_luong}}</td>
-                                            <td>{{this.don_gia}}</td>
-                                            <td class="text-right">{{this.thanh_tien}}</td>
-                                            <td class="text-right">{{#customDateWOTime
-                                                this.ngay_san_xuat}}{{/customDateWOTime}}</td>
+                                            <td>{{ConvertToVND this.don_gia}}</td>
+                                            <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
                                         </tr>
                                         {{/each}}
                                     </tbody>
@@ -71,6 +75,11 @@
             </div>
         </div>
 
+
+
+
+
+
         <nav class="pagination-div" aria-label="Page navigation example">
             <ul class="pagination">
                 {{#times totalPage}}
@@ -80,9 +89,8 @@
                 {{/times}}
             </ul>
         </nav>
-
     </div>
-    <script src="script/importGoodsHistoryScript.js"></script>
+    <script src="script/exportGoodsHistoryScript.js"></script>
 </body>
 
 </html>

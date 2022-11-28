@@ -29,7 +29,7 @@ const authentication = async (req, res, next) => {
         }
 
         if (uDb.length == 0) {
-            res.send('tai khoan hoac mat khau khong dung');
+            res.send('Tài khoản hoặc mật khẩu không đúng');
         }
         const passwordDb = uDb[0].mat_khau;
         const salt = passwordDb.slice(hashLength);
@@ -38,8 +38,6 @@ const authentication = async (req, res, next) => {
             (CryptoJS.enc.Hex);
         if (passwordDb === (passwordHashed + salt)) {
             if (uDb[0].id.includes('CTMS')) {
- 
-                //req.session.user = 'user';
                 req.session.user = { 'role': 'user', 'id': uDb[0].id, 'cartID': uDb[0].id_gio_hang,'img_url':uDb[0].img_url };
                 req.session.role='user'
             }
@@ -47,36 +45,12 @@ const authentication = async (req, res, next) => {
                 req.session.user = { 'role': 'admin', 'id': uDb[0].id,'img_url':uDb[0].img_url }
                 req.session.role='admin'
             }
-            //{'role':'admin', "id":'id','cart':'cart'};
-            //req.session.uid = uDb[0].f_ID;
-            res.send('login successfully');
-            // res.render('main', {
-            //     admin: true, //admin= true if you are admin, false if you are user.
-            //     show: false   //false if you are logged-in.
-            // })
+            res.send('Đăng nhập thành công');
         }
-       //res.send('wtf bros');
-        //check username and password if they are in the db or not ?
-        // if (!(username && password)) {
-        //     res.redirect('/');
-        // }
-        //check user in database logic here:
-        //...
-        //
-        // else if (isInDB(username, rs)) {
-        //     console.log('yes')
-        //     req.session.user = 'admin'  //assign session.user= admin if you are admin.
-        //     res.render('adminMain', {
-        //         admin: true, //admin= true if you are admin, false if you are user.
-        //         show: false   //false if you are logged-in.
-        //     });
-        // }
-        // else {
-        //     req.session.user = 'user' //assign session.user= user if you are admin.
-        //     res.render('main', {
-        //         admin: false,
-        //         show: false  //false if you are logged-in.
-        //     });
+        else{
+            res.send('Tài khoản hoặc mật khẩu không đúng');
+        }
+      
     } catch (err) {
         console.log(err)
     }
