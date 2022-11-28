@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="col-3 justify-content-center align-items-center">
-                            <div class="d-flex align-items-end justify-content-end">
+                            <div class="d-flex align-items-end justify-content-end h-100">
 
                                 {{#ifCond (getJSONLen user) '>' 3}}
                                 <div class="col-1 text-end">
@@ -81,10 +81,10 @@
                                 </div>
                                 {{/ifCond}}
                                 {{#ifCond (getJSONLen user) '==' 0}}
-                                <button type="button" class="btn me-3 sign-up-btn">
+                                <button type="button" class="btn me-3 sign-up-btn h-100">
                                     <i class="fa fa-user-plus" style="padding-right: 0.5rem;"></i>Sign up
                                 </button>
-                                <button type="button" class="btn me-3 sign-in-btn">
+                                <button type="button" class="btn me-3 sign-in-btn h-100">
                                     <i class="fa fa-arrow-right" style="padding-right: 0.5rem;"></i>Sign in
                                 </button>
                                 {{/ifCond}}
