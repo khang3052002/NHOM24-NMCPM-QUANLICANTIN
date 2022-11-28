@@ -37,6 +37,12 @@ $('#search-product-btn').click(function(e)
     // })
 })
 
+$('#shopping-cart').click(function(){
+    console.log('tui ne haha')
+    window.location.href = "/shopping-cart"
+})
+
+
 function openNav() {
     $("#mySidenav").css('width',"250px");
 }
