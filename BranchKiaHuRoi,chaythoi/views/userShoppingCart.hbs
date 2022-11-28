@@ -42,7 +42,8 @@
                                                             <th scope="col">Đơn giá</th>
                                                             <th scope="col" class="text-right">Thành tiền</th>
                                                             {{!-- {{#if showEdit}} --}}
-                                                            <th scope="col" class="visibility-change visibility-hidden">Chỉnh sửa</th>
+                                                            <th scope="col" class="visibility-change visibility-hidden">
+                                                                Chỉnh sửa</th>
                                                             {{!-- {{/if}} --}}
                                                         </tr>
                                                     </thead>
@@ -52,8 +53,9 @@
                                                             <th scope="row">{{this.ten}}</th>
                                                             <td>
                                                                 <div class="form-group mb-0">
-                                                                    <input type="number" class="form-control cart-qty quantity-item"
-                                                                        name="cartQty1"  value="{{this.so_luong}}">
+                                                                    <input type="number"
+                                                                        class="form-control cart-qty quantity-item"
+                                                                        name="cartQty1" value="{{this.so_luong}}">
                                                                 </div>
                                                             </td>
                                                             <td>12</td>
@@ -61,27 +63,28 @@
                                                             <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
                                                             {{!-- {{#if ../showEdit}} --}}
                                                             <td class="visibility-change visibility-hidden">
-                                                                <button type="button" class="btn btn-link btn-sm px-3 delete-product-btn"
-                                                                    data-ripple-color="dark" id="{{this.id}}" >
+                                                                <button type="button"
+                                                                    class="btn btn-link btn-sm px-3 delete-product-btn"
+                                                                    data-ripple-color="dark" id="{{this.id}}">
                                                                     <i class="fa fa-edit"></i>
                                                                 </button>
                                                             </td>
                                                             {{!-- {{/if}} --}}
                                                         </tr>
                                                         {{/each}}
-                                                        
+
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                         <div class="cart-body">
                                             <div class="row">
-                                                
+
                                                 <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
                                                     <div class="order-total table-responsive ">
                                                         <table class="table table-borderless text-right">
                                                             <tbody>
-                                                                
+
                                                                 <tr>
                                                                     <td class="f-w-7 font-18">
                                                                         <h4>Tổng tiền :</h4>
@@ -101,7 +104,7 @@
                                                     class="ri-save-line mr-2"></i>Chỉnh sửa giỏ hàng</button>
                                             <a class="btn btn-info my-1" id="payment">Thanh toán
                                                 <i class="ri-arrow-right-line ml-2"></i></a>
-                                                <button type="button" id="update-cart" class="btn btn-info my-1"><i
+                                            <button type="button" id="update-cart" class="btn btn-info my-1"><i
                                                     class="ri-save-line mr-2"></i>Cập nhật</button>
                                         </div>
                                     </div>
@@ -115,8 +118,23 @@
             <!-- End row -->
         </div>
     </div>
+    <div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
     <script src="/script/shoppingCartScript.js"></script>
 </body>
 
-{{!-- </html> --}}
+{{!--
+
+</html> --}}

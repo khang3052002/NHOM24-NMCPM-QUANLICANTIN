@@ -297,54 +297,70 @@ const setUsersBalance = async users => {
   for (var i = 0; i < users.length; i++) {
     await setUserBalance(users[i]);
   }
-  
-    try {
-      console.log(idUser)
-      console.log(queryStr)
-      console.log(`call capnhatgiohang('${idUser}', ${queryStr})`)
-      const res = await dbConnector.query(`call capnhatgiohang('${idUser}', ${queryStr})`)
-      // console.log(res)
-      return res
 
-    } catch (error) {
-      return error
-    }
+  try {
+    console.log(idUser)
+    console.log(queryStr)
+    console.log(`call capnhatgiohang('${idUser}', ${queryStr})`)
+    const res = await dbConnector.query(`call capnhatgiohang('${idUser}', ${queryStr})`)
+    // console.log(res)
+    return res
+
+  } catch (error) {
+    return error
   }
-  const getCurrentStorageDetails = async () => {
-    try {
-      const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
-      return res.rows;
-    }
-    catch (err) {
-      return err;
-    }
+}
+const getCurrentStorageDetails = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
+    return res.rows;
   }
-  module.exports = {
+  catch (err) {
+    return err;
+  }
+}
+
+const editCart = async (idUser, strQuery) => {
+  try {
+    console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
+    const res = await dbConnector.query(`call capnhatgiohang('${idUser}',${strQuery})`)
+    // console.log(res)
+    return res
+  } catch (error) {
+    return error.message
+  }
+}
+
+
+
+module.exports = {
   updateTodayFood,
-    getAllFood,
-    addNewUser,
-    userAuthentication,
-    adminAuthentication,
-    getTodayFood,
-    getUserInfo,
-    updateUserInfo,
-    getFoodById,
-    getAllGoods,
-    addNewReceipt,
-    getReCeiptInfo,
-    getAllReCeiptID,
-    getCurrentStorage,
-    addNewReceiptCT,
-    getGoodSearchInfo,
-    addProductToCart,
-    getProductsCart,
-    getPopularItems,
-    getAllUserInfo,
-    setUserBalance,
-    setUsersBalance,
+  getAllFood,
+  addNewUser,
+  userAuthentication,
+  adminAuthentication,
+  getTodayFood,
+  getUserInfo,
+  updateUserInfo,
+  getFoodById,
+  getAllGoods,
+  addNewReceipt,
+  getReCeiptInfo,
+  getAllReCeiptID,
+  getCurrentStorage,
+  addNewReceiptCT,
+  getGoodSearchInfo,
+  addProductToCart,
+  getProductsCart,
+  getPopularItems,
+  getAllUserInfo,
+  setUserBalance,
+  setUsersBalance,
   getAllExportReCeiptID,
   getExportReCeiptInfo,
   getExportReCeiptsByID,
   getReCeiptsByID,
-  getCurrentStorageDetails
+  getCurrentStorageDetails,
+  editCart
+
 };

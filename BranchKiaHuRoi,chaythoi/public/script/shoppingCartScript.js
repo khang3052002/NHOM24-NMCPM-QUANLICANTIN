@@ -29,9 +29,8 @@ var total = $('#total').text()
 // var num = parseFloat(str)
 // num = num * 1000
 var numTotal = convertVNDToNumber(total)
-function convertToVND(value)
-{
-    value = value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+function convertToVND(value) {
+    value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
     return value
 }
@@ -55,28 +54,25 @@ $('.delete-product-btn').click(function (e) {
 
 
 
-    $('#'+id).remove()
+    $('#' + id).remove()
     $.ajax({
         method: 'post',
-        url:'/shopping-cart',
-        data:{id:id},
-        success: function(data)
-        {
+        url: '/shopping-cart',
+        data: { id: id },
+        success: function (data) {
 
         }
     })
 
 })
 
-$('#edit-cart').click(function(e)
-{
+$('#edit-cart').click(function (e) {
 
     // window.location.href = '/shopping-cart/edit'
 
     $('.visibility-change').toggleClass('visibility-hidden')
 })
-$('#update-cart').click(function(e)
-{
+$('#update-cart').click(function (e) {
     console.log('heheheh')
     var arrProductsID = []
     var arrQuantity = []
@@ -89,14 +85,25 @@ $('#update-cart').click(function(e)
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
-    
+
     $.ajax({
         method: 'post',
-        url:'shopping-cart',
-        data: {arrProID: arrProductsID, arrQuantity: arrQuantity},
-        success: function(data)
-        {
+        url: 'shopping-cart',
+        data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
+        success: function (data) {
+
             
+
+            $(".noti-content").html(data);
+
+            $(".pop-up").removeClass("hidden");
+            $(".fa-window-close").click(function () {
+                window.location.reload();
+            });
+
+            $(".pop-up").click(function () {
+                window.location.reload();
+            });
         }
     })
 

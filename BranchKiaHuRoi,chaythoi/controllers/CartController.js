@@ -71,7 +71,7 @@ const deleteItem = async(req,res)=>
 const editCart = async(req,res) =>
 {
     try {
-        const idCart = req.session.user.cartID
+        // const idCart = req.session.user.cartID
         const arrProID = req.body.arrProID
         // const 
         const idUser = req.session.user.id
@@ -102,11 +102,17 @@ const editCart = async(req,res) =>
         //     arrProID: arrProID,
         //     arrQuantity : arrQuantity
         // }
-
+        // if()
 
         const resultDelete = await dbModel.editCart(idUser,queryStr)
 
-        res.send({data: 'success'})
+        if(resultDelete.rows){
+            res.send('Cập nhật thành công')
+
+        }else{
+            res.send(resultDelete)
+        }
+
 
     } catch (error) {
         console.log(error)
