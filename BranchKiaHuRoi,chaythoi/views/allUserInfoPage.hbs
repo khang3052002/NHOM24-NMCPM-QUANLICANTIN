@@ -60,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each user}}
+                        {{#each users}}
                         <tr>
                             <td class="btn-container-cell"></td>
                             <td class="btn-container-cell">
@@ -74,7 +74,7 @@
                             <td> <p class="user-info-display">{{this.id}}</p></td>
                             <td  class="">
                                 <p class="user-info-display">
-                                    <input type="text" value="{{this.so_du}}" line-id="{{this.id}}" class="user-info-display user-balance" disabled required>
+                                    <input type="number " value="{{this.so_du}}" line-id="{{this.id}}" class="user-info-display user-balance" disabled required>
                                 </p>
                             </td>
                             <td ><p class="user-info-display">{{this.ten_kh}}</p></td>

@@ -53,3 +53,15 @@
 .fa-filter{
     color: black !important;
 }
+.table>:not(caption)>*>* {
+    padding-left: 0.2rem;
+}
+input{
+    border: none;
+    text-align: center;
+    width: 100%;
+    background-color: #34e5eb2c;
+    border-radius: inherit;
+    color:#475D8F;
+    
+}
