@@ -93,7 +93,7 @@ const getUserInfo = async (id) => {
 
 const getCurrentStorage = async () => {
   try {
-    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong  FROM sl_hang_trong_kho sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong,sl.gia  FROM sl_hang_trong_kho sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
     return res.rows;
   }
   catch (err) {
@@ -302,7 +302,15 @@ const setUsersBalance=async users =>{
      await setUserBalance(users[i]);
   }
 }
-
+const getCurrentStorageDetails=async()=>{
+  try {
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -329,6 +337,6 @@ module.exports = {
   getAllExportReCeiptID,
   getExportReCeiptInfo,
   getExportReCeiptsByID,
-  getReCeiptsByID
-
+  getReCeiptsByID,
+  getCurrentStorageDetails
 };
