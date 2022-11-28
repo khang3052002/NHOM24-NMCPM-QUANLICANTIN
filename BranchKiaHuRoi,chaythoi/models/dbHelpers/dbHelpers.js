@@ -194,7 +194,29 @@ const getGoodSearchInfo = async (key) => {
     return error
   }
 }
+
+const updateTodayFood= async menu=>{
+  try {
+    const res = await dbConnector.query(`call suaDoiKhoThucAn(${menu});`)
+    return res
+  } catch (error) {
+    return error
+  }
+}
+const getAllFood=async()=>{
+  try {
+    const res = await dbConnector.query(`SELECT * FROM  MON_AN`);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+}
+
+
 module.exports = {
+  updateTodayFood,
+  getAllFood,
   addNewUser,
   userAuthentication,
   adminAuthentication,
