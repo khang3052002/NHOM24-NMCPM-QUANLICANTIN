@@ -1,9 +1,12 @@
 const app = require('express');
 const router = app.Router();
-const CartController=require('../controllers/CartController')
+const cartController=require('../controllers/cartController')
 
 
-router.get('/', CartController.getCart)
+router.get('/', cartController.getCart)
+// router.get('/edit', cartController.getCartEdit)
+
+router.post('/',cartController.editCart)
 
 
 module.exports = router;

@@ -97,6 +97,10 @@ h3{
     justify-content: center;
 }
 
+.visibility-hidden{
+    visibility: hidden;
+}
+
 @keyframes modalHideIn {
     from{
         transform: translateY(-140px);
