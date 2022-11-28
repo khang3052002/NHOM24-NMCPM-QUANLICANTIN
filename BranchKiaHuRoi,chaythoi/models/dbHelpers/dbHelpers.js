@@ -159,6 +159,31 @@ const getReCeiptInfo= async (id) => {
     return error.message
   }
 }
+
+const getAllUserInfo = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT * FROM KHACH_HANG ORDER BY id asc` );
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+}
+
+const setUserBalance = async user => {
+  try {
+    const res = await dbConnector.query(`UPDATE KHACH_HANG SET so_du ='${user.balance}' WHERE id='${user.id}' `)
+    return res
+  } catch (error) {
+    return error
+  }
+}
+const setUsersBalance=async users =>{
+
+  for(var i=0;i<users.length;i++){
+     await setUserBalance(users[i]);
+  }
+}
 // const getPopularItems = async (amount) => {
 //   try {
 //     const res = await dbConnector.query(`SELECT * FROM MAT_HANG `)
@@ -181,5 +206,8 @@ module.exports = {
   getReCeiptInfo,
   getAllReCeiptID,
   getCurrentStorage,
-  addNewReceiptCT
+  addNewReceiptCT,
+  getAllUserInfo,
+  setUsersBalance,
+  setUserBalance
 };
