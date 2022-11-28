@@ -22,6 +22,21 @@ $('#user-avatar-btn').click(()=>{
 })
 
 
+
+$('#search-product-btn').click(function(e)
+{
+    console.log('hahaha')
+    const key = $('#search-key').val()
+    console.log(key)
+    window.location.href=`/search-goods?key=${key}`
+    // $.ajax({
+    //     method:'get',
+    //     data:{key:key},
+    //     url:`/search-goods?key=${key}`,
+    
+    // })
+})
+
 function openNav() {
     $("#mySidenav").css('width',"250px");
 }

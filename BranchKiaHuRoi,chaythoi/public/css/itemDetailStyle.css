@@ -30,6 +30,15 @@
     font-weight: 500;
 }
 
+.right-side-pro-detail .quantity-pro {
+    color: #475D8F;
+    font-weight: 500;
+    /* padding-left: 0.7rem; */
+}
+.price-pro{
+    padding-left: 0.6rem !important;
+
+}
 .right-side-pro-detail .tag-section {
     font-size: 18px;
     color: #5D4C46;
@@ -39,7 +48,9 @@
     width: 100%;
     height: 200px;
 }
-
+.name-product{
+    /* width: 9rem; */
+}
 .bold-text{
     font-weight:500;
 }
