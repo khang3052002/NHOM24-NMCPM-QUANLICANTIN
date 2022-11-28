@@ -194,6 +194,38 @@ const getGoodSearchInfo = async (key) => {
     return error
   }
 }
+const addProductToCart=async(params) =>
+{
+    try {
+        console.log(params.id, params.idPro)
+        const res = await dbConnector.query(`call themvaogiohang('${params.id}', '${params.idPro}', '${params.quantity}')`)
+        // console.log(res)
+        return res
+    } catch (error) {
+      return error
+    }
+}
+const getProductsCart=async(idCart) =>
+{
+  try {
+      var arrRes = ''
+      console.log(idCart)
+      const resFoods = await dbConnector.query(`select distinct ma.ma_mon_an as id, ma.ten_mon_an as ten, giohang.so_luong, ma.gia_ban, (giohang.so_luong*ma.gia_ban)as thanh_tien 
+      from mon_an ma, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
+      ) as giohang where ma.ma_mon_an = giohang.ma_mat_hang`)
+
+      const resProduct = await dbConnector.query(`
+      select distinct mh.ma_mat_hang as id, mh.ten_mat_hang as ten, giohang.so_luong, slhct.gia_ban_ra as gia_ban, (giohang.so_luong*slhct.gia_ban_ra) as thanh_tien from sl_hang_canteen slhct, mat_hang mh, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
+      ) as giohang where giohang.ma_mat_hang = mh.ma_mat_hang and slhct.ma_mat_hang = giohang.ma_mat_hang
+      `)
+      // console.log('Cac mon ne',resFoods.rows)
+      arrRes = resFoods.rows.concat(resProduct.rows)
+      console.log(arrRes)
+      return arrRes
+  } catch (error) {
+    return error
+  }
+}
 module.exports = {
   addNewUser,
   userAuthentication,
@@ -208,5 +240,7 @@ module.exports = {
   getAllReCeiptID,
   getCurrentStorage,
   addNewReceiptCT,
-  getGoodSearchInfo
+  getGoodSearchInfo,
+  addProductToCart,
+  getProductsCart
 };

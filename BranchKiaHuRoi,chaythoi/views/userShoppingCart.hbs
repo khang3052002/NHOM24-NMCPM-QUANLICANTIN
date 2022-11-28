@@ -1,0 +1,141 @@
+{{!--
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style-user.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <title>Shopping Cart</title>
+</head> --}}
+
+<body>
+    <link rel="stylesheet" href="/css/shoppingCartStyle.css">
+    <div class="container">
+        <div class="contentbar">
+            <!-- Start row -->
+            <div class="row">
+                <!-- Start col -->
+                <div class="col-md-12 col-lg-12 col-xl-12 mt-3 mb-3">
+                    <div class="card m-b-30">
+                        <div class="card-header cart-header">
+                            <h3 class="card-title text-center">GIỎ HÀNG</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12 col-xl-10">
+                                    <div class="cart-container">
+                                        <div class="cart-head">
+                                            <div class="table-responsive">
+                                                <table class="table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Sản phẩm</th>
+                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col">Đơn giá</th>
+                                                            <th scope="col" class="text-right">Thành tiền</th>
+                                                            <th scope="col">Chỉnh sửa</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each arrProduct}}
+                                                        <tr class="product-item" id="{{this.id}}">
+                                                            <th scope="row">{{this.ten}}</th>
+                                                            <td>
+                                                                <div class="form-group mb-0">
+                                                                    <input type="number" class="form-control cart-qty quantity-item"
+                                                                        name="cartQty1"  value="{{this.so_luong}}">
+                                                                </div>
+                                                            </td>
+                                                            <td>{{ConvertToVND this.gia_ban}}</td>
+                                                            <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-link btn-sm px-3"
+                                                                    data-ripple-color="dark">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        {{/each}}
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="cart-body">
+                                            <div class="row">
+                                                <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
+                                                    <div class="order-note">
+                                                        <form>
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input type="search" class="form-control"
+                                                                        placeholder="Mã giảm giá" aria-label="Search"
+                                                                        aria-describedby="button-addonTags">
+                                                                    <div class="input-group-append">
+                                                                        <button class="input-group-text" type="submit"
+                                                                            id="button-addonTags">Áp dụng</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="specialNotes">Yêu cầu khác cho đơn
+                                                                    hàng:</label>
+                                                                <textarea class="form-control" name="specialNotes"
+                                                                    id="specialNotes" rows="3"
+                                                                    placeholder="Ghi chú ở đây"></textarea>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 order-1 order-lg-2 col-lg-7 col-xl-6">
+                                                    <div class="order-total table-responsive ">
+                                                        <table class="table table-borderless text-right">
+                                                            <tbody>
+                                                                {{!-- <tr>
+                                                                    <td>Tổng tiền :</td>
+                                                                    <td>{{ConvertToVND total}}</td>
+                                                                </tr> --}}
+                                                                
+                                                                <tr>
+                                                                    <td class="f-w-7 font-18">
+                                                                        <h4>Tổng tiền :</h4>
+                                                                    </td>
+                                                                    <td class="f-w-7 font-18">
+                                                                        <h4>{{ ConvertToVND total}}</h4>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cart-footer text-center mt-3">
+                                            <button type="button" id="continue" class="btn btn-info my-1"><i
+                                                    class="ri-save-line mr-2"></i>Tiếp tục mua hàng</button>
+                                            <a class="btn btn-info my-1" id="payment">Thanh toán
+                                                <i class="ri-arrow-right-line ml-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End col -->
+            </div>
+            <!-- End row -->
+        </div>
+    </div>
+
+    <script src="/script/shoppingCartScript.js"></script>
+</body>
+
+{{!-- </html> --}}
