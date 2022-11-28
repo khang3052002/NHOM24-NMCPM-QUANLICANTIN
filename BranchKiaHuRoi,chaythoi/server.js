@@ -46,8 +46,6 @@ const importGoodsHistoryRoutes=require('./routers/importGoodsHistoryRoutes')
 
 const exportGoodsRoutes=require('./routers/exportGoodsRoutes')
 const exportGoodsHistoryRoutes=require('./routers/exportGoodsHistoryRoutes')
-
-const getAllUserInfoRoutes=require('./routers/getAllUserInfoRoutes')
 // const mainRoutes=require('./routes/homeRoutes');
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const stocksRoutes=require('./routes/stockRoutes');
@@ -78,9 +76,7 @@ app.use('/import-goods-history',importGoodsHistoryRoutes)
 
 app.use('/export-goods',exportGoodsRoutes)
 app.use('/export-goods-history',exportGoodsHistoryRoutes)
-
 app.use('/goods-info',goodsInfoRoutes)
-app.use('/get-all-user-info',getAllUserInfoRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');
     // dbConnector.query('SELECT * FROM KHACH_HANG', (error, results) => {
