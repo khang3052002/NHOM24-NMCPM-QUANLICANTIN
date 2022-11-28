@@ -49,7 +49,7 @@ const exportGoodsHistoryRoutes=require('./routers/exportGoodsHistoryRoutes')
 const searchGoodsRoutes = require('./routers/searchGoodRoutes')
 const shoppingCartRoutes = require('./routers/shoppingCartRoutes')
 const todayMenuRoutes=require('./routers/todayMenuRoutes')
-
+const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 // const mainRoutes=require('./routes/homeRoutes');
 // const sign_inRoutes=require('./routes/sign_inRoutes');
@@ -85,7 +85,7 @@ app.use('/goods-info',goodsInfoRoutes)
 app.use('/search-goods',searchGoodsRoutes)
 app.use('/shopping-cart', shoppingCartRoutes)
 app.use('/today-menu',todayMenuRoutes);
-
+app.use('/in-store',inStoreRoutes)
 app.use('/manage-users',getAllUsersInfoRoutes);
 app.get('/',(req,res)=>{
    res.redirect('/home');
