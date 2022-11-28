@@ -7,10 +7,7 @@ $("#admin-login-btn").click(()=>{
         url: `/sign-in`,
         data: $('#admin-login-form').serialize()+'&role=admin',
         success: function (data) {
-            window.alert(data);
-            setTimeout(function(){
-                window.location.href='/';
-            }, 2000)
+            
            
         }
     })
@@ -27,11 +24,18 @@ $("#user-login-btn").click(()=>{
         url: `/sign-in`,
         data: $('#user-login-form').serialize()+'&role=user',
         success: function (data) {
-            window.alert(data);
-            setTimeout(function(){
-                window.location.href='/';
-            }, 2000)
-           
+            if(data){
+                $('.noti-content').html(`${data}`)
+                if(data.includes('thành công')){
+                    setTimeout(function(){
+                        window.location.href='/';
+                    }, 800)
+                }
+              }
+              else{
+                $('.noti-content').html(data)
+              }
+              $('.pop-up').removeClass('hidden')
         }
     })
 })

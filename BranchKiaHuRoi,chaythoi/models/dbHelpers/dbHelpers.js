@@ -159,6 +159,16 @@ const getAllReCeiptID= async () => {
     return error.message
   }
 }
+
+const getReCeiptsByID= async (id) => {
+  try {
+    const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk where pnk.ma_phieu='${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
 const getReCeiptInfo= async (id) => {
   try {
     const res = await dbConnector.query(`SELECT mh.ten_mat_hang,ctnk.don_gia, ctnk.so_luong, ctnk.don_gia*ctnk.so_luong as thanh_tien, ctnk.ngay_san_xuat FROM  chi_tiet_nhap_kho ctnk, mat_hang mh where ctnk.ma_phieu='${id}' and ctnk.ma_mat_hang=mh.ma_mat_hang`)
@@ -167,6 +177,36 @@ const getReCeiptInfo= async (id) => {
     return error.message
   }
 }
+
+
+
+
+const getAllExportReCeiptID= async () => {
+  try {
+    const res = await dbConnector.query(`SELECT * FROM phieu_xuat_kho pxk`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+const getExportReCeiptsByID= async (id) => {
+  console.log(id)
+  try {
+    const res = await dbConnector.query(`SELECT * FROM phieu_xuat_kho pxk where pxk.ma_phieu='${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+const getExportReCeiptInfo= async (id) => {
+  try {
+    const res = await dbConnector.query(`SELECT mh.ten_mat_hang,ctxk.don_gia, ctxk.so_luong, ctxk.don_gia*ctxk.so_luong as thanh_tien FROM  chi_tiet_xuat_kho ctxk, mat_hang mh where ctxk.ma_phieu='${id}' and ctxk.ma_mat_hang=mh.ma_mat_hang`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
 const getPopularItems = async (amount) => {
   try {
     const res = await dbConnector.query(`SELECT sl.ma_mat_hang, sl.gia_ban_ra, mh.ten_mat_hang, mh.img_url FROM sl_hang_canteen sl, mat_hang mh WHERE sl.ma_mat_hang=mh.ma_mat_hang and sl.so_luong>0 LIMIT ${amount}`)
@@ -285,5 +325,10 @@ module.exports = {
   getPopularItems,
   getAllUserInfo,
   setUserBalance,
-  setUsersBalance
+  setUsersBalance,
+  getAllExportReCeiptID,
+  getExportReCeiptInfo,
+  getExportReCeiptsByID,
+  getReCeiptsByID
+
 };
