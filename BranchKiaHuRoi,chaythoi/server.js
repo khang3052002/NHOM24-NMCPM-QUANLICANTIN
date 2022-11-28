@@ -43,6 +43,9 @@ const getUserInfoRoutes=require('./routers/getUserInfoRoutes')
 const importGoodsRoutes=require('./routers/importGoodsRoutes')
 const goodsInfoRoutes=require('./routers/goodsInfoRoutes')
 const importGoodsHistoryRoutes=require('./routers/importGoodsHistoryRoutes')
+
+const exportGoodsRoutes=require('./routers/exportGoodsRoutes')
+const exportGoodsHistoryRoutes=require('./routers/exportGoodsHistoryRoutes')
 // const mainRoutes=require('./routes/homeRoutes');
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const stocksRoutes=require('./routes/stockRoutes');
@@ -70,6 +73,10 @@ app.use('/get-user-info',getUserInfoRoutes)
 app.use('/item-detail',itemDetailRoutes)
 app.use('/import-goods',importGoodsRoutes)
 app.use('/import-goods-history',importGoodsHistoryRoutes)
+
+app.use('/export-goods',exportGoodsRoutes)
+app.use('/export-goods-history',exportGoodsHistoryRoutes)
+
 app.use('/goods-info',goodsInfoRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');

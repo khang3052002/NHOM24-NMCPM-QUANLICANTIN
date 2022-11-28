@@ -82,6 +82,17 @@ const getUserInfo = async (id) => {
     return err;
   }
 };
+
+const getCurrentStorage = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong  FROM sl_hang_trong_kho sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+};
+
 // const getFoodInfo =async (foodID) => {
 //   try{
 //     const res= await dbConnector.query(`SELECT * FROM MON_AN WHERE MA_MON_AN='${foodID}'`);
@@ -121,6 +132,33 @@ const addNewReceipt = async (queryStringArr) => {
   }
 }
 
+
+const addNewReceiptCT = async (queryStringArr) => {
+  try {
+    console.log(`call themPhieuXuatHang(${queryStringArr})`)
+    const res = await dbConnector.query(`call themPhieuXuatHang(${queryStringArr})`)
+    return res
+  } catch (error) {
+    return error.message
+  }
+}
+
+const getAllReCeiptID= async () => {
+  try {
+    const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+const getReCeiptInfo= async (id) => {
+  try {
+    const res = await dbConnector.query(`SELECT mh.ten_mat_hang,ctnk.don_gia, ctnk.so_luong, ctnk.don_gia*ctnk.so_luong as thanh_tien, ctnk.ngay_san_xuat FROM  chi_tiet_nhap_kho ctnk, mat_hang mh where ctnk.ma_phieu='${id}' and ctnk.ma_mat_hang=mh.ma_mat_hang`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
 // const getPopularItems = async (amount) => {
 //   try {
 //     const res = await dbConnector.query(`SELECT * FROM MAT_HANG `)
@@ -139,5 +177,9 @@ module.exports = {
   updateUserInfo,
   getFoodById,
   getAllGoods,
-  addNewReceipt
+  addNewReceipt,
+  getReCeiptInfo,
+  getAllReCeiptID,
+  getCurrentStorage,
+  addNewReceiptCT
 };

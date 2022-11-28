@@ -122,14 +122,3 @@ $("#confirm-btn").click(function () {
   }
 });
 
-
-$('.pop-up').click(function()
-{
-  $(this).addClass('hidden')
-
-})
-
-$('.popup-container').click(function(event)
-{
-  event.stopPropagation()
-})
