@@ -65,6 +65,13 @@ const ifCond = (v1, operator, v2, options) => {
         default:
             return options.inverse(this);
     }
+}
+    const ConvertToVND = (value) =>
+    {
+        gia_ban = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        return gia_ban
+    
+    }
 module.exports={
-    times,ifCond,getLen,getRemainder,getQuotient,getJSONLen,myCSLog,customDate,getTotalCost,customDateWOTime
+    times,ifCond,getLen,getRemainder,getQuotient,getJSONLen,myCSLog,customDate,getTotalCost,customDateWOTime, ConvertToVND
 }
