@@ -17,7 +17,6 @@ const getCart = async(req,res)=>
         user = {}
         if (req.session.user) {
             user = req.session.user
-            console.log(user)
         }
         res.render('userShoppingCart',{
             user:user,

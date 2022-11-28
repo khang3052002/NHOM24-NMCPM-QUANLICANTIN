@@ -7,10 +7,9 @@ const loadHistory = async (req, res, next) => {
     }
 
     receiptIDArr = await dbModel.getAllReCeiptID();
-    // console.log(receiptIDArr)
     detailArr = [];
     temp = {};
-    // console.log(Array.from({hehe:3}))
+
     for (i = 0; i < receiptIDArr.length; i++) {
       temp[receiptIDArr[i].ma_phieu] = { ngaynhap: receiptIDArr[i].ngay_nhap };
       detailArr.push(temp);

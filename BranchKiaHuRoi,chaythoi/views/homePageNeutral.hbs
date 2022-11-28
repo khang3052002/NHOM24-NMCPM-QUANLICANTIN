@@ -50,16 +50,16 @@
                                 {{index}}
                                 {{#ifCond (getQuotient @index 3) '==' (getQuotient @../index 3)}}
                                 <div class="col-sm-4">
-                                    <div class="thumb-wrapper item-container" id="{{fl.ma_mon_an}}" >
-                                        
-                                            <div class="img-box">
-                                                <img src="{{fl.img_url}}" class="img-fluid today-food-img" alt="">
-                                            </div>
-                                            <div class="thumb-content">
-                                                <p class="text-center today-food-name">{{fl.ten_mon_an}}</p>
-                                                <p class="text-center">{{ConvertToVND fl.gia_ban}}</p>
-                                            </div>
-                                        
+                                    <div class="thumb-wrapper item-container" id="{{fl.ma_mon_an}}">
+
+                                        <div class="img-box">
+                                            <img src="{{fl.img_url}}" class="img-fluid today-food-img" alt="">
+                                        </div>
+                                        <div class="thumb-content">
+                                            <p class="text-center today-food-name">{{fl.ten_mon_an}}</p>
+                                            <p class="text-center">{{ConvertToVND fl.gia_ban}}</p>
+                                        </div>
+
 
                                     </div>
                                 </div>
@@ -91,133 +91,22 @@
         </div>
 
         <div class="row best-selling-row">
-            <div class="col-md-3 col-margin item-container">
+            {{#each popularList}}
+            <div class="col-md-3 col-margin item-container" id="{{this.ma_mat_hang}}">
                 <div class="card-sl">
                     <div class="card-image">
-                        <img src="images/food.png" />
+                        <img src="{{this.img_url}}" />
                     </div>
-
 
                     <div class="card-heading text-center">
-                        Cơm tấm
+                        {{this.ten_mat_hang}}
                     </div>
                     <div class="card-text text-center">
-                        25.000
+                        {{ConvertToVND this.gia_ban_ra}}
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-margin item-container">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img src="images/food.png" />
-                    </div>
-
-
-                    <div class="card-heading text-center">
-                        Cơm tấm
-                    </div>
-                    <div class="card-text text-center">
-                        25.000
-                    </div>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
     <script src="script/itemSelectScript.js"></script>

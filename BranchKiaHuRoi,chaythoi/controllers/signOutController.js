@@ -12,10 +12,10 @@ const signOut=(req,res,next)=>{
                 }
             })
 
-            res.render('signOutPage.hbs',{message: msg,user:user});
+            res.render('signOutPage.hbs',{message: msg,user:{}});
         }
         else {
-            res.render('signOutPage.hbs',{message: msg,user:user});
+            res.render('signOutPage.hbs',{message: msg,user:{}});
         }
     }catch(err){
         res.render('signOutPage.hbs',{message: err.message,user:user});

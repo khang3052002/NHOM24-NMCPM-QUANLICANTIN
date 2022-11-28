@@ -3,12 +3,11 @@ const dbModel = require('../models/dbHelpers/dbHelpers');
 const loadUserProfile=async(req,res,next)=>{
     try{
         var user={}
-        if(req.session){
+        if(req.session.user){
             user=req.session.user
         }
         var userInfo;
         userInfo =await dbModel.getUserInfo(req.session.user.id);
-        console.log(userInfo)
         res.render('userProfilePage',{user:{},info:userInfo[0]})
     }catch(err){
         console.log(err);

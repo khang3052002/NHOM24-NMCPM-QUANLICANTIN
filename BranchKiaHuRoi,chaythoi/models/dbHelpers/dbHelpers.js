@@ -167,22 +167,18 @@ const getReCeiptInfo= async (id) => {
     return error.message
   }
 }
-// const getPopularItems = async (amount) => {
-//   try {
-//     const res = await dbConnector.query(`SELECT * FROM MAT_HANG `)
-//     return res
-//   } catch (error) {
-//     return error
-//   }
-// }
+const getPopularItems = async (amount) => {
+  try {
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang, sl.gia_ban_ra, mh.ten_mat_hang, mh.img_url FROM sl_hang_canteen sl, mat_hang mh WHERE sl.ma_mat_hang=mh.ma_mat_hang and sl.so_luong>0 LIMIT ${amount}`)
+    return res.rows
+  } catch (error) {
+    return error
+  }
+}
 const getGoodSearchInfo = async (key) => {
   try {
     var arrResult = ''
     const resFoods = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN AND MA.TEN_MON_AN LIKE '${key}%'`)
-    // console.log(res)
-    // const resProduct = await dbConnector.query(`select mhtk.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia, mh.img_url  
-    // from mat_hang_trong_kho mhtk, mat_hang mh, sl_hang_trong_kho slh where slh.ma_mat_hang = mhtk.ma_mat_hang and mh.ma_mat_hang = mhtk.ma_mat_hang and mh.ten_mat_hang LIKE '${key}%'
-    // `)
     const resProduct = await dbConnector.query(`select slh.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia_ban_ra, mh.img_url
      from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and mh.ten_mat_hang LIKE '${key}%'
     `)
@@ -199,7 +195,6 @@ const addProductToCart=async(params) =>
     try {
         console.log(params.id, params.idPro)
         const res = await dbConnector.query(`call themvaogiohang('${params.id}', '${params.idPro}', '${params.quantity}')`)
-        // console.log(res)
         return res
     } catch (error) {
       return error
@@ -245,7 +240,28 @@ const getAllFood=async()=>{
     return err;
   }
 }
-
+const getAllUserInfo = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT * FROM KHACH_HANG ORDER BY id asc` );
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+}
+const setUserBalance = async user => {
+  try {
+    const res = await dbConnector.query(`UPDATE KHACH_HANG SET so_du ='${user.balance}' WHERE id='${user.id}' `)
+    return res
+  } catch (error) {
+    return error
+  }
+}
+const setUsersBalance=async users =>{
+  for(var i=0;i<users.length;i++){
+     await setUserBalance(users[i]);
+  }
+}
 
 module.exports = {
   updateTodayFood,
@@ -265,5 +281,9 @@ module.exports = {
   addNewReceiptCT,
   getGoodSearchInfo,
   addProductToCart,
-  getProductsCart
+  getProductsCart,
+  getPopularItems,
+  getAllUserInfo,
+  setUserBalance,
+  setUsersBalance
 };

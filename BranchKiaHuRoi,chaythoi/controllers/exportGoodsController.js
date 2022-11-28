@@ -7,8 +7,6 @@ const loadPage=async(req,res,next)=>{
             user=req.session.user
         }
         currentStorage=await dbModel.getCurrentStorage()
-        // console.log(currentStorage)
-        // console.log(allGoods)
         res.render('exportGoodsPage',{user:user,list:currentStorage})
     }
     catch(err){
