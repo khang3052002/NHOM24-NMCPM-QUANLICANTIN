@@ -295,7 +295,8 @@ const updateTodayFood = async menu => {
     return error
   }
 }
-const getAllFood = async () => {
+
+const getAllFood=async()=>{
   try {
     const res = await dbConnector.query(`SELECT * FROM  MON_AN`);
     return res.rows;
