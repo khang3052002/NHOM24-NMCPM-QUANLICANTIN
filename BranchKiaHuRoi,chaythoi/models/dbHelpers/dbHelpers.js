@@ -386,6 +386,34 @@ const deleteProductInCanteen=async(id,date)=>{
   }
 }
 
+const getAllGoodCategory=async()=>{
+  try{
+
+    const res = await dbConnector.query(`select * from loai_hang`)
+    return res.rows
+  }catch(err){
+    return err
+  }
+}
+
+const addNewGood=async(ma_loai_hang,ten_mat_hang,img_url,tien_loi,han_su_dung)=>{
+  try{
+    const res = await dbConnector.query(`call themMatHangMoi('${ma_loai_hang}', '${ten_mat_hang}','${img_url}','${tien_loi}','${han_su_dung}')`)
+    return res
+  }catch(err){
+    return err.message
+  }
+}
+const addNewFood=async(ten_mon_an,gia_ban,img_url)=>{
+  // console.log(`call themMonAnMoi('${ten_mon_an}', ${gia_ban},'${img_url}')`)
+  try{
+   
+    const res = await dbConnector.query(`call themMonAnMoi('${ten_mon_an}', ${gia_ban},'${img_url}')`)
+    return res
+  }catch(err){
+    return err.message
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -419,6 +447,9 @@ module.exports = {
   getCurrentCanteen,
   deleteProductInCanteen,
   getCurrentCanteenDetails,
-  searchByCategory
+  searchByCategory,
+  getAllGoodCategory,
+  addNewGood,
+  addNewFood
 
 };
