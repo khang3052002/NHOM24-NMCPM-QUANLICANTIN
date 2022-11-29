@@ -145,6 +145,8 @@ table {
     justify-content: flex-end;
     margin-top: 3rem;
     margin-right: 2.5rem;
+    width: 100%;
+    padding-right: 8px;
 }
 .confirm-delete{
     margin-bottom: 20px;
