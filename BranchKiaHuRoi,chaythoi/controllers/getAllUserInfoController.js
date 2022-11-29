@@ -13,16 +13,17 @@ const loadAllUserInfoPage=async(req,res,next)=>{
         })
         
     }catch(err){
-        res.render('errorPage',{
-            user:user,
-            message:err.message
-        })
+        // res.render('errorPage',{
+        //     user:user,
+        //     message:err.message
+        // })
     }
 }
 const updateUserBalance=async(req,res,next)=>{
     try{
         const users=req.body.users; 
         var allUserInfo=await dbModel.setUsersBalance(users);
+        // console.log(allUserInfo)
         if(allUserInfo.rows){
             res.send('Cập nhật giá thành công')
         }

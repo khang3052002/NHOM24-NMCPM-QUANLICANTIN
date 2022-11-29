@@ -52,6 +52,8 @@ const todayMenuRoutes=require('./routers/todayMenuRoutes')
 const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 const inStockRoutes=require('./routers/inStockRoutes')
+// const addNewItemRoutes=require('./routers/addNewItem')
+
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
@@ -85,6 +87,10 @@ app.use('/shopping-cart', shoppingCartRoutes)
 app.use('/today-menu',todayMenuRoutes);
 app.use('/in-store',inStoreRoutes)
 app.use('/manage-users',getAllUsersInfoRoutes);
+
+// app.use('/add-new-item',addNewItemRoutes);
+
+
 
 app.use('/payment-momo',momoPaymentRoutes)
 

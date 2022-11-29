@@ -323,22 +323,19 @@ const setUserBalance = async user => {
   }
 }
 const setUsersBalance = async users => {
-  for (var i = 0; i < users.length; i++) {
-    await setUserBalance(users[i]);
+  try{
+    var res
+    for (var i = 1; i < users.length; i++) {
+      const res=await setUserBalance(users[i]);
+    }
+    return res.rows
   }
-
-  try {
-    console.log(idUser)
-    console.log(queryStr)
-    console.log(`call capnhatgiohang('${idUser}', ${queryStr})`)
-    const res = await dbConnector.query(`call capnhatgiohang('${idUser}', ${queryStr})`)
-    // console.log(res)
-    return res
-
-  } catch (error) {
-    return error
+  catch(err){
+    return err
   }
 }
+
+
 const getCurrentStorageDetails = async () => {
   try {
     const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);

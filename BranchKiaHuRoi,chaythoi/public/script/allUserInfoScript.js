@@ -92,7 +92,7 @@ $(document).ready(function () {
                 data: {
                     users:users
                 },
-                url: "/get-all-user-info",
+                url: "/manage-users",
                 success: function (data) {
                   $('.noti-content').html(data);
                   $('.pop-up').removeClass('hidden')
