@@ -53,7 +53,7 @@ const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 const inStockRoutes=require('./routers/inStockRoutes')
 const addNewItemRoutes=require('./routers/addNewItemRoutes')
-
+const customerCartHistoryRoutes=require('./routers/customerCartHistoryRoutes')
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
@@ -99,6 +99,7 @@ app.use('/in-store',restrictForAdmin, inStoreRoutes)
 app.use('/manage-users',restrictForAdmin, getAllUsersInfoRoutes);
 app.use('/add-new-item',restrictForAdmin, addNewItemRoutes);
 app.use('/in-stock',restrictForAdmin, inStockRoutes)
+app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
 app.get('/',(req,res)=>{
    res.redirect('/home');
 })

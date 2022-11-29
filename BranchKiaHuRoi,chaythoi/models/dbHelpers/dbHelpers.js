@@ -168,7 +168,14 @@ const getAllReCeiptID = async () => {
     return error.message
   }
 }
-
+const getUserReCeiptID = async (id) => {
+  try {
+    const res = await dbConnector.query(`select * from don_hang dh where dh.ma_khach_hang = '${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
 const getReCeiptsByID = async (id) => {
   try {
     const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk where pnk.ma_phieu='${id}'`)
@@ -187,8 +194,24 @@ const getReCeiptInfo = async (id) => {
   }
 }
 
-
-
+const getFoodInfoForCartHistory=async id=>{
+  try {
+    const res = await dbConnector.query(`select ctdh.ma_don_hang as id,ma.ten_mon_an as ten, ctdh.gia_ban as don_gia, ctdh.so_luong, ctdh.thanh_tien 
+    from chi_tiet_don_hang ctdh, mon_an ma where ctdh.ma_don_hang = '${id}' and ma.ma_mon_an = ctdh.ma_mat_hang`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+const getGoodsInfoForCartHistory=async id=>{
+  try {
+    const res = await dbConnector.query(`select ctdh.ma_don_hang as id, mh.ten_mat_hang as ten, ctdh.gia_ban as don_gia, ctdh.so_luong, ctdh.thanh_tien
+    from chi_tiet_don_hang ctdh, mat_hang mh where ctdh.ma_don_hang = '${id}' and mh.ma_mat_hang = ctdh.ma_mat_hang`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
 
 const getAllExportReCeiptID = async () => {
   try {
@@ -490,6 +513,9 @@ module.exports = {
   addNewFood,
   createOrder,
   setUsersBalance,
-  getUserBalance
+  getUserBalance,
+  getUserReCeiptID,
+  getFoodInfoForCartHistory,
+  getGoodsInfoForCartHistory
 
 };
