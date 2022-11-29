@@ -1,35 +1,35 @@
 const dbModel = require("../models/dbHelpers/dbHelpers");
-var itemPerPage=12
-var totalPage=0
-var currentPage=0
+var itemPerPage = 12
+var totalPage = 0
+var currentPage = 0
 
 const loadHistory = async (req, res, next) => {
-  user={}
-  if(req.session.user){
-      user=req.session.user;
+  user = {}
+  if (req.session.user) {
+    user = req.session.user;
   }
   try {
-    const getUserId=req.session.user.id
-    if(req.query.page){
-      if(req.query.page!=""){
-        currentPage=parseInt(req.query.page)
+    const getUserId = req.session.user.id
+    if (req.query.page) {
+      if (req.query.page != "") {
+        currentPage = parseInt(req.query.page)
       }
     }
 
-    var receiptIDArr 
-    if(req.query.searchID){
-      if(req.query.searchID!=""){
-        receiptIDArr = await dbModel.getReCeiptsByID(req.query.searchID);
+    var receiptIDArr
+    if (req.query.searchID) {
+      if (req.query.searchID != "") {
+        receiptIDArr = await dbModel.getUserReCeiptByID(req.query.searchID);
       }
     }
-    else{
+    else {
 
       console.log(getUserId)
       receiptIDArr = await dbModel.getUserReCeiptID(getUserId);
     }
-    console.log(receiptIDArr)
-    var tempReceiptIDArr=receiptIDArr.slice(currentPage*itemPerPage,currentPage*itemPerPage+itemPerPage)
-    totalPage=parseInt(receiptIDArr.length/itemPerPage) + (receiptIDArr.length%itemPerPage>0?1:0)
+
+    var tempReceiptIDArr = receiptIDArr.slice(currentPage * itemPerPage, currentPage * itemPerPage + itemPerPage)
+    totalPage = parseInt(receiptIDArr.length / itemPerPage) + (receiptIDArr.length % itemPerPage > 0 ? 1 : 0)
     // console.log(receiptIDArr)
     detailArr = [];
     temp = {};
@@ -42,9 +42,9 @@ const loadHistory = async (req, res, next) => {
     var preparedArr = [];
     for (i = 0; i < tempReceiptIDArr.length; i++) {
       var result;
-      foodDetail=await dbModel.getFoodInfoForCartHistory(tempReceiptIDArr[i].ma_don_hang);
-      goodDetail=await dbModel.getGoodsInfoForCartHistory(tempReceiptIDArr[i].ma_don_hang);
-      detail=foodDetail.concat(goodDetail);
+      foodDetail = await dbModel.getFoodInfoForCartHistory(tempReceiptIDArr[i].ma_don_hang);
+      goodDetail = await dbModel.getGoodsInfoForCartHistory(tempReceiptIDArr[i].ma_don_hang);
+      detail = foodDetail.concat(goodDetail);
 
       //detail = await dbModel.getReCeiptInfo(tempReceiptIDArr[i].ma_don_hang);
       result = Object.keys(detailArr[i]).map((key) => [
@@ -78,28 +78,29 @@ const loadHistory = async (req, res, next) => {
       c[0] = b;
       preparedArr.push(c[0]);
     }
-    console.log(preparedArr[0].chi_tiet_phieu.chi_tiet)
+
+    console.log('haha',user,user,totalPage,currentPage)
     if (preparedArr.length > 0) {
       res.render("customerCartHistoryPage", {
-        userid:getUserId,
+  
         user: user,
         transactionsList: preparedArr,
-        totalPage:totalPage,
-        currentPage:currentPage
+        totalPage: totalPage,
+        currentPage: currentPage
       });
     } else {
       res.render("customerCartHistoryPage", {
-        userid:getUserId,
         user: user,
         transactionsList: preparedArr,
       });
     }
     // console.log(preparedArr)
   } catch (err) {
-    res.render('errorPage',{
-      user:user,
-      message:err.message
-  })
+    console.log(err)
+    res.render('errorPage', {
+      user: user,
+      message: err.message
+    })
   }
 };
 

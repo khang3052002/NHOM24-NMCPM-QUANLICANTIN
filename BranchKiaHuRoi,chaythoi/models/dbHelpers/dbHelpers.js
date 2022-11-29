@@ -168,6 +168,14 @@ const getAllReCeiptID = async () => {
     return error.message
   }
 }
+const getUserReCeiptByID = async (id) => {
+  try {
+    const res = await dbConnector.query(`select * from don_hang dh where dh.ma_don_hang = '${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
 const getUserReCeiptID = async (id) => {
   try {
     const res = await dbConnector.query(`select * from don_hang dh where dh.ma_khach_hang = '${id}'`)
@@ -551,5 +559,6 @@ module.exports = {
   getAllOrder,
   getOrderInfo,
 
-  getDetailTrading
+  getDetailTrading,
+  getUserReCeiptByID 
 };

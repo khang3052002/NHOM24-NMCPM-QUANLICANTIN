@@ -1,5 +1,5 @@
 $('#search-receipt-btn').click(function(){
-    window.location.href=`/import-goods-history?searchID=${$('#search-rec-id').val()}`
+    window.location.href=`/customer-cart-history?searchID=${$('#search-rec-id').val()}`
 })
 
 $('#search-rec-id').on('keypress', function(event) {
