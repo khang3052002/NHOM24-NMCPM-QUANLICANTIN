@@ -8,7 +8,7 @@ const loadUserProfile=async(req,res,next)=>{
         }
         var userInfo;
         userInfo =await dbModel.getUserInfo(req.session.user.id);
-        res.render('userProfilePage',{user:{},info:userInfo[0]})
+        res.render('userProfilePage',{user:user,info:userInfo[0]})
     }catch(err){
         console.log(err);
     }
