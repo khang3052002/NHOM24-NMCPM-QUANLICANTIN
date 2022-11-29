@@ -111,3 +111,16 @@ $(document).ready(function () {
     )
 })
 
+$('form').on('keypress', function(event) {
+    // console.log(event);
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        if($('.user-tab').hasClass('active')){
+            document.getElementById("user-login-btn").click();
+        }
+        else{
+            document.getElementById("admin-login-btn").click();
+        }
+        return false;
+    }
+})
