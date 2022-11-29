@@ -18,7 +18,7 @@
 
 <body>
     <link rel="stylesheet" href="css/inStockPageStyle.css">
-        <div class="pop-up  hidden">
+    <div class="pop-up  hidden">
         <div class="popup-container">
             <div class="notification">
                 <div class="noti-header">
@@ -26,9 +26,9 @@
                 </div>
                 <div class="noti-content-container d-flex flex-column">
                     <div class="noti-content">
-                       Xác nhận xóa 
+                        Xác nhận xóa
                     </div>
-                     <button class="btn btn-success confirm-delete hidden">ok</button>
+                    <button class="btn btn-success confirm-delete hidden">ok</button>
                 </div>
             </div>
         </div>
@@ -41,6 +41,9 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Hiện có trong canteen</h3>
 
+                </div>
+                <div class="confirm-btn-div">
+                    <button id="show-details-btn" type="button" class="btn btn-success">Chi tiết</button>
                 </div>
                 <table class="table">
                     <thead>
@@ -63,7 +66,9 @@
                             <td>
                                 <p class="user-info-display">{{this.ten_mat_hang}}</p>
                             </td>
-                            <td><p class="user-info-display">{{this.so_luong}}</p></td>
+                            <td>
+                                <p class="user-info-display">{{this.so_luong}}</p>
+                            </td>
                             <td>
                                 <p class="user-info-display">{{this.gia}}</p>
                             </td>
