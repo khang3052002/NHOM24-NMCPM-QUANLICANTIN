@@ -100,6 +100,16 @@ const getCurrentStorage = async () => {
   }
 };
 
+const getCurrentCanteen = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong,sl.gia  FROM sl_hang_canteen sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+};
+
 // const getFoodInfo =async (foodID) => {
 //   try{
 //     const res= await dbConnector.query(`SELECT * FROM MON_AN WHERE MA_MON_AN='${foodID}'`);
@@ -320,6 +330,16 @@ const getCurrentStorageDetails = async () => {
   }
 }
 
+const getCurrentCanteenDetails = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_canteen kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+}
+
 const editCart = async (idUser, strQuery) => {
   try {
     console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
@@ -331,7 +351,24 @@ const editCart = async (idUser, strQuery) => {
   }
 }
 
-
+const deleteProductInStore=async(id,date)=>{
+  try{
+    console.log(id,date)
+    const res = await dbConnector.query(`call xoaHangTrongKho('${id}','${date}')`)
+    return res
+  }catch(err){
+    return err
+  }
+}
+const deleteProductInCanteen=async(id,date)=>{
+  try{
+    console.log(id,date)
+    const res = await dbConnector.query(`call xoaHangCanteen('${id}','${date}')`)
+    return res
+  }catch(err){
+    return err
+  }
+}
 
 module.exports = {
   updateTodayFood,
@@ -361,6 +398,9 @@ module.exports = {
   getExportReCeiptsByID,
   getReCeiptsByID,
   getCurrentStorageDetails,
-  editCart
-
+  editCart,
+  deleteProductInStore,
+  getCurrentCanteen,
+  deleteProductInCanteen,
+  getCurrentCanteenDetails
 };

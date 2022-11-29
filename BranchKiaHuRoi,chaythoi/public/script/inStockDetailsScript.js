@@ -64,7 +64,7 @@ $(document).ready(function () {
                     dateM: dateM,
 
                 },
-                url: "/in-store",
+                url: "/in-stock",
                 success: function (data) {
                     $('.noti-content').html(data)
 

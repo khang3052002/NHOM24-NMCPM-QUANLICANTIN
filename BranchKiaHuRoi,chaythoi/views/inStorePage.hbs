@@ -54,9 +54,7 @@
                             <th>
                                 <p class="user-info-display">Đơn giá</p>
                             </th>
-                            <th>
-                                <p class="user-info-display adjust-header">Xóa</p>
-                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -65,15 +63,9 @@
                             <td>
                                 <p class="user-info-display">{{this.ten_mat_hang}}</p>
                             </td>
-                            <td><input type="number" class="user-info-display amount-input" disabled
-                                    value="{{this.so_luong}}"></td>
+                            <td><p class="user-info-display">{{this.so_luong}}</p></td>
                             <td>
                                 <p class="user-info-display">{{this.gia}}</p>
-                            </td>
-                            <td>
-                                <button type="button" class="btn  btn-sm px-3" data-ripple-color="dark">
-                                    <i class="fa-solid fa-delete-left" id="delete-btn"></i>
-                                </button>
                             </td>
                         </tr>
                         {{/each}}
