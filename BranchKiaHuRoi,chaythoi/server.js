@@ -13,7 +13,8 @@ app.engine('hbs',exphbs.engine({
     helpers:hbsHelper
 }))
 app.set('view engine', 'hbs')
-app.use(express.static(__dirname+ '/public'))
+app.use(express.static(__dirname+ '/public/'))
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 //session config
@@ -54,6 +55,9 @@ const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 const inStockRoutes=require('./routers/inStockRoutes')
 const addNewItemRoutes=require('./routers/addNewItemRoutes')
 const customerCartHistoryRoutes=require('./routers/customerCartHistoryRoutes')
+const tradingDetailsRoutes=require('./routers/tradingDetailsRoutes')
+// const tradingHistoryRoutes=require('./routers/tradingHistoryRoutes')
+const tradingHistoryRoutes=require('./routers/tradingHisRoutes')
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
@@ -100,6 +104,10 @@ app.use('/manage-users',restrictForAdmin, getAllUsersInfoRoutes);
 app.use('/add-new-item',restrictForAdmin, addNewItemRoutes);
 app.use('/in-stock',restrictForAdmin, inStockRoutes)
 app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
+
+app.use('/tradings-history', tradingHistoryRoutes)
+app.use('/trading-details', tradingDetailsRoutes)
+
 app.get('/',(req,res)=>{
    res.redirect('/home');
 })

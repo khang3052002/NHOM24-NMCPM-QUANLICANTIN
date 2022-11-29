@@ -7,7 +7,7 @@
 }
 .card-header-custom{
     display: flex;
-    justify-content: space-between;
+    width: 100%;
 }
 .title-custom{
     margin-left: 2rem;
@@ -43,4 +43,11 @@ th, td{
 
 .receipt-search{
     max-width: 500px;
+}
+
+.price-column{
+    min-width: 250px;
+}
+.receipt-id-column{
+    /* margin-left: auto; */
 }

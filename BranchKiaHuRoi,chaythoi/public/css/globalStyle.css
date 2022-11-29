@@ -116,3 +116,22 @@ h3{
     width: fit-content;
     margin: 0 auto;
 }
+
+.card-header-custom{
+    display: flex;
+    width: 100%;
+}
+.price-column{
+    min-width: 250px;
+}
+.receipt-id-column{
+    min-width: 180px;
+}
+.time-column{
+    min-width: 180px;
+}
+.accordion-button{
+    font-weight:normal;
+}
+
+
