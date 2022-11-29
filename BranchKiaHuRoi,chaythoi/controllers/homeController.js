@@ -27,7 +27,10 @@ const loadHomePage=async(req,res,next)=>{
             });
         }
     }catch(err){
-        console.log(err);
+        res.render('errorPage',{
+            user:user,
+            message:err.message
+        })
     }
 }
 module.exports={loadHomePage};

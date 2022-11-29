@@ -10,7 +10,12 @@
     margin: 20px 0 30px;
 }
 
-
+.btn-info,
+.btn-success {
+    color: white;
+    background-color: rgb(4, 48, 245);
+    margin: 5px;
+}
 
 .filterable {
     margin-top: 15px;
@@ -125,7 +130,7 @@ p {
     padding-bottom: 0px !important;
 }
 td,th{
-    width: 32%;
+    width: 24%;
     border: 0px solid !important;
 }
 .amount-input{
@@ -139,15 +144,4 @@ table {
     text-align: left;
    
     padding-left: 10px;
-}
-.confirm-btn-div{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 3rem;
-    margin-right: 2.5rem;
-    width: 100%;
-    padding-right: 8px;
-}
-.confirm-delete{
-    margin-bottom: 20px;
 }

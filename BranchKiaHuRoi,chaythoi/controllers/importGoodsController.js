@@ -12,7 +12,10 @@ const loadPage=async(req,res,next)=>{
         res.render('importGoodsPage',{user:user,goodsList:allGoods})
     }
     catch(err){
-        console.log(err)
+        res.render('errorPage',{
+            user:user,
+            message:err.message
+        })
     }
 }
 
@@ -59,7 +62,7 @@ const addNewReceipt=async(req,res,next)=>{
         
     }
     catch(err){
-        console.log(err)
+        res.send(err.message)
     }
 }
 module.exports={loadPage,addNewReceipt};

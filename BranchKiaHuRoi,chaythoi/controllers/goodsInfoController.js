@@ -7,7 +7,7 @@ const getAllGoods=async(req,res,next)=>{
         res.send(allGoodsInfo)
     }
     catch(err){
-        console.log(err)
+        res.send(err.message);
     }
 }
 module.exports={getAllGoods};

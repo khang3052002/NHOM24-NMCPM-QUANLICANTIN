@@ -100,6 +100,16 @@ const getCurrentStorage = async () => {
   }
 };
 
+const getCurrentCanteen = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong,sl.gia  FROM sl_hang_canteen sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+};
+
 // const getFoodInfo =async (foodID) => {
 //   try{
 //     const res= await dbConnector.query(`SELECT * FROM MON_AN WHERE MA_MON_AN='${foodID}'`);
@@ -217,18 +227,36 @@ const getPopularItems = async (amount) => {
 const getGoodSearchInfo = async (key) => {
   try {
     var arrResult = ''
-    const resFoods = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN AND MA.TEN_MON_AN LIKE '${key}%'`)
+    const resFoods = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN AND MA.TEN_MON_AN ILIKE '%${key}%'`)
     const resProduct = await dbConnector.query(`select slh.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia_ban_ra, mh.img_url
-     from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and mh.ten_mat_hang LIKE '${key}%'
+     from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and mh.ten_mat_hang ILIKE '%${key}%'
     `)
     arrResult = resFoods.rows.concat(resProduct.rows)
-    console.log(arrResult)
-
     return arrResult
   } catch (error) {
     return error
   }
 }
+
+
+const searchByCategory = async (category) => {
+  try {
+    var res
+    if(category=='TYNU' || category=='TYDCHT' || category=='TYDAV'){
+      res = await dbConnector.query(`select slh.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia_ban_ra, mh.img_url
+      from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and mh.ma_loai_hang = '${category}'
+     `)
+    }
+    else {
+      res=await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`)
+    }
+    console.log(res)
+    return res.rows
+  } catch (error) {
+    return error
+  }
+}
+
 const addProductToCart = async (params) => {
   try {
     console.log(params.id, params.idPro)
@@ -320,6 +348,16 @@ const getCurrentStorageDetails = async () => {
   }
 }
 
+const getCurrentCanteenDetails = async () => {
+  try {
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_canteen kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
+    return res.rows;
+  }
+  catch (err) {
+    return err;
+  }
+}
+
 const editCart = async (idUser, strQuery) => {
   try {
     console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
@@ -331,7 +369,24 @@ const editCart = async (idUser, strQuery) => {
   }
 }
 
-
+const deleteProductInStore=async(id,date)=>{
+  try{
+    console.log(id,date)
+    const res = await dbConnector.query(`call xoaHangTrongKho('${id}','${date}')`)
+    return res
+  }catch(err){
+    return err
+  }
+}
+const deleteProductInCanteen=async(id,date)=>{
+  try{
+    console.log(id,date)
+    const res = await dbConnector.query(`call xoaHangCanteen('${id}','${date}')`)
+    return res
+  }catch(err){
+    return err
+  }
+}
 
 module.exports = {
   updateTodayFood,
@@ -361,6 +416,11 @@ module.exports = {
   getExportReCeiptsByID,
   getReCeiptsByID,
   getCurrentStorageDetails,
-  editCart
+  editCart,
+  deleteProductInStore,
+  getCurrentCanteen,
+  deleteProductInCanteen,
+  getCurrentCanteenDetails,
+  searchByCategory
 
 };

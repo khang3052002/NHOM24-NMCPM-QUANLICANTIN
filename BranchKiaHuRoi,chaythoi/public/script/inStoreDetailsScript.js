@@ -42,37 +42,38 @@ $(document).ready(function () {
 
     $(".fa-delete-left").click(function () {
         if (!$(this).attr("id").includes("btn-1")) {
-            $(this).parent().parent().parent().attr('deleted','true');
+            $(this).parent().parent().parent().attr('deleted', 'true');
             $('.pop-up').removeClass('hidden')
             $('.confirm-delete').removeClass('hidden')
+            $('.noti-content').html('Xác nhận xóa ')
         }
     });
 
     $('.confirm-delete').click(
-        function(){
-           const id= $('tr[deleted=true]').attr('ProID');
-           const dateM= $('tr[deleted=true]').attr('dateM');
-           const dateExp= $('tr[deleted=true]').attr('dateExp');
-           console.log(id,dateM,dateExp);
-           $('.confirm-delete').addClass('hidden')
-           $('.pop-up').addClass('hidden')
-                   //    $.ajax({
-        //     method: "post",
-        //     data: {
-        //         id: categoryArr,
-        //         amount: amountArr,
+        function () {
+            const id = $('tr[deleted=true]').attr('ProID');
+            const dateM = $('tr[deleted=true]').attr('dateM');
+            const dateExp = $('tr[deleted=true]').attr('dateExp');
+            console.log(id, dateM, dateExp);
+            $('.confirm-delete').addClass('hidden')
+            $('.pop-up').addClass('hidden')
+            $.ajax({
+                method: "post",
+                data: {
+                    id: id,
+                    dateM: dateM,
 
-        //     },
-        //     url: "/today-menu",
-        //     success: function (data) {
-        //         $('.noti-content').html(data)
-       
-        //         $('.pop-up').removeClass('hidden')
-        //         $('.fa-window-close').click(function () {
-        //             window.location.reload()
-        //           })
-        //     },
-        // });
+                },
+                url: "/in-store",
+                success: function (data) {
+                    $('.noti-content').html(data)
+
+                    $('.pop-up').removeClass('hidden')
+                    $('.fa-window-close').click(function () {
+                        window.location.reload()
+                    })
+                },
+            });
 
         }
     )

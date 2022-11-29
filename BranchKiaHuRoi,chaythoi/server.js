@@ -51,14 +51,10 @@ const shoppingCartRoutes = require('./routers/shoppingCartRoutes')
 const todayMenuRoutes=require('./routers/todayMenuRoutes')
 const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
+const inStockRoutes=require('./routers/inStockRoutes')
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
-
-// const mainRoutes=require('./routes/homeRoutes');
 // const sign_inRoutes=require('./routes/sign_inRoutes');
-// const stocksRoutes=require('./routes/stockRoutes');
-// const sign_upRoutes = require('./routes/sign_upRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
-// const productsRoutes = require('./routes/productsRoutes');
 // const productDetailsRoutes = require('./routes/productDetailsRoutes');
 
 // const addProductRoutes=require('./routes/addNewProductRoutes');
@@ -92,58 +88,17 @@ app.use('/manage-users',getAllUsersInfoRoutes);
 
 app.use('/payment-momo',momoPaymentRoutes)
 
+app.use('/in-stock',inStockRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');
-    // dbConnector.query('SELECT * FROM KHACH_HANG', (error, results) => {
-    //     if (error) {
-    //       throw error
-    //     }
-    //     if(results.rows.length == 0)
-    //     {
-    //       response.send({exist: false })
-    //     }
-    //     console.log(results)
-        // else{
-        //   dbConnector.query(query,(err,rs)=>
-        //   {
-        //     if(err) throw err
-        //     else{
-        //       if(rs.rows.length == 0)
-        //       {
-        //         response.send({connect: false, exist: true})
-        //       }
-        //       response.send({connect: true, exist: true})
-        //     }
-        //   })
-        // }
-    
-    //   })
+})
+app.use((req,res)=>{
+    user={}
+    if(req.session.user){
+        user=req.session.user
+    }
+    res.render('errorPage',{message:'404 Page not found',user:user})
 })
 
 
 
-
-// //hbs engine config
-
-
-// app.use('/images',express.static(__dirname+ '/models/db/pid'))
-// app.use(express.json());
-// app.use(express.urlencoded({extended:true}));
-
-
-// app.get('/',(req,res)=>{
-//     res.redirect('/home?page=0')
-// });
-// app.use('/home',mainRoutes);
-// app.use('/sign_in',restrictRegister,sign_inRoutes);
-// app.use('/sign_up',restrictRegister,sign_upRoutes);
-// app.use('/auth',auth_Routes)
-// //app.use('/profile',restrict,profileRoutes);
-// app.use('/logout',auth_Routes)
-// //app.use('/products',restrictForUser,productsRoutes);
-// app.use('/product-details',productDetailsRoutes);
-// app.use('/del-product',restrictForAdmin,delProRoutes);
-// // app.use('/stocks',restrictForAdmin,stocksRoutes);
-// app.use('/add-product',restrictForAdmin,addProductRoutes);
-// app.use('/get-category',restrictForAdmin,getCatRoutes);
-// app.use('/update-product',restrictForAdmin,updateProRoutes);

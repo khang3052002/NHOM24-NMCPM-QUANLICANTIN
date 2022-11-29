@@ -2,30 +2,49 @@
 const dbModel = require('../models/dbHelpers/dbHelpers');
 
 const getGoods = async (req, res) => {
-    const key = req.query.key
+
     try {
-        const result = await dbModel.getGoodSearchInfo(key)
-        // console.log(result)
-        // console.log(typeof result)
-        // var foodList
+        console.log(req.query)
         user = {}
         if (req.session.user) {
             user = req.session.user
             console.log(user)
         }
-        res.render('searchGoodsResultPage',
+
+        var key=""
+        if(req.query.key){
+            key = req.query.key
+        }
+        var category=""
+        if(req.query.category && !req.query.key){
+            category = req.query.category
+
+            const result = await dbModel.searchByCategory(category)
+            res.render('searchGoodsResultPage',
             {
                 user: user,
-                key: key,
+                key: category,
                 arrResult : result
             })
 
-        // console.log(result.rows)
-        // console.log(result.rows)
-        // res.render('searchGoodsResultPage')
+        }
+        else{
+            const result = await dbModel.getGoodSearchInfo(key)
+        
+            res.render('searchGoodsResultPage',
+                {
+                    user: user,
+                    key: key,
+                    arrResult : result
+                })
+    
+        }
 
     } catch (error) {
-        console.log(error)
+        res.render('errorPage',{
+            user:user,
+            message:error.message
+        })
     }
 }
 module.exports = { getGoods }

@@ -1,47 +1,44 @@
 const dbModel = require('../models/dbHelpers/dbHelpers');
 const moment = require('moment')
-loadStorePage= async (req,res,next)=>{
-    user={}
-    if(req.session.user){
-        user=req.session.user;
-    }
+loadStockPage= async (req,res,next)=>{
     try{
+        var user={}
+        if(req.session.user){
+            user=req.session.user
+        }
         if(req.query.section=='details'){
-            const productDetails=await dbModel.getCurrentStorageDetails();
+            const productDetails=await dbModel.getCurrentCanteenDetails();
             // console.log(productDetails)
-            res.render('inStoreDetailsPage',{
+            res.render('inStockDetailsPage',{
                 user:user,
                 product:productDetails
             })
         }
         else{
-            const product=await dbModel.getCurrentStorage();
+            const product=await dbModel.getCurrentCanteen();
             // console.log(product)
-            res.render('inStorePage',{
+            res.render('inStockPage',{
                 user:user,
                 product:product
             })
         }
 
     }catch(err){
-        res.render('errorPage',{
-            user:user,
-            message:err.message
-        })
+        console.log(err)
     }
 }
 
-deleteProductInStore=async(req,res,next)=>{
+deleteProductInStock=async(req,res,next)=>{
     try{
         const id=req.body.id;
         const dateStr=req.body.dateM.toString();
-        console.log(dateStr);
+        // console.log(dateStr);
         // console.log(Date.parse(dateStr) )
         const date =moment(new Date(dateStr)).format('YYYY-MM-DD')
         //console.log(moment(Date.parse(dateStr)).format())
         // const dateExp=req.body.dateExp;
         // console.log(dateM)
-        const result=await dbModel.deleteProductInStore(id,date)
+        const result=await dbModel.deleteProductInCanteen(id,date)
         res.send('Xóa sản phẩm thành công')
 
     }catch(err){
@@ -51,5 +48,5 @@ deleteProductInStore=async(req,res,next)=>{
 }
 
 module.exports={
-    loadStorePage,deleteProductInStore
+    loadStockPage,deleteProductInStock
 }

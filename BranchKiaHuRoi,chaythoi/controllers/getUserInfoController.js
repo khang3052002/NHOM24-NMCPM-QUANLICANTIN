@@ -29,9 +29,11 @@ const updateUser=async(req,res,next)=>{
     const phone = req.body.phone
     try {
         var res = await dbModel.updateUserInfo(idUser,name,email,phone)
-        console.log(res)
     } catch (error) {
-        console.log(error)
+        res.render('errorPage',{
+            user:user,
+            message:error.message
+        })
     }
 }
 module.exports={getUserInfo,loadUserProfile,updateUser};
