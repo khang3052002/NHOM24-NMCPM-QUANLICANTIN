@@ -13,7 +13,10 @@ const loadAllUserInfoPage=async(req,res,next)=>{
         })
         
     }catch(err){
-        console.log(err);
+        res.render('errorPage',{
+            user:user,
+            message:err.message
+        })
     }
 }
 const updateUserBalance=async(req,res,next)=>{

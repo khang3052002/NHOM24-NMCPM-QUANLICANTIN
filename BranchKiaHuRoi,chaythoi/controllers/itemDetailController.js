@@ -1,17 +1,20 @@
 
 const dbModel = require('../models/dbHelpers/dbHelpers');
 const loadItemDetail=async(req,res,next)=>{
+    user={}
+    if(req.session.user){
+        user=req.session.user;
+    }
     try{
         query=req.query
-        user={}
-        if(req.session.user){
-            user=req.session.user
-        }
         item=await dbModel.getFoodById(query.id);
         res.render('itemDetailPage',{user:user,item:item[0]})
     }
     catch(err){
-        console.log(err)
+        res.render('errorPage',{
+            user:user,
+            message:err.message
+        })
     }
 }
 const addProToCart=async(req,res)=>
@@ -34,7 +37,7 @@ const addProToCart=async(req,res)=>
         const result = await dbModel.addProductToCart(params)
         res.send({name:name})
     } catch (error) {
-        console.log(error)
+        res.send(error.message)
     }
 }
 module.exports={loadItemDetail,addProToCart};

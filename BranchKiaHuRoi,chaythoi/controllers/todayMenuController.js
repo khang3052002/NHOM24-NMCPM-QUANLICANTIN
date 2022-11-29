@@ -1,13 +1,13 @@
 
 const dbModel = require('../models/dbHelpers/dbHelpers');
 const loadTodayMenuPage=async(req,res,next)=>{
+    user={}
+    if(req.session.user){
+        user=req.session.user
+    }
     try{
         var todayMenu=await dbModel.getTodayFood();
         var foodList=await dbModel.getAllFood();
-        user={}
-        if(req.session.user){
-            user=req.session.user
-        }
         res.render('todayMenuPage',{
             user:user,
             todayMenu:todayMenu,
@@ -15,7 +15,10 @@ const loadTodayMenuPage=async(req,res,next)=>{
         })
         
     }catch(err){
-        console.log(err);
+        res.render('errorPage',{
+            user:user,
+            message:err.message
+        })
     }
 }
 const updateTodayMenu=async(req,res,next)=>{
@@ -43,7 +46,6 @@ const updateTodayMenu=async(req,res,next)=>{
         res.send('Cập nhật menu hôm nay thành công')
         
     }catch(err){
-        console.log(err);
         res.send('Đã xảy ra lỗi')
     }
 }

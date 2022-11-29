@@ -98,12 +98,6 @@ const editCart = async(req,res) =>
         }
         queryStr=idStr+","+amountStr
 
-        // const params = {
-        //     idUser: idUser,
-        //     arrProID: arrProID,
-        //     arrQuantity : arrQuantity
-        // }
-        // if()
 
         const resultDelete = await dbModel.editCart(idUser,queryStr)
 
@@ -111,12 +105,12 @@ const editCart = async(req,res) =>
             res.send('Cập nhật thành công')
 
         }else{
-            res.send(resultDelete)
+            res.send('Đã xảy ra lỗi')
         }
 
 
     } catch (error) {
-        console.log(error)
+        res.send('Đã xảy ra lỗi')
     }
 }
 module.exports = { getCart,deleteItem,editCart}
