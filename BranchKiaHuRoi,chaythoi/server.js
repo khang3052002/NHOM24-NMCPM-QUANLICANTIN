@@ -88,7 +88,7 @@ app.use('/search-goods',restrictForNonAdmin, searchGoodsRoutes)
 app.use('/item-detail',restrictForNonAdmin, itemDetailRoutes)
 
 //user routes
-app.use('/shopping-cart',restrictForUser, shoppingCartRoutes)
+app.use('/shopping-cart',restrictForNonAdmin, shoppingCartRoutes)
 app.use('/payment-momo',restrictForUser,momoPaymentRoutes)
 app.use('/get-user-info',restrictForUser,getUserInfoRoutes)
 

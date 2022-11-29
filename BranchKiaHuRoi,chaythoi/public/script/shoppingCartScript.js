@@ -68,7 +68,7 @@ $('#payment').click(function () {
                         $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=hahah`);
                         // window.location.reload()
                         $('.pop-up').removeClass('hidden')
-
+                        $('#view-receipt-btn').removeClass('hidden')
                     }
                 }
             })
@@ -152,6 +152,25 @@ $('#payment').click(function () {
     }
 
 })
+
+$('#view-receipt-btn').click(function()
+{
+    $('.container-pos').removeClass('hidden')
+})
+
+
+$('.container-pos').click(function()
+{
+  $(this).addClass('hidden')
+
+})
+
+$('#invoice-POS').click(function(event)
+{
+  event.stopPropagation()
+})
+
+
 
 function convertVNDToNumber(value) {
     var index = value.indexOf('V')
