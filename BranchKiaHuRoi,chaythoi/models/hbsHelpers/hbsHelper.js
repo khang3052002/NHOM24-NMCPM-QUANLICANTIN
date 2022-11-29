@@ -39,11 +39,17 @@ const getQuotient = (x, c) => {
 }
 
 const getTotalCost = (obj) => {
-    var totalCost = 0
-    for (i = 0; i < obj.chi_tiet_phieu.chi_tiet.length; i++) {
-        totalCost += obj.chi_tiet_phieu.chi_tiet[i].thanh_tien
+    try{
+        var totalCost = 0
+        for (i = 0; i < obj.chi_tiet_phieu.chi_tiet.length; i++) {
+            totalCost += obj.chi_tiet_phieu.chi_tiet[i].thanh_tien
+        }
+        return totalCost
     }
-    return totalCost
+    catch(err){
+        return 0
+    }
+
 }
 const ifCond = (v1, operator, v2, options) => {
     switch (operator) {

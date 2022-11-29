@@ -451,6 +451,37 @@ const getUserBalance = async (idUser)=>
     return error
   }
 }
+const getAllOrder= async ()=>
+{
+  try {
+    const res = await dbConnector.query(`SELECT * FROM DON_HANG`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
+const getOrderInfo= async (id)=>
+{
+  try {
+    const res = await dbConnector.query(`SELECT ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
+
+
+const getDetailTrading= async (id)=>
+{
+  try {
+    const res = await dbConnector.query(`SELECT ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -490,6 +521,10 @@ module.exports = {
   addNewFood,
   createOrder,
   setUsersBalance,
-  getUserBalance
+  getUserBalance,
 
+  getAllOrder,
+  getOrderInfo,
+
+  getDetailTrading
 };
