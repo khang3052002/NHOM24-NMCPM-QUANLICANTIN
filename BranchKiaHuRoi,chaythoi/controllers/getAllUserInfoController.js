@@ -13,20 +13,24 @@ const loadAllUserInfoPage=async(req,res,next)=>{
         })
         
     }catch(err){
-        res.render('errorPage',{
-            user:user,
-            message:err.message
-        })
+        // res.render('errorPage',{
+        //     user:user,
+        //     message:err.message
+        // })
     }
 }
 const updateUserBalance=async(req,res,next)=>{
     try{
         const users=req.body.users; 
         var allUserInfo=await dbModel.setUsersBalance(users);
+         //console.log(allUserInfo.rows)
         if(allUserInfo.rows){
             res.send('Cập nhật giá thành công')
         }
-        res.send('Đã xảy ra lỗi')
+        else{
+            res.send('Đã xảy ra lỗi')
+        }
+
         
     }catch(err){
         res.send('Đã xảy ra lỗi')

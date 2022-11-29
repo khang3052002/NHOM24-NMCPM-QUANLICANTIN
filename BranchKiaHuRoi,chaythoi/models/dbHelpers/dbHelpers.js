@@ -339,6 +339,18 @@ const setUserBalance = async user => {
 //     await setUserBalance(users[i]);
 //   }
 
+const setUsersBalance = async users => {
+  try{
+    var res
+    for (var i = 1; i < users.length; i++) {
+        res=await setUserBalance(users[i]);
+    }
+    return res
+  }
+  catch(err){
+    return err
+  }
+}
 
 
 const getCurrentStorageDetails = async () => {
@@ -445,7 +457,7 @@ module.exports = {
   getCurrentCanteenDetails,
   searchByCategory,
   createOrder,
-  // setUsersBalance
+  setUsersBalance,
   getUserBalance
 
 };

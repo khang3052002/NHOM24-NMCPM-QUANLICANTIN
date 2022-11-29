@@ -140,3 +140,9 @@ h3{
 .nav-link.active{
     background-color: #475D8F !important;
 }
+
+.red-border{
+    outline: 2px solid #ff3333;
+    outline-offset: -2.5px;
+    background-color: #ff33330d;
+}
