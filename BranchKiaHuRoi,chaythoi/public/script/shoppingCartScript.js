@@ -27,7 +27,6 @@ $('#payment').click(function () {
         // console.log($(this).attr('id'))
         arrProductsID.push($(this).attr('id'))
         // arrQuantity.push()
-
     })
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
@@ -193,6 +192,7 @@ $('#update-cart').click(function (e) {
             });
         }
     })
+    console.log(arrProductsID,arrQuantity)
 
 
 })
