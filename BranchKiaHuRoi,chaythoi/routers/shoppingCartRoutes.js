@@ -7,6 +7,6 @@ router.get('/', cartController.getCart)
 // router.get('/edit', cartController.getCartEdit)
 
 router.post('/',cartController.editCart)
-
+router.put('/',cartController.createOrder)
 
 module.exports = router;
