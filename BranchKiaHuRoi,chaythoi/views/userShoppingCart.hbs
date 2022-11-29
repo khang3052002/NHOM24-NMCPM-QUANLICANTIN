@@ -38,7 +38,7 @@
                                                         <tr>
                                                             <th scope="col">Sản phẩm</th>
                                                             <th scope="col">Số lượng</th>
-                                                            <th scope="col">Số lượng trong kho</th>
+                                                            <th scope="col" class="text-center">Số lượng trong kho</th>
                                                             <th scope="col">Đơn giá</th>
                                                             <th scope="col" class="text-right">Thành tiền</th>
                                                             {{!-- {{#if showEdit}} --}}
@@ -61,7 +61,7 @@
                                                                         name="cartQty1" value="{{this.so_luong}}">
                                                                 </div>
                                                             </td>
-                                                            <td class="text-center">12</td>
+                                                            <td class="text-center">{{this.so_luong_hang}}</td>
                                                             <td>{{ConvertToVND this.gia_ban}}</td>
                                                             <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
                                                             {{!-- {{#if ../showEdit}} --}}
@@ -123,8 +123,11 @@
                 <!-- End col -->
             </div>
             <div class="d-flex flex-column align-items-end">
-
-                <div class="col-lg-4 float-end">
+                <div class="col-lg-4 float-start d-flex justify-content-between">
+                    <label class="text-bold">Số dư tài khoản: </label>
+                    <div id="user-balance">{{ConvertToVND balance}}</div> 
+                </div>
+                <div class="col-lg-4 float-end mt-3">
                     <label class="text-bold">Chọn hình thức thanh toán</label>
                     <span class="text-danger">*</span>
                     <select class="form-select menu-payment mt-3" aria-label="Default select example">
@@ -139,7 +142,9 @@
                         <i class="ri-arrow-right-line ml-2"></i></a>
                 </div>
             </div>
+            
 
+            <img id="qr-order" src="" alt="">
 
 
             <!-- End row -->
