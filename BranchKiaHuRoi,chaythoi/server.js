@@ -52,7 +52,7 @@ const todayMenuRoutes=require('./routers/todayMenuRoutes')
 const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 const inStockRoutes=require('./routers/inStockRoutes')
-// const addNewItemRoutes=require('./routers/addNewItem')
+const addNewItemRoutes=require('./routers/addNewItemRoutes')
 
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
@@ -65,36 +65,40 @@ const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 // const updateProRoutes=require('./routes/updateProductRoutes')
 // //restrict 
 // const auth_Routes=require('./authencation/authRoutes')
-// const restrict=require('./authencation/restrictRoutes');
-// const restrictRegister=require('./authencation/restrictRegister');
-// const restrictForUser = require('./authencation/restrictForUser');
-// const restrictForAdmin=require('./authencation/restrictForAdmin');
+const restrict=require('./authencation/restrictRoutes');
+const restrictRegister=require('./authencation/restrictRegister');
+const restrictForUser = require('./authencation/restrictForUser');
+const restrictForAdmin=require('./authencation/restrictForAdmin');
+const restrictForNonAdmin=require('./authencation/restrictForNonAdmin')
 
-app.use('/sign-up',signUpRoutes)
-app.use('/sign-in',signInRoutes)
-app.use('/sign-out',signOutRoutes)
 app.use('/home',homeRoutes)
-app.use('/get-user-info',getUserInfoRoutes)
-app.use('/item-detail',itemDetailRoutes)
-app.use('/import-goods',importGoodsRoutes)
-app.use('/import-goods-history',importGoodsHistoryRoutes)
+//for authentication 
+app.use('/sign-up',restrictRegister,signUpRoutes)
+app.use('/sign-in',restrictRegister,signInRoutes)
+app.use('/sign-out',restrict,signOutRoutes)
 
-app.use('/export-goods',exportGoodsRoutes)
-app.use('/export-goods-history',exportGoodsHistoryRoutes)
+//both admin and user
 app.use('/goods-info',goodsInfoRoutes)
-app.use('/search-goods',searchGoodsRoutes)
-app.use('/shopping-cart', shoppingCartRoutes)
-app.use('/today-menu',todayMenuRoutes);
-app.use('/in-store',inStoreRoutes)
-app.use('/manage-users',getAllUsersInfoRoutes);
 
-// app.use('/add-new-item',addNewItemRoutes);
+//non-admin routes
+app.use('/search-goods',restrictForNonAdmin, searchGoodsRoutes)
+app.use('/item-detail',restrictForNonAdmin, itemDetailRoutes)
 
+//user routes
+app.use('/shopping-cart',restrictForNonAdmin, shoppingCartRoutes)
+app.use('/payment-momo',restrictForUser,momoPaymentRoutes)
+app.use('/get-user-info',restrictForUser,getUserInfoRoutes)
 
-
-app.use('/payment-momo',momoPaymentRoutes)
-
-app.use('/in-stock',inStockRoutes)
+//admin routes
+app.use('/import-goods',restrictForAdmin,importGoodsRoutes)
+app.use('/import-goods-history',restrictForAdmin,importGoodsHistoryRoutes)
+app.use('/export-goods',restrictForAdmin,exportGoodsRoutes)
+app.use('/export-goods-history',restrictForAdmin,exportGoodsHistoryRoutes)
+app.use('/today-menu',restrictForAdmin, todayMenuRoutes);
+app.use('/in-store',restrictForAdmin, inStoreRoutes)
+app.use('/manage-users',restrictForAdmin, getAllUsersInfoRoutes);
+app.use('/add-new-item',restrictForAdmin, addNewItemRoutes);
+app.use('/in-stock',restrictForAdmin, inStockRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');
 })

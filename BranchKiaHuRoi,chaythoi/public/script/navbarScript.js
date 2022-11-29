@@ -67,3 +67,11 @@ $('#menu-icon').click(function(){
 })
 
 
+$('input.search-field').on('keypress', function(event) {
+
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector("button.search-items").click();
+        return false;
+    }
+})

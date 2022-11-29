@@ -58,3 +58,11 @@ $('#sign-up-btn').click((e) => {
     }
 
 });
+$('form').on('keypress', function(event) {
+    // console.log(event);
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("sign-up-btn").click();
+        return false;
+    }
+})
