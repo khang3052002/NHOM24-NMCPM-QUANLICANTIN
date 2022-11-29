@@ -51,6 +51,8 @@ const shoppingCartRoutes = require('./routers/shoppingCartRoutes')
 const todayMenuRoutes=require('./routers/todayMenuRoutes')
 const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
+const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
+
 // const mainRoutes=require('./routes/homeRoutes');
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const stocksRoutes=require('./routes/stockRoutes');
@@ -87,6 +89,9 @@ app.use('/shopping-cart', shoppingCartRoutes)
 app.use('/today-menu',todayMenuRoutes);
 app.use('/in-store',inStoreRoutes)
 app.use('/manage-users',getAllUsersInfoRoutes);
+
+app.use('/payment-momo',momoPaymentRoutes)
+
 app.get('/',(req,res)=>{
    res.redirect('/home');
     // dbConnector.query('SELECT * FROM KHACH_HANG', (error, results) => {
