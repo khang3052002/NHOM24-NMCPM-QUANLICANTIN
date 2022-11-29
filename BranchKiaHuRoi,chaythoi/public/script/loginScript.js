@@ -11,15 +11,7 @@ $("#admin-login-btn").click(() => {
         }
         $(this).removeClass("red-border");
     })
-    if (!$('.form-check-input').attr('checked')) {
-        $('.form-check-input').addClass("red-border");
-        checkFlag = false;
-        return
 
-    }
-    else {
-        $('.form-check-input').removeClass("red-border");
-    }
     if (checkFlag == false) {
         return
     }
@@ -61,15 +53,7 @@ $("#user-login-btn").click(() => {
         }
         $(this).removeClass("red-border");
     })
-    if (!$('.form-check-input').attr('checked')) {
-        $('.form-check-input').addClass("red-border");
-        checkFlag = false;
-        return
 
-    }
-    else {
-        $('.form-check-input').removeClass("red-border");
-    }
     if (checkFlag == false) {
         return
     }
@@ -95,21 +79,6 @@ $("#user-login-btn").click(() => {
 })
 
 
-
-
-$(document).ready(function () {
-    $('.form-check-input').attr('checked', true)
-    $('.form-check-input').click(
-        function () {
-            if ($('.form-check-input').attr('checked')) {
-                $('.form-check-input').removeAttr("checked");
-            }
-            else {
-                $('.form-check-input').attr("checked", '');
-            }
-        }
-    )
-})
 
 $('form').on('keypress', function(event) {
     // console.log(event);
