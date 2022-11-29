@@ -29,9 +29,19 @@
 // });
 
 $(".take-amount").on("change", function () {
-  if ($(this).val() != "") {
-    $(this).removeClass("red-border");
-  }
+  // $(this).addClass('red-border')
+  // if ($(this).val() != "") {
+  //   $(this).removeClass("red-border");
+  // }
+  // if ($(this).val() == "") {
+  //     $(this).addClass('red-border')
+  // }
+  // if(  $(this).siblings('.current-amount') <  $(this).val()){
+  //     $(this).addClass('red-border')
+  // }
+  // else{
+  //   $(this).removeClass('red-border')
+  // }
 });
 
 $("#confirm-btn").click(function () {
@@ -40,34 +50,23 @@ $("#confirm-btn").click(function () {
 
   var checkFlag = true;
   $(".take-amount").each(function () {
-    // checkFlag=true;
-    // if (($(this).val() == "" && $(this).prop('disabled')==false)  ) {
-
-    //   $(this).addClass("red-border");
-    //   checkFlag = false;
-    // }
-    // if (($(this).val() == "" && $(this).prop('disabled')==false)){
-    //   checkFlag = false;
-    // }
-    // if ($(this).val()> $(this).siblings('.current-amount').val() ) {
-    //   $(this).addClass("red-border");
-    //   checkFlag = false;
-    // }
-    // $(this).removeClass("red-border");
     if (
       $(this).val() != "" &&
       $(this).prop("disabled") == false &&
-      $(this).val() > 0
+      $(this).val() > 0 &&
+      $(this).siblings('.current-amount') >=  $(this).val()
     ) {
       idArr.push($(this).siblings(".item-id").attr("id"));
       amountArr.push($(this).val());
     }
+    else{
+      checkFlag=false
+    }
+
   });
-  console.log(amountArr, idArr);
   if (checkFlag == false) {
     return;
   } else {
-    console.log(amountArr, idArr);
     $.ajax({
       method: "post",
       data: {
