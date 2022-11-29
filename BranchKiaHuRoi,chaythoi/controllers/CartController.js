@@ -4,30 +4,36 @@ const dbModel = require('../models/dbHelpers/dbHelpers');
 const getCart = async(req,res)=>
 {
     try {
-        const idUser = req.session.user.id
-        const idCart = req.session.user.cartID
+        if(!(req.session&&req.session.user)){
+            res.redirect('/sign-in')
+        }
+        else{
+            const idUser = req.session.user.id
+            const idCart = req.session.user.cartID
+    
+            var balance = await dbModel.getUserBalance(idUser)
+            console.log(balance[0].so_du)
+            
+            const result = await dbModel.getProductsCart(idCart)
+            var total= 0
+            for(i=0;i<result.length;i++)
+            {
+                total = total + result[i].thanh_tien
+            }
+            // console.log(total)
+            user = {}
+            if (req.session.user) {
+                user = req.session.user
+            }
+            res.render('userShoppingCart',{
+                user:user,
+                arrProduct: result,
+                total: total,
+                showEdit: false,
+                balance: balance[0].so_du
+            })
+        }
 
-        var balance = await dbModel.getUserBalance(idUser)
-        console.log(balance[0].so_du)
-        
-        const result = await dbModel.getProductsCart(idCart)
-        var total= 0
-        for(i=0;i<result.length;i++)
-        {
-            total = total + result[i].thanh_tien
-        }
-        // console.log(total)
-        user = {}
-        if (req.session.user) {
-            user = req.session.user
-        }
-        res.render('userShoppingCart',{
-            user:user,
-            arrProduct: result,
-            total: total,
-            showEdit: false,
-            balance: balance[0].so_du
-        })
     } catch (error) {
         console.log(error)
     }

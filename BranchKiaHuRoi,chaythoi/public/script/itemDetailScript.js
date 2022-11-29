@@ -10,6 +10,16 @@ $('#add-to-cart').click(function()
         data: {id: id,quantity:quantity,name:name},
         success: function(data)
         {
+          console.log('hhaha',data.name)
+          if(data.name==false){
+            $('.noti-content').html('Vui lòng đăng nhập')
+            $('.pop-up').removeClass('hidden')
+            $('.fa-window-close').click(
+              function(){
+                window.location.href='http://localhost:3000/sign-in'
+              }
+            )
+          }else{
             console.log(data.name)
             if(data.name){
                 $('.noti-content').html(`Thêm mặt hàng thành công. <br>Chi tiết: ${data.name} - Số lượng: ${quantity}`)
@@ -19,6 +29,8 @@ $('#add-to-cart').click(function()
               }
             console.log(data)
             $('.pop-up').removeClass('hidden')
+          }
+
 
         }
     })
