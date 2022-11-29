@@ -2,6 +2,28 @@ $("#admin-login-btn").click(() => {
     // preparedData=$('#admin-login-form').serialize();
     // console.log(preparedData)
     // finalData=preparedData["role"]='admin';
+    var checkFlag=true;
+    $('.admin-input-field').each(function () {
+        if ($(this).val() == "") {
+            $(this).addClass("red-border");
+            checkFlag = false;
+            return;
+        }
+        $(this).removeClass("red-border");
+    })
+    if (!$('.form-check-input').attr('checked')) {
+        $('.form-check-input').addClass("red-border");
+        checkFlag = false;
+        return
+
+    }
+    else {
+        $('.form-check-input').removeClass("red-border");
+    }
+    if (checkFlag == false) {
+        return
+    }
+    console.log('yes')
     var ajax1 = $.ajax({
         type: 'post',
         url: `/sign-in`,
@@ -30,6 +52,27 @@ $("#user-login-btn").click(() => {
     // // console.log(preparedData)
     // finalData=preparedData+'&role=user';
     // console.log(finalData)
+    var checkFlag=true;
+    $('.input-field').each(function () {
+        if ($(this).val() == "") {
+            $(this).addClass("red-border");
+            checkFlag = false;
+            return;
+        }
+        $(this).removeClass("red-border");
+    })
+    if (!$('.form-check-input').attr('checked')) {
+        $('.form-check-input').addClass("red-border");
+        checkFlag = false;
+        return
+
+    }
+    else {
+        $('.form-check-input').removeClass("red-border");
+    }
+    if (checkFlag == false) {
+        return
+    }
     var ajax1 = $.ajax({
         type: 'post',
         url: `/sign-in`,
@@ -50,3 +93,21 @@ $("#user-login-btn").click(() => {
         }
     })
 })
+
+
+
+
+$(document).ready(function () {
+    $('.form-check-input').attr('checked', true)
+    $('.form-check-input').click(
+        function () {
+            if ($('.form-check-input').attr('checked')) {
+                $('.form-check-input').removeAttr("checked");
+            }
+            else {
+                $('.form-check-input').attr("checked", '');
+            }
+        }
+    )
+})
+
