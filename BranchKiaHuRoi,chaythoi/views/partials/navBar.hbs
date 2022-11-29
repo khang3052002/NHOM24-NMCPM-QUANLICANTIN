@@ -13,13 +13,16 @@
                         <a href="/manage-users">Quản lí khách hàng</a>
                         <a href="/today-menu">Chỉnh sửa thực đơn</a>
                         <a href="/export-goods">Chuyển hàng đến canteen</a>
+                        <a href="/in-store">Quản lí kho</a>
+                        <a href="/in-stock">Quản lí hàng trong canteen</a>
+                        
                         {{/ifCond}}
 
                         {{#ifCond (getJSONLen user) '!=' 3}}
-                        <a href="/import-goods-history">Đồ uống</a>
-                        <a href="#">Đồ ăn vặt</a>
-                        <a href="#">Dụng cụ học tập</a>
-                        <a href="#">Đồ ăn chính</a>
+                        <a href="/search-goods?category=TYNU">Đồ uống</a>
+                        <a href="/search-goods?category=TYDAV">Đồ ăn vặt</a>
+                        <a href="/search-goods?category=TYDCHT">Dụng cụ học tập</a>
+                        <a href="/search-goods?category=DAC">Đồ ăn chính</a>
                         {{/ifCond}}
 
                     </div>
@@ -55,20 +58,22 @@
                                         <input type="search"
                                             placeholder="Tìm kiếm thức ăn, nước uống, văn phòng phẩm,..."
                                             aria-describedby="button-addon1"
-                                            class="rounded rounded-pill form-control border-0 bg-light" id="search-key">
+                                            class="rounded rounded-pill form-control border-0 bg-light user-search-field"
+                                            id="search-key">
                                         <div class="input-group-append">
                                             <button id="search-product-btn" type="submit"
                                                 class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                                         </div>
+
                                     </div>
                                     {{/ifCond}}
 
                                     {{#ifCond (getJSONLen user) '==' 3}}
                                     <div class="input-group">
-                                        <input type="search"
-                                            placeholder="Tìm kiếm đơn hàng,..."
+                                        <input type="search" placeholder="Tìm kiếm đơn hàng,..."
                                             aria-describedby="button-addon1"
-                                            class="rounded rounded-pill form-control border-0 bg-light" id="search-key">
+                                            class="rounded rounded-pill form-control border-0 bg-light "
+                                            id="search-key">
                                         <div class="input-group-append">
                                             <button id="search-product-btn" type="submit"
                                                 class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
@@ -118,7 +123,8 @@
                                         <ul class="dropdown-menu dropdown-menu-lg-end">
                                             <li><a href="/get-user-info"><button id="user-profile" class="dropdown-item"
                                                         type="button">Doanh thu hôm nay</button></li></a>
-                                            <li><button class="dropdown-item" id="shopping-cart" type="button">Doanh thu tháng</button></li>
+                                            <li><button class="dropdown-item" id="shopping-cart" type="button">Doanh thu
+                                                    tháng</button></li>
                                             <li><button id="user-balance" class="dropdown-item" type="button"></button>
                                             </li>
                                             <li><button class="dropdown-item" type="button">Tổng tiền nhập hàng</button>

@@ -4,11 +4,11 @@ var totalPage=0
 var currentPage=0
 
 const loadHistory = async (req, res, next) => {
+  user={}
+  if(req.session.user){
+      user=req.session.user;
+  }
   try {
-    user = {};
-    if (req.session.user) {
-      user = req.session.user;
-    }
 
     if(req.query.page){
       if(req.query.page!=""){
@@ -87,7 +87,10 @@ const loadHistory = async (req, res, next) => {
     }
     // console.log(preparedArr)
   } catch (err) {
-    console.log(err.message)
+    res.render('errorPage',{
+      user:user,
+      message:err.message
+  })
   }
 };
 

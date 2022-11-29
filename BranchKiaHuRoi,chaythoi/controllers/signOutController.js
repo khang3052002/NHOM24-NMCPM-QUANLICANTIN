@@ -1,9 +1,10 @@
 const signOut=(req,res,next)=>{
+    user={}
+    if(req.session.user){
+        user=req.session.user;
+    }
+    
     try{
-        user={}
-        if(req.session.user){
-            user=req.session.user;
-        }
         msg='Bạn đã đăng xuất thành công'
         if (req.session) {
             req.session.destroy(error => {

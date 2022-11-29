@@ -60,3 +60,5 @@ $('#close-nav-btn').click(function(){
 $('#menu-icon').click(function(){
     openNav()
 })
+
+
