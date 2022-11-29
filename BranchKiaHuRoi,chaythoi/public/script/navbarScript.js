@@ -15,13 +15,18 @@ $('#user-avatar-btn').click(()=>{
         type: 'post',
         url: `/get-user-info`,
         success: function (data) {
-            $('#user-balance').html('Số dư tài khoản: '+`${data[0].so_du}`);
+            var value = convertToVND(data[0].so_du)
+            $('#user-balance').html('Số dư tài khoản: '+ value);
             // $('#user-avatar-img').attr('src',`${data[0].img_url}`);
         }
     })
 })
 
+function convertToVND(value) {
+    value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
+    return value
+}
 
 $('#search-product-btn').click(function(e)
 {
