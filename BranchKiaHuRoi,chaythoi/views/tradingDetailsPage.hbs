@@ -1,27 +1,5 @@
 <body>
-    <link rel="stylesheet" href="css/importGoodsHistoryStyle.css" />
-
-    <div class="container">
-        <div class="records-container">
-            <h3>
-                Lịch sử nhập hàng
-            </h3>
-            <div class="input-group receipt-search">
-                <input type="search" placeholder="Tìm kiếm đơn theo mã" aria-describedby="button-addon1"
-                    class="rounded rounded-pill form-control border-0 bg-light" id="search-rec-id" value="">
-                <div class="input-group-append">
-                    <button id="search-receipt-btn" type="button" class="btn btn-link text-primary"><i
-                            class="fa fa-search"></i></button>
-                </div>
-            </div>
-            <a href="/import-goods">
-                <div class="add-new-rec btn btn-primary">
-                    Thêm đơn hàng
-                    <i class="fa-solid fa-plus"></i>
-                </div>
-            </a>
-
-            <div class="accordion" id="accordionExample">
+  <div class="accordion" id="accordionExample">
                 {{#each transactionsList as |parentList|}}
                 {{index}}
                 <div class="accordion-item">
@@ -69,20 +47,4 @@
                 </div>
                 {{/each}}
             </div>
-        </div>
-
-        <nav class="pagination-div" aria-label="Page navigation example">
-            <ul class="pagination">
-                {{#times totalPage}}
-                <li class="page-item page-number {{#ifCond  ../currentPage  '==' this }}active{{/ifCond}}">
-                    <a class="page-link" href="?page={{this}}">{{this}}</a>
-                </li>
-                {{/times}}
-            </ul>
-        </nav>
-
-    </div>
-    <script src="script/importGoodsHistoryScript.js"></script>
 </body>
-
-</html>
