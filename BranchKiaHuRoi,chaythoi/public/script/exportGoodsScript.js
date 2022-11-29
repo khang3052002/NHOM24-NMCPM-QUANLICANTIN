@@ -55,11 +55,13 @@ $("#confirm-btn").click(function () {
       $(this).prop("disabled") == false &&
       $(this).val() > 0 &&
       $(this).siblings('.current-amount') >=  $(this).val()
+      
     ) {
       idArr.push($(this).siblings(".item-id").attr("id"));
       amountArr.push($(this).val());
     }
     else{
+      $(this).addClass('red-border')
       checkFlag=false
     }
 
