@@ -16,11 +16,11 @@ const myCSLog = (x) => {
 }
 
 const customDate = (date) => {
-    return (moment(date).format('D MMM YYYY, h:mm:ss A'));
+    return (moment(date).format('YYYY-MM-DD, h:mm:ss A'));
 }
 
 const customDateWOTime = (date) => {
-    return (moment(date).format('D MMM YYYY'));
+    return (moment(date).format('YYYY-MM-DD'));
 }
 const getJSONLen = (jObject) => {
     return Object.keys(jObject).length
