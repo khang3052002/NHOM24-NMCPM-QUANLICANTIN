@@ -76,12 +76,12 @@ const processPaymentResult = async (req, res) => {
         // NƠI LƯU KQ THANH TOÁN VÀO DATABASE
         data = req.body
         // res.send(data)
-        console.log(data)
+        // console.log(data)
 
-        console.log('da send')
+        // console.log('da send')
 
     }
-    console.log('arr: ', arr)
+    // console.log('arr: ', arr)
     res.send(data)
 }
 module.exports = {

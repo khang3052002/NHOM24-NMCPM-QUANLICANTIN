@@ -242,13 +242,13 @@ const getGoodSearchInfo = async (key) => {
 const searchByCategory = async (category) => {
   try {
     var res
-    if(category=='TYNU' || category=='TYDCHT' || category=='TYDAV'){
+    if (category == 'TYNU' || category == 'TYDCHT' || category == 'TYDAV') {
       res = await dbConnector.query(`select slh.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia_ban_ra, mh.img_url
       from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and mh.ma_loai_hang = '${category}'
      `)
     }
     else {
-      res=await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`)
+      res = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`)
     }
     console.log(res)
     return res.rows
@@ -270,14 +270,25 @@ const getProductsCart = async (idCart) => {
   try {
     var arrRes = ''
     console.log(idCart)
-    const resFoods = await dbConnector.query(`select distinct ma.ma_mon_an as id, ma.ten_mon_an as ten, giohang.so_luong, ma.gia_ban, (giohang.so_luong*ma.gia_ban)as thanh_tien 
-      from mon_an ma, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
-      ) as giohang where ma.ma_mon_an = giohang.ma_mat_hang`)
+
+    // const resFoods = await dbConnector.query(`select distinct ma.ma_mon_an as id, ma.ten_mon_an as ten, giohang.so_luong, ma.gia_ban, (giohang.so_luong*ma.gia_ban)as thanh_tien 
+    //   from mon_an ma, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
+    //   ) as giohang where ma.ma_mon_an = giohang.ma_mat_hang`)
+
+    const resFoods = await dbConnector.query(`select distinct ma.ma_mon_an as id, ma.ten_mon_an as ten, giohang.so_luong, tatk.so_luong as so_luong_hang , ma.gia_ban, (giohang.so_luong*ma.gia_ban)as thanh_tien 
+    from mon_an ma, thuc_an_trong_kho tatk, (select ctgh.ma_mat_hang, ctgh.so_luong from  chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
+    ) as giohang where ma.ma_mon_an = giohang.ma_mat_hang and tatk.ma_mon_an = giohang.ma_mat_hang
+`)
+    
+    // const resProduct = await dbConnector.query(`
+    //   select distinct mh.ma_mat_hang as id, mh.ten_mat_hang as ten, giohang.so_luong, slhct.gia_ban_ra as gia_ban, (giohang.so_luong*slhct.gia_ban_ra) as thanh_tien from sl_hang_canteen slhct, mat_hang mh, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
+    //   ) as giohang where giohang.ma_mat_hang = mh.ma_mat_hang and slhct.ma_mat_hang = giohang.ma_mat_hang
+    //   `)
+
 
     const resProduct = await dbConnector.query(`
-      select distinct mh.ma_mat_hang as id, mh.ten_mat_hang as ten, giohang.so_luong, slhct.gia_ban_ra as gia_ban, (giohang.so_luong*slhct.gia_ban_ra) as thanh_tien from sl_hang_canteen slhct, mat_hang mh, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
-      ) as giohang where giohang.ma_mat_hang = mh.ma_mat_hang and slhct.ma_mat_hang = giohang.ma_mat_hang
-      `)
+    select distinct mh.ma_mat_hang as id, mh.ten_mat_hang as ten, giohang.so_luong,slhct.so_luong as so_luong_hang, slhct.gia_ban_ra as gia_ban, (giohang.so_luong*slhct.gia_ban_ra) as thanh_tien from sl_hang_canteen slhct, mat_hang mh, (select ctgh.ma_mat_hang, ctgh.so_luong from chi_tiet_gio_hang ctgh, khach_hang kh where ctgh.id_gio_hang = '${idCart}'
+          ) as giohang where giohang.ma_mat_hang = mh.ma_mat_hang and slhct.ma_mat_hang = giohang.ma_mat_hang`)
     // console.log('Cac mon ne',resFoods.rows)
     arrRes = resFoods.rows.concat(resProduct.rows)
     console.log(arrRes)
@@ -296,7 +307,7 @@ const updateTodayFood = async menu => {
   }
 }
 
-const getAllFood=async()=>{
+const getAllFood = async () => {
   try {
     const res = await dbConnector.query(`SELECT * FROM  MON_AN`);
     return res.rows;
@@ -322,13 +333,19 @@ const setUserBalance = async user => {
     return error
   }
 }
+
+// const setUsersBalance = async users => {
+//   for (var i = 0; i < users.length; i++) {
+//     await setUserBalance(users[i]);
+//   }
+
 const setUsersBalance = async users => {
   try{
     var res
     for (var i = 1; i < users.length; i++) {
-      const res=await setUserBalance(users[i]);
+        res=await setUserBalance(users[i]);
     }
-    return res.rows
+    return res
   }
   catch(err){
     return err
@@ -367,21 +384,21 @@ const editCart = async (idUser, strQuery) => {
   }
 }
 
-const deleteProductInStore=async(id,date)=>{
-  try{
-    console.log(id,date)
+const deleteProductInStore = async (id, date) => {
+  try {
+    console.log(id, date)
     const res = await dbConnector.query(`call xoaHangTrongKho('${id}','${date}')`)
     return res
-  }catch(err){
+  } catch (err) {
     return err
   }
 }
-const deleteProductInCanteen=async(id,date)=>{
-  try{
-    console.log(id,date)
+const deleteProductInCanteen = async (id, date) => {
+  try {
+    console.log(id, date)
     const res = await dbConnector.query(`call xoaHangCanteen('${id}','${date}')`)
     return res
-  }catch(err){
+  } catch (err) {
     return err
   }
 }
@@ -414,6 +431,26 @@ const addNewFood=async(ten_mon_an,gia_ban,img_url)=>{
     return err.message
   }
 }
+const createOrder = async (idUser, strQuery) => {
+  try {
+    console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
+    const res = await dbConnector.query(`call themdonhang('${idUser}',${strQuery})`)
+    // console.log(res)
+    // return 1
+    return res
+  } catch (error) {
+    return error.message
+  }
+}
+const getUserBalance = async (idUser)=>
+{
+  try {
+    const res = await dbConnector.query(`select so_du from khach_hang where id = '${idUser}'`)
+    return res.rows
+  } catch (error) {
+    return error
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -436,7 +473,7 @@ module.exports = {
   getPopularItems,
   getAllUserInfo,
   setUserBalance,
-  setUsersBalance,
+  
   getAllExportReCeiptID,
   getExportReCeiptInfo,
   getExportReCeiptsByID,
@@ -450,6 +487,9 @@ module.exports = {
   searchByCategory,
   getAllGoodCategory,
   addNewGood,
-  addNewFood
+  addNewFood,
+  createOrder,
+  setUsersBalance,
+  getUserBalance
 
 };
