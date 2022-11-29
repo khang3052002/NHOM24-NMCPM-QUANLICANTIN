@@ -1,19 +1,30 @@
-$("#admin-login-btn").click(()=>{
+$("#admin-login-btn").click(() => {
     // preparedData=$('#admin-login-form').serialize();
     // console.log(preparedData)
     // finalData=preparedData["role"]='admin';
     var ajax1 = $.ajax({
         type: 'post',
         url: `/sign-in`,
-        data: $('#admin-login-form').serialize()+'&role=admin',
+        data: $('#admin-login-form').serialize() + '&role=admin',
         success: function (data) {
-            
-           
+            if (data) {
+                $('.noti-content').html(`${data}`)
+                if (data.includes('thành công')) {
+                    setTimeout(function () {
+                        window.location.href = '/';
+                    }, 800)
+                }
+            }
+            else {
+                $('.noti-content').html(data)
+            }
+            $('.pop-up').removeClass('hidden')
+
         }
     })
 })
 
-$("#user-login-btn").click(()=>{
+$("#user-login-btn").click(() => {
 
     // preparedData=$('#user-login-form').serialize();
     // // console.log(preparedData)
@@ -22,20 +33,20 @@ $("#user-login-btn").click(()=>{
     var ajax1 = $.ajax({
         type: 'post',
         url: `/sign-in`,
-        data: $('#user-login-form').serialize()+'&role=user',
+        data: $('#user-login-form').serialize() + '&role=user',
         success: function (data) {
-            if(data){
+            if (data) {
                 $('.noti-content').html(`${data}`)
-                if(data.includes('thành công')){
-                    setTimeout(function(){
-                        window.location.href='/';
+                if (data.includes('thành công')) {
+                    setTimeout(function () {
+                        window.location.href = '/';
                     }, 800)
                 }
-              }
-              else{
+            }
+            else {
                 $('.noti-content').html(data)
-              }
-              $('.pop-up').removeClass('hidden')
+            }
+            $('.pop-up').removeClass('hidden')
         }
     })
 })
