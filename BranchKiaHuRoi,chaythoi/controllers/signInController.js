@@ -15,6 +15,7 @@ const authentication = async (req, res, next) => {
         var username = req.body.username;
         var password = req.body.password;
         var role = req.body.role;
+        console.log(req.body)
         user = {
             username: username,
             password: password
@@ -52,7 +53,7 @@ const authentication = async (req, res, next) => {
         }
       
     } catch (err) {
-        console.log(err)
+        res.send(err.message);
     }
 }
 module.exports = {

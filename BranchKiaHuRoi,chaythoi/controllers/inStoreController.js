@@ -1,11 +1,11 @@
 const dbModel = require('../models/dbHelpers/dbHelpers');
 const moment = require('moment')
 loadStorePage= async (req,res,next)=>{
+    user={}
+    if(req.session.user){
+        user=req.session.user;
+    }
     try{
-        var user={}
-        if(req.session.user){
-            user=req.session.user
-        }
         if(req.query.section=='details'){
             const productDetails=await dbModel.getCurrentStorageDetails();
             // console.log(productDetails)
@@ -24,7 +24,10 @@ loadStorePage= async (req,res,next)=>{
         }
 
     }catch(err){
-        console.log(err)
+        res.render('errorPage',{
+            user:user,
+            message:err.message
+        })
     }
 }
 

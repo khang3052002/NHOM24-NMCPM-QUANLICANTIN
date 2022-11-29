@@ -22,8 +22,13 @@ const customDate = (date) => {
 const customDateWOTime = (date) => {
     return (moment(date).format('YYYY-MM-DD'));
 }
-const getJSONLen = (jObject) => {
-    return Object.keys(jObject).length
+const getJSONLen = (jObject) => { 
+    try {
+        var a=Object.keys(jObject).length
+        return a
+    }
+    catch(err){
+    }
 }
 const getRemainder = (x, c) => {
     return x % c;
