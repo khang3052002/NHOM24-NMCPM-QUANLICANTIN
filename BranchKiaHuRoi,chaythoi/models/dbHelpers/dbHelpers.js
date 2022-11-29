@@ -326,9 +326,9 @@ const setUsersBalance = async users => {
   try{
     var res
     for (var i = 1; i < users.length; i++) {
-      const res=await setUserBalance(users[i]);
+        res=await setUserBalance(users[i]);
     }
-    return res.rows
+    return res
   }
   catch(err){
     return err
