@@ -10,15 +10,16 @@ const loadPage=async(req,res,next)=>{
         allGoods=await dbModel.getAllGoods()
         if(allGoods.rows){
             allGoods=allGoods.rows
-            res.render('importGoodsPage',{user:user,goodsList:allGoods})
+            res.render('importGoodsPage',{title:'Nhập sản phẩm',user:user,goodsList:allGoods})
         }
         else{
-            res.render('importGoodsPage',{user:user,message:allGoods})
+            res.render('importGoodsPage',{title:'Nhập sản phẩm',user:user,message:allGoods})
         }
        
     }
     catch(err){
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:err.message
         })

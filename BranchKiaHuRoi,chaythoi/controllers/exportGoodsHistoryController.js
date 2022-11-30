@@ -82,6 +82,7 @@ const loadHistory = async (req, res, next) => {
       }
       if (preparedArr.length > 0) {
         res.render("exportGoodsHistoryPage", {
+          title:'Lịch sử xuất sản phẩm',
           user: user,
           transactionsList: preparedArr,
           totalPage: totalPage,
@@ -89,6 +90,7 @@ const loadHistory = async (req, res, next) => {
         });
       } else {
         res.render("exportGoodsHistoryPage", {
+          title:'Lịch sử xuất sản phẩm',
           user: user,
           transactionsList: preparedArr,
         });
@@ -96,12 +98,14 @@ const loadHistory = async (req, res, next) => {
     }
     else{
       res.render("exportGoodsHistoryPage", {
+        title:'Lịch sử xuất sản phẩm',
         user: user,
         message:receiptIDArr,
       });
     }
   } catch (err) {
     res.render("errorPage", {
+      title:'Lỗi',
       user: user,
       message: err.message,
     });

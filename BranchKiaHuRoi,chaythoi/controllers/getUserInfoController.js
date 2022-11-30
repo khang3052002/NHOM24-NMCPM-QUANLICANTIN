@@ -8,7 +8,14 @@ const loadUserProfile=async(req,res,next)=>{
         }
         var userInfo;
         userInfo =await dbModel.getUserInfo(req.session.user.id);
-        res.render('userProfilePage',{user:user,info:userInfo[0]})
+        if(userInfo.rows){
+            userInfo=userInfo.rows;
+            res.render('userProfilePage',{title:'Trang cá nhân',user:user,info:userInfo[0]})
+        }
+        else{
+            res.render('userProfilePage',{title:'Trang cá nhân',user:user,message:userInfo[0]})
+        }
+
     }catch(err){
         console.log(err);
     }
@@ -16,8 +23,16 @@ const loadUserProfile=async(req,res,next)=>{
 const getUserInfo=async(req,res,next)=>{
     try{
         var userInfo;
+        console.log(req.session.user.id)
         userInfo =await dbModel.getUserInfo(req.session.user.id);
-        res.send(userInfo)
+        console.log('value',userInfo)
+        if(userInfo.rows){
+     
+            res.send(userInfo.rows)
+        }else{
+            res.send(userInfo)
+        }
+   
     }catch(err){
         console.log(err);
     }
@@ -31,6 +46,7 @@ const updateUser=async(req,res,next)=>{
         var res = await dbModel.updateUserInfo(idUser,name,email,phone)
     } catch (error) {
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:error.message
         })

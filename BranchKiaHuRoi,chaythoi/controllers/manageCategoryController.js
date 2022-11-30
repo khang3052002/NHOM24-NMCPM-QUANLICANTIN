@@ -19,6 +19,7 @@ const loadPage = async (req, res) => {
         
         res.render('categoryPage',
         {
+            title:category,
             user: user,
             key: category,
             arrResult : result,
@@ -27,6 +28,7 @@ const loadPage = async (req, res) => {
 
     } catch (error) {
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:error.message
         })

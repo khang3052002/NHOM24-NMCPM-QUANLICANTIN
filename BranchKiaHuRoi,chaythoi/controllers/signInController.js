@@ -3,7 +3,7 @@ const CryptoJS = require("crypto-js");
 const hashLength = 64;
 const loadSignInPage = async (req, res, next) => {
   try {
-    res.render("signInPage", { user: {} });
+    res.render("signInPage", {title:'Đăng nhập', user: {} });
   } catch (err) {
     next();
   }

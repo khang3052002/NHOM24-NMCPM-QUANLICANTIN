@@ -9,7 +9,7 @@ const loadPage = async(req,res)=>
             user=req.session.user
         }
         goodCategory=await dbModel.getAllGoodCategory()
-        res.render('addNewItemPage',{user:user,goodsCategory:goodCategory})
+        res.render('addNewItemPage',{title:'Thêm sản phẩm', user:user,goodsCategory:goodCategory})
     } catch (error) {
         console.log(error)
     }

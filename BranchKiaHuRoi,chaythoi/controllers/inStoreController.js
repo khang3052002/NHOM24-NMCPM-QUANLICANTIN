@@ -7,24 +7,48 @@ loadStorePage= async (req,res,next)=>{
     }
     try{
         if(req.query.section=='details'){
-            const productDetails=await dbModel.getCurrentStorageDetails();
-            // console.log(productDetails)
-            res.render('inStoreDetailsPage',{
-                user:user,
-                product:productDetails
-            })
+            var productDetails=await dbModel.getCurrentStorageDetails();
+            if(productDetails.rows){
+                productDetails=productDetails.rows
+
+                res.render('inStoreDetailsPage',{
+                    title:'Hàng trong kho',
+                    user:user,
+                    product:productDetails
+                })
+            }
+            else{
+                res.render('inStoreDetailsPage',{
+                    title:'Hàng trong kho',
+                    user:user,
+                    message:productDetails
+                })
+            }
         }
         else{
-            const product=await dbModel.getCurrentStorage();
+            var product=await dbModel.getCurrentStorage();
+            if(product.rows){
+                product=product.rows
+                res.render('inStorePage',{
+                    title:'Hàng trong kho',
+                    user:user,
+                    product:product
+                })
+            }
+            else{
+                res.render('inStorePage',{
+                    title:'Hàng trong kho',
+                    user:user,
+                    message:product
+                })
+            }
             // console.log(product)
-            res.render('inStorePage',{
-                user:user,
-                product:product
-            })
+
         }
 
     }catch(err){
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:err.message
         })

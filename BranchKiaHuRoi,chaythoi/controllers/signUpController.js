@@ -7,9 +7,10 @@ const loadSignUpPage = async (req, res, next) => {
     user = req.session.user;
   }
   try {
-    res.render("signUpPage", { user: user });
+    res.render("signUpPage", { title:'Đăng kí',user: user });
   } catch (err) {
     res.render('errorPage',{
+         title:'Lỗi',
         user:user,
         message:err.message
     })

@@ -1,4 +1,9 @@
 count = 2;
+function convertToVND(value) {
+  value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+
+  return value
+}
 $(".add-new-line").click(function () {
   var clone = $("#row-1").clone();
   clone.attr("id", `row-${count}`);
@@ -39,6 +44,7 @@ $(".add-new-line").click(function () {
         if (data[0].so_luong && data[0].gia_ban_ra) {
           sl = data[0].so_luong;
           gia = data[0].gia_ban_ra;
+          gia=convertToVND(gia)
           clone.siblings(".price-field").val(gia);
           clone.siblings(".remain-amount-field").val(sl);
         }
@@ -126,6 +132,7 @@ $(".category-field").on("change", function (e) {
       if (data[0].so_luong && data[0].gia_ban_ra) {
         sl = data[0].so_luong;
         gia = data[0].gia_ban_ra;
+        gia=convertToVND(gia)
         clone.siblings(".price-field").val(gia);
         clone.siblings(".remain-amount-field").val(sl);
       }

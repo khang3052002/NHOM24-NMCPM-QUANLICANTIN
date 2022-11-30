@@ -18,10 +18,11 @@ const getGoods = async (req, res) => {
         if(req.query.category && !req.query.key){
             category = req.query.category
 
-            const result = await dbModel.searchByCategory(category)
-           
+            var result = await dbModel.searchByCategory(category)
+            result=result.rows
             res.render('searchGoodsResultPage',
             {
+                title:category,
                 user: user,
                 key: category,
                 arrResult : result
@@ -30,10 +31,13 @@ const getGoods = async (req, res) => {
         }
         else{
             const result = await dbModel.getGoodSearchInfo(key)
-            if(result.rows){
-                result=result.rows
+            // console.log(result);
+            if(Array.isArray(result)){
+                // result=result.rows
+                console.log(result)
                 res.render('searchGoodsResultPage',
                 {
+                    title:category,
                     user: user,
                     key: key,
                     arrResult : result
@@ -42,6 +46,7 @@ const getGoods = async (req, res) => {
             else{
                 res.render('searchGoodsResultPage',
                 {
+                    title:category,
                     user: user,
                     key: key,
                     message:result
@@ -54,6 +59,7 @@ const getGoods = async (req, res) => {
 
     } catch (error) {
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:error.message
         })

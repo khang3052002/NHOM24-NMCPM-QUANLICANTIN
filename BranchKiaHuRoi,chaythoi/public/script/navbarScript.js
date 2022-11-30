@@ -13,9 +13,10 @@ $('.sign-in-btn').click(()=>{
 $('#user-avatar-btn').click(()=>{
     var ajax1 = $.ajax({
         type: 'post',
-        url: `/get-user-info`,
+        url: `/user-profile`,
         success: function (data) {
             var value = convertToVND(data[0].so_du)
+            console.log(data[0])
             $('#user-balance').html('Số dư tài khoản: '+ value);
             // $('#user-avatar-img').attr('src',`${data[0].img_url}`);
         }
@@ -23,9 +24,14 @@ $('#user-avatar-btn').click(()=>{
 })
 
 function convertToVND(value) {
-    value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+    try{
+        value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
-    return value
+        return value
+    }catch(err){
+        return value
+    }
+
 }
 
 $('#search-product-btn').click(function(e)
@@ -86,4 +92,7 @@ $('#recharge-btn').click(function(e)
 $('#search-receipt-btn').click(function(){
     window.location.href = `/trading-details?id=${$('#search-id-key').val()}`
     
+})
+$('#cart-history-btn').click(function(){
+    window.location.href='/tradings-history'
 })

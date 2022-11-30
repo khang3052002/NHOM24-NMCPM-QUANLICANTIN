@@ -62,6 +62,9 @@ const tradingHistoryRoutes=require('./routers/tradingHisRoutes')
 const manageCategoryRoutes=require('./routers/manageCategoryRoutes')
 const createBillRoutes=require('./routers/createBillRoutes')
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
+const dailyTurnoverRoutes=require('./routers/dailyTurnoverRoutes')
+const monthlyTurnoverRoutes=require('./routers/monthlyTurnoverRoutes')
+const inStockFoodRoutes=require('./routers/inStockFoodRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
 // const productDetailsRoutes = require('./routes/productDetailsRoutes');
@@ -94,9 +97,9 @@ app.use('/item-detail',restrictForNonAdmin, itemDetailRoutes)
 //user routes
 app.use('/shopping-cart',restrictForNonAdmin, shoppingCartRoutes)
 app.use('/payment-momo',restrictForUser,momoPaymentRoutes)
-app.use('/get-user-info',restrictForUser,getUserInfoRoutes)
+app.use('/user-profile',restrictForUser,getUserInfoRoutes)
 app.use('/recharge',restrictForUser,rechargeRoutes)
-
+app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
 //admin routes
 app.use('/import-goods',restrictForAdmin,importGoodsRoutes)
 app.use('/import-goods-history',restrictForAdmin,importGoodsHistoryRoutes)
@@ -107,12 +110,13 @@ app.use('/in-store',restrictForAdmin, inStoreRoutes)
 app.use('/manage-users',restrictForAdmin, getAllUsersInfoRoutes);
 app.use('/add-new-item',restrictForAdmin, addNewItemRoutes);
 app.use('/in-stock',restrictForAdmin, inStockRoutes)
-app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
-
-app.use('/tradings-history', tradingHistoryRoutes)
-app.use('/trading-details', tradingDetailsRoutes)
-app.use('/manage-category', manageCategoryRoutes)
-app.use('/create-new-bill',createBillRoutes)
+app.use('/tradings-history',restrictForAdmin, tradingHistoryRoutes)
+app.use('/trading-details',restrictForAdmin, tradingDetailsRoutes)
+app.use('/manage-category',restrictForAdmin, manageCategoryRoutes)
+app.use('/create-new-bill',restrictForAdmin,createBillRoutes)
+app.use('/daily-turnover',restrictForAdmin, dailyTurnoverRoutes)
+app.use('/monthly-turnover',restrictForAdmin,monthlyTurnoverRoutes)
+app.use('/food-stock',inStockFoodRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');
 })

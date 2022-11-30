@@ -9,6 +9,7 @@ const loadTodayMenuPage=async(req,res,next)=>{
         var todayMenu=await dbModel.getTodayFood();
         var foodList=await dbModel.getAllFood();
         res.render('todayMenuPage',{
+            title:'Menu hôm nay',
             user:user,
             todayMenu:todayMenu,
             foodList:foodList
@@ -16,6 +17,7 @@ const loadTodayMenuPage=async(req,res,next)=>{
         
     }catch(err){
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:err.message
         })

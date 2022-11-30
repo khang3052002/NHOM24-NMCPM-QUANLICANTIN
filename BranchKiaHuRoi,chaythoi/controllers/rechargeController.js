@@ -58,6 +58,6 @@ const getIndex = (req, res) => {
     if (req.session.user) {
         user = req.session.user
     }
-    res.render('rechargePage', { user: user })
+    res.render('rechargePage', { title:'Nạp tiền vào tài khoản',user: user })
 }
 module.exports = { addBalance, getIndex }

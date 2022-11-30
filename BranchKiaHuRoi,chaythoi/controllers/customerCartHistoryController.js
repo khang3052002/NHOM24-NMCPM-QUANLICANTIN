@@ -82,7 +82,7 @@ const loadHistory = async (req, res, next) => {
     console.log('haha',user,user,totalPage,currentPage)
     if (preparedArr.length > 0) {
       res.render("customerCartHistoryPage", {
-  
+        title:'Lịch sử mua hàng',
         user: user,
         transactionsList: preparedArr,
         totalPage: totalPage,
@@ -90,6 +90,7 @@ const loadHistory = async (req, res, next) => {
       });
     } else {
       res.render("customerCartHistoryPage", {
+        title:'Lịch sử mua hàng',
         user: user,
         transactionsList: preparedArr,
       });
@@ -98,6 +99,7 @@ const loadHistory = async (req, res, next) => {
   } catch (err) {
     console.log(err)
     res.render('errorPage', {
+      title:'Lỗi',
       user: user,
       message: err.message
     })

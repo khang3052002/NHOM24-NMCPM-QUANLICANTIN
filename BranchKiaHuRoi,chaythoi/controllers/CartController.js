@@ -26,6 +26,7 @@ const getCart = async(req,res)=>
                 user = req.session.user
             }
             res.render('userShoppingCart',{
+                title:'Giỏ hàng',
                 user:user,
                 arrProduct: result,
                 total: total,

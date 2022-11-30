@@ -8,6 +8,7 @@ const loadAllUserInfoPage=async(req,res,next)=>{
         }
         var allUserInfo=await dbModel.getAllUserInfo();
         res.render('allUserInfoPage',{
+            title:'Thông tin người dùng',
             users: allUserInfo,
             user:user
         })

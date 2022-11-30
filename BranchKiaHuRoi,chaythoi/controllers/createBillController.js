@@ -19,12 +19,13 @@ const loadPage = async (req, res, next) => {
       }
 
       allGoods = currentCanteen.concat(todayFood);
-      res.render("createBillPage", { user: user, goodsList: allGoods });
+      res.render("createBillPage", { title:'Tạo hóa đơn', user: user, goodsList: allGoods });
     } else {
-      res.render("createBillPage", { user: user, message: "Đã xảy ra lỗi" });
+      res.render("createBillPage", {title:'Tạo hóa đơn', user: user, message: "Đã xảy ra lỗi" });
     }
   } catch (err) {
     res.render("errorPage", {
+      title:'Lỗi',
       user: user,
       message: err.message,
     });

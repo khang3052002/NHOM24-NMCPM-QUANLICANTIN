@@ -9,13 +9,18 @@
                             <i id="close-nav-btn" class="fas fa-bars"></i>
                         </div>
                         {{#ifCond (getJSONLen user) '==' 3}}
+                        <a href="/import-goods">Nhập kho</a>
                         <a href="/import-goods-history">Lịch sử nhập kho</a>
-                        <a href="/manage-users">Quản lí khách hàng</a>
-                        <a href="/today-menu">Chỉnh sửa thực đơn</a>
                         <a href="/export-goods">Chuyển hàng đến canteen</a>
+                        <a href="/export-goods-history">Lịch sử chuyển hàng đến canteen</a>
+                        <a href="/manage-users">Quản lí khách hàng</a>
+                        <a href="/manage-category">Xem hàng theo từng loại</a>
+                        <a href="/create-new-bill">Tạo đơn cho khách</a>
+                        <a href="/today-menu">Chỉnh sửa thực đơn</a>
                         <a href="/in-store">Quản lí kho</a>
                         <a href="/in-stock">Quản lí hàng trong canteen</a>
-                        
+                        <a href="/food-stock">Thức ăn trong kho</a>
+
                         {{/ifCond}}
 
                         {{#ifCond (getJSONLen user) '!=' 3}}
@@ -62,7 +67,8 @@
                                             id="search-key">
                                         <div class="input-group-append">
                                             <button id="search-product-btn" type="submit"
-                                                class="btn btn-link text-primary search-items"><i class="fa fa-search"></i></button>
+                                                class="btn btn-link text-primary search-items"><i
+                                                    class="fa fa-search"></i></button>
                                         </div>
 
                                     </div>
@@ -76,7 +82,8 @@
                                             id="search-id-key">
                                         <div class="input-group-append">
                                             <button id="search-receipt-btn" type="submit"
-                                                class="btn btn-link text-primary search-items"><i class="fa fa-search"></i></button>
+                                                class="btn btn-link text-primary search-items"><i
+                                                    class="fa fa-search"></i></button>
                                         </div>
                                     </div>
                                     {{/ifCond}}
@@ -96,17 +103,19 @@
                                                 style="width: 2rem; height: 2rem;" />
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-lg-end">
-                                            <li><a href="/get-user-info"><button id="user-profile" class="dropdown-item"
+                                            <li><a href="/user-profile"><button id="user-profile" class="dropdown-item"
                                                         type="button">Trang cá nhân</button></li></a>
                                             <li><button class="dropdown-item" id="shopping-cart" type="button">Giỏ
                                                     hàng</button></li>
                                             <li><button id="user-balance" class="dropdown-item" type="button"></button>
                                             </li>
 
-                                            <li><button class="dropdown-item" id="recharge-btn" type="button">Nạp tiền tài khoản</button>
+                                            <li><button class="dropdown-item" id="recharge-btn" type="button">Nạp tiền
+                                                    tài khoản</button>
                                             </li>
 
-                                            <li><button class="dropdown-item"  type="button">Lịch sử mua hàng</button>
+                                            <li><a href="/customer-cart-history"><button class="dropdown-item" id="cart-history-btn" type="button">Lịch
+                                                    sử mua hàng</button></a>
                                             </li>
                                             <li><button class="dropdown-item" type="button" id="sign-out-btn">Đăng xuất
                                                     <i class="fa fa-sign-out" style="margin-left: 0.5rem;"></i></button>
@@ -125,14 +134,16 @@
                                                 style="width: 2rem; height: 2rem;" />
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-lg-end">
-                                            <li><a href="/get-user-info"><button id="user-profile" class="dropdown-item"
-                                                        type="button">Doanh thu hôm nay</button></li></a>
-                                            <li><button class="dropdown-item" id="shopping-cart" type="button">Doanh thu
-                                                    tháng</button></li>
+                                            <li><a href="/daily-turnover"><button id="user-profile"
+                                                        class="dropdown-item" type="button">Doanh thu hôm nay</button>
+                                            </li></a>
+                                            <li><a href="/monthly-turnover">
+                                                    <button class="dropdown-item" id="shopping-cart" type="button">Doanh
+                                                        thu
+                                                        tháng</button></a></li>
 
                                             </li>
-                                            <li><button class="dropdown-item" type="button">Tổng tiền nhập hàng</button>
-                                            </li>
+
                                             <li><button class="dropdown-item" type="button" id="sign-out-btn">Đăng xuất
                                                     <i class="fa fa-sign-out" style="margin-left: 0.5rem;"></i></button>
                                             </li>
@@ -143,10 +154,10 @@
 
                                 {{#ifCond (getJSONLen user) '==' 0}}
                                 <button type="button" class="btn me-3 sign-up-btn h-100">
-                                    <i class="fa fa-user-plus" style="padding-right: 0.5rem;"></i>Sign up
+                                    <i class="fa fa-user-plus" style="padding-right: 0.5rem;"></i>Đăng kí
                                 </button>
                                 <button type="button" class="btn me-3 sign-in-btn h-100">
-                                    <i class="fa fa-arrow-right" style="padding-right: 0.5rem;"></i>Sign in
+                                    <i class="fa fa-arrow-right" style="padding-right: 0.5rem;"></i>Đăng nhập
                                 </button>
                                 {{/ifCond}}
                             </div>

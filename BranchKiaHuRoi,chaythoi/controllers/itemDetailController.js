@@ -10,15 +10,16 @@ const loadItemDetail=async(req,res,next)=>{
         item=await dbModel.getFoodById(query.id);
         if(item.rows){
             item=item.rows
-            res.render('itemDetailPage',{user:user,item:item[0]})
+            res.render('itemDetailPage',{title:'Chi tiết sản phẩm',user:user,item:item[0]})
         }
         else{
-            res.render('itemDetailPage',{user:user,message:'Đã xảy ra lỗi'})
+            res.render('itemDetailPage',{title:'Chi tiết sản phẩm',user:user,message:'Đã xảy ra lỗi'})
         }   
         
     }
     catch(err){
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:err.message
         })

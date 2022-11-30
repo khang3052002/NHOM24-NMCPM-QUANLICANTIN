@@ -13,13 +13,13 @@ const signOut=(req,res,next)=>{
                 }
             })
 
-            res.render('signOutPage.hbs',{message: msg,user:{}});
+            res.render('signOutPage.hbs',{title:'Đăng xuất', message: msg,user:{}});
         }
         else {
-            res.render('signOutPage.hbs',{message: msg,user:{}});
+            res.render('signOutPage.hbs',{title:'Đăng xuất',message: msg,user:{}});
         }
     }catch(err){
-        res.render('signOutPage.hbs',{message: err.message,user:user});
+        res.render('signOutPage.hbs',{title:'Đăng xuất',message: err.message,user:user});
     }
 }
 module.exports={

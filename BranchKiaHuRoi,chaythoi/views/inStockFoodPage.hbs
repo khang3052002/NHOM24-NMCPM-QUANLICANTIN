@@ -18,7 +18,7 @@
 
 <body>
     <h3>{{message}}</h3>
-    <link rel="stylesheet" href="css/inStorePageStyle.css">
+    <link rel="stylesheet" href="css/inStockFoodPageStyle.css">
     <div class="pop-up  hidden">
         <div class="popup-container">
             <div class="notification">
@@ -40,11 +40,7 @@
         <div class="row">
             <div class="panel panel-primary filterable">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Kho hàng</h3>
-
-                </div>
-                <div class="confirm-btn-div">
-                    <button id="show-details-btn" type="button" class="btn btn-success">Chi tiết</button>
+                    <h3 class="panel-title">Hiện có trong canteen</h3>
                 </div>
                 <table class="table">
                     <thead>
@@ -65,13 +61,13 @@
                         {{#each product}}
                         <tr proId="{{this.ma_mat_hang}}">
                             <td>
-                                <p class="user-info-display">{{this.ten_mat_hang}}</p>
+                                <p class="user-info-display">{{this.ten_mon_an}}</p>
                             </td>
                             <td>
                                 <p class="user-info-display">{{this.so_luong}}</p>
                             </td>
                             <td>
-                                <p class="user-info-display">{{ConvertToVND this.gia}}</p>
+                                <p class="user-info-display">{{ConvertToVND this.gia_ban}}</p>
                             </td>
                         </tr>
                         {{/each}}
@@ -82,7 +78,7 @@
         </div>
     </div>
     <script src="script/globalScript.js"></script>
-    <script src="script/inStoreScript.js"></script>
+    <script src="script/inStockFoodScript.js"></script>
 </body>
 
 </html>

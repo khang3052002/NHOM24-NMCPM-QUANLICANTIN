@@ -78,6 +78,7 @@ const loadHistory = async (req, res, next) => {
       }
       if (preparedArr.length > 0) {
         res.render("importGoodsHistoryPage", {
+          title:'Lịch sử nhập sản phẩm',
           user: user,
           transactionsList: preparedArr,
           totalPage: totalPage,
@@ -85,6 +86,7 @@ const loadHistory = async (req, res, next) => {
         });
       } else {
         res.render("importGoodsHistoryPage", {
+          title:'Lịch sử nhập sản phẩm',
           user: user,
           transactionsList: preparedArr,
         });
@@ -92,6 +94,7 @@ const loadHistory = async (req, res, next) => {
     }
     else{
       res.render("importGoodsHistoryPage", {
+        title:'Lịch sử nhập sản phẩm',
         user: user,
         message:receiptIDArr
       });
@@ -101,6 +104,7 @@ const loadHistory = async (req, res, next) => {
     // console.log(preparedArr)
   } catch (err) {
     res.render("errorPage", {
+      title:'Lỗi',
       user: user,
       message: err.message,
     });

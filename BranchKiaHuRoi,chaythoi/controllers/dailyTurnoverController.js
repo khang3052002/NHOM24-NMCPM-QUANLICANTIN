@@ -2,12 +2,18 @@ const dbModel = require("../models/dbHelpers/dbHelpers");
 var itemPerPage = 12;
 var totalPage = 0;
 var currentPage = 0;
-const loadHistory = async (req, res, next) => {
+const loadPage = async (req, res, next) => {
   user = {};
   if (req.session.user) {
     user = req.session.user;
   }
   try {
+
+    var updateTurnover= await dbModel.updateDailyTurnover();
+    var dateAndTotalTurnover=await dbModel.getUpdatedDailyTurnoverTime();
+    dateAndTotalTurnover=dateAndTotalTurnover.rows[0]
+    dateAndTotalTurnover.doanh_thu=parseInt(dateAndTotalTurnover.doanh_thu)
+    console.log(dateAndTotalTurnover)
     if (req.query.page) {
       if (req.query.page != "") {
         currentPage = parseInt(req.query.page);
@@ -15,12 +21,13 @@ const loadHistory = async (req, res, next) => {
     }
 
     var receiptIDArr;
-    if (req.query.searchID) {
-      if (req.query.searchID != "") {
-        receiptIDArr = await dbModel.getReCeiptsByID(req.query.searchID);
+    if (req.query.date) {
+      if (req.query.date != "") {
+        receiptIDArr = await dbModel.getTurnoverByDate(req.query.date);
       }
     } else {
-      receiptIDArr = await dbModel.getAllOrder();
+      receiptIDArr = await dbModel.getTodayReciept();
+   
     }
     if( receiptIDArr.rows){
       receiptIDArr=receiptIDArr.rows
@@ -35,7 +42,8 @@ const loadHistory = async (req, res, next) => {
       temp = {};
   
       for (i = 0; i < tempReceiptIDArr.length; i++) {
-        temp["ma_don_hang"] = tempReceiptIDArr[i].ma_don_hang;
+        temp["id"] = tempReceiptIDArr[i].id;
+        temp["tong_tien"]=parseInt(tempReceiptIDArr[i].tong_tien)
         temp["thong_tin"] = {
           ngaynhap: tempReceiptIDArr[i].ngay_mua,
           trang_thai: tempReceiptIDArr[i].trang_thai,
@@ -44,17 +52,19 @@ const loadHistory = async (req, res, next) => {
         temp = {};
       }
   
+      
       if (detailArr.length > 0) {
-        res.render("tradingHistoryPage", {
-          title:'Lịch sử giao dịch',
+        res.render("dailyTurnoverPage", {
+          title:'Doanh thu hôm nay',
           user: user,
           transactionsList: detailArr,
           totalPage: totalPage,
           currentPage: currentPage,
+          total:dateAndTotalTurnover
         });
       } else {
-        res.render("tradingHistoryPage", {
-          title:'Lịch sử giao dịch',
+        res.render("dailyTurnoverPage", {
+          title:'Doanh thu hôm nay',
           user: user,
           transactionsList: detailArr,
           message:'Đã xảy ra lỗi'
@@ -62,8 +72,8 @@ const loadHistory = async (req, res, next) => {
       }
     }
     else{
-      res.render("tradingHistoryPage", {
-        title:'Lịch sử giao dịch',
+      res.render("dailyTurnoverPage", {
+        title:'Doanh thu hôm nay',
         user: user,
         message:'Đã xảy ra lỗi'
       });
@@ -97,7 +107,7 @@ const loadDetails = async (req, res, next) => {
     const result = await dbModel.getDetailTrading(id);
 
     res.render("tradingDetailsPage", {
-      title:'Chi tiết lịch sử giao dịch',
+      title:'Chi tiết giao dịch',
       user: user,
       details: result,
       header: orderInfor[0],
@@ -121,10 +131,10 @@ const updateState = async (req, res, next) => {
     if(req.body.id){
       id=req.body.id
     }
-    console.log(id)
+
     var result
     result=await dbModel.updateState(id)
-    console.log(result)
+   
     if(result.rows){
       result=result.rows
       res.send('Thành công')
@@ -140,4 +150,4 @@ const updateState = async (req, res, next) => {
     });
   }
 };
-module.exports = { loadHistory, loadDetails,updateState };
+module.exports = { loadPage, loadDetails,updateState };
