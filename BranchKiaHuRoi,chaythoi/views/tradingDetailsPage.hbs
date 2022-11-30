@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="css/tradingDetailsStyle.css">
     <link rel="stylesheet" href="/css/receiptFormStyle.css">
 
-<div class="container-pos">
+<div class="container-pos hidden">
         <div id="invoice-POS">
 
             <div id="top">
@@ -45,15 +45,6 @@
                                 <h2>Thành tiền</h2>
                             </td>
                         </tr>
-
-                                            {{!-- {{#each details}}
-                    <tr>
-                        <td>{{ten_mat_hang}}</td>
-                        <td>{{gia_ban}}</td>
-                        <td>{{so_luong}}</td>
-                        <td>{{thanh_tien}}</td>
-                    </tr>
-                    {{/each}} --}}
 
                         {{#each details}}
                         <tr class="service">
@@ -126,7 +117,7 @@
             </div>
         </div>
 
-        <div class="infor-container"  >
+        <div class="infor-container" id="{{header.ma_don_hang}}">
             <table class="table">
                 <tbody>
                     <tr>

@@ -111,8 +111,21 @@ const updateState = async (req, res, next) => {
     user = req.session.user;
   }
   try {
-    console.log(req.body)
-    res.send('hehe')
+    var id=''
+    if(req.body.id){
+      id=req.body.id
+    }
+    console.log(id)
+    var result
+    result=await dbModel.updateState(id)
+    console.log(result)
+    if(result.rows){
+      result=result.rows
+      res.send('Thành công')
+    }
+    else{
+      res.send(result)
+    }
   } catch (err) {
     res.render("errorPage", {
       user: user,

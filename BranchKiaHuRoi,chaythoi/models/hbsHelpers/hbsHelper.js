@@ -89,7 +89,6 @@ const getTotalCostV2 = function (arr) {
     
     sum = 0;
     for (i = 0; i < arr.length; i++) {
-        console.log(arr[i])
       sum += arr[i].thanh_tien;
     }
     return sum;
