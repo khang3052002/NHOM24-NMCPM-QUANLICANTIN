@@ -61,7 +61,9 @@ $('#payment').click(function () {
                 url: '/shopping-cart',
                 data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
                 success: function (data) {
-                    if (data) {
+                    if (data.result == 'OK') {
+                        
+                        console.log(data.orderID)
                         $(".noti-content").html('Thanh toán thành công');
                         // window.location.href='/shopping-cart'
 

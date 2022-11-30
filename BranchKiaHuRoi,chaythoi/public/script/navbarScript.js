@@ -82,3 +82,4 @@ $('#recharge-btn').click(function(e)
     console.log('hahaha')
     window.location.href = '/recharge'
 })
+

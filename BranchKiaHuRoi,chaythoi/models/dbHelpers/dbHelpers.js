@@ -543,6 +543,18 @@ const getDetailTrading= async (id)=>
     return error.message
   }
 }
+const getOrderIDNewCreate = async(idUser) =>
+{
+  try {
+    const res = await dbConnector.query(`
+    select dh.ma_don_hang as id_order from don_hang dh where dh.ma_khach_hang = '${idUser}'
+    ORDER BY dh.ma_don_hang DESC LIMIT 1
+    `)
+    return res.rows
+  } catch (error) {
+      return error.message
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -593,5 +605,6 @@ module.exports = {
   getOrderByID,
   
   getDetailTrading,
-  getUserReCeiptByID 
+  getUserReCeiptByID ,
+  getOrderIDNewCreate
 };
