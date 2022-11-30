@@ -584,6 +584,21 @@ const getOrderIDNewCreate = async(idUser) =>
       return error.message
   }
 }
+
+const updateState = async(id) =>
+{
+  try {
+    const res = await dbConnector.query(`
+        call capnhatthanhcongdonhang('${id}')
+    `)
+    return res
+  } catch (error) {
+      return error.message
+  }
+}
+
+
+
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -637,5 +652,6 @@ module.exports = {
   getDetailTrading,
   getUserReCeiptByID,
   getAllGoodsOfCategory,
-  getOrderIDNewCreate
+  getOrderIDNewCreate,
+  updateState
 };

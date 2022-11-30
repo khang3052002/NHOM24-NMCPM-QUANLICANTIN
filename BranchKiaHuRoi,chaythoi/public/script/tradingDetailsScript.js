@@ -9,19 +9,21 @@ $("#print-bill").click(function () {
   // $(".noti-content").html("In hoá đơn thành công");
   // $(".pop-up").removeClass("hidden");
   // $("#view-receipt-btn").removeClass("hidden");
+  id=$('.infor-container').attr('id')
+  console.log(id)
   $.ajax({
     method: "post",
     data: {
-        id:"hjsdfasj"
-
+        id:id
     },
     url: "/trading-details",
     success: function (data) {
+        $('.container-pos').removeClass('hidden')
         $('.noti-content').html(data)
-        $('.pop-up').removeClass('hidden')
-        $('.fa-window-close').click(function () {
-            window.location.reload()
-          })
+        setTimeout(function(){
+          $('.pop-up').removeClass('hidden')
+        },1500)
+       
     },
 });
 });
