@@ -68,7 +68,7 @@ $('#payment').click(function () {
                         $(".noti-content").html('Thanh toán thành công');
                         // window.location.href='/shopping-cart'
 
-                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=hahah`);
+                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`);
                         // window.location.reload()
                         $('.pop-up').removeClass('hidden')
                         $('#view-receipt-btn').removeClass('hidden')

@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="css/tradingDetailsStyle.css">
     <link rel="stylesheet" href="/css/receiptFormStyle.css">
 
-<div class="container-pos ">
+<div class="container-pos">
         <div id="invoice-POS">
 
             <div id="top">
@@ -28,7 +28,7 @@
             <!--End Invoice Mid-->
             <div class="info">
                 <h2>HÓA ĐƠN BÁN HÀNG</h2>
-                <h3 id="orderID"></h3>
+                <h3 id="orderID">Mã đơn hàng: {{header.ma_don_hang}}</h3>
             </div>
             <div id="bot">
 
@@ -79,8 +79,14 @@
                                 <h2>{{#getTotalCostV2 details}}{{/getTotalCostV2}}</h2>
                             </td>
                         </tr>
+                        
+                            
 
                     </table>
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+                        <img id="qr-order" src="" alt="">
+
+                    </div>
                 </div>
                 <!--End Table-->
 

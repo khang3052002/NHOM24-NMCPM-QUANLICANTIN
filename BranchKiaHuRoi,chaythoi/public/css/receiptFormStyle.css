@@ -112,7 +112,7 @@ table {
   } */
 .tabletitle {
     /* //padding: 5px; */
-    font-size: .5em !important;
+    /* font-size: .5em !important; */
     background: #DAE5FC;
 }
 
@@ -122,6 +122,10 @@ table {
     background: #DAE5FC;
 }
 
+#qr-order
+{
+    height: 60px;
+}
 
 .service {
     border-bottom: 1px solid #EEE;
