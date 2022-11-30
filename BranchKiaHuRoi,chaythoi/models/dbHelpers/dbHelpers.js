@@ -451,6 +451,25 @@ const getUserBalance = async (idUser)=>
     return error
   }
 }
+
+const rechargeBalance = async(idUser,val) =>
+{
+  try {
+    if(val == 100)
+    {
+      const res = await dbConnector.query(`UPDATE KHACH_HANG SET so_du = so_du + '100000' WHERE id='${idUser}' `)
+
+    }
+    else if(val == 50){
+      const res = await dbConnector.query(`UPDATE KHACH_HANG SET so_du = so_du + '50000' WHERE id='${idUser}' `)
+
+    }
+    return res
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -490,6 +509,7 @@ module.exports = {
   addNewFood,
   createOrder,
   setUsersBalance,
-  getUserBalance
+  getUserBalance,
+  rechargeBalance
 
 };
