@@ -1,0 +1,90 @@
+<body>
+    <link rel="stylesheet" href="css/tradingDetailsStyle.css">
+
+
+<div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Tìm kiếm đơn hàng</h3>
+    <div class="main-body-container">
+        <div class="search-id-container">
+            <input type="search" placeholder="Tìm kiếm theo mã" aria-describedby="button-addon1"
+                class="form-control border-0 bg-light search-field" id="id-order-search-field" value="{{header.ma_don_hang}}">
+            <div class="input-group-append">
+                <button id="search-id-btn" type="button" class="btn btn-link text-primary search-items"><i
+                        class="fa fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="infor-container"  >
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Mã khách hàng</td>
+                        <td>{{header.ma_khach_hang}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tạo lúc</td>
+                        <td>{{customDate header.ngay_mua}}</td>
+                    </tr>
+                    <tr>
+                        <td>Mã đơn hàng</td>
+                        <td>{{header.ma_don_hang}}</td>
+                    </tr>
+                    <tr>
+                        <td>Trạng thái</td>
+                        <td>{{header.trang_thai}}</td>
+                        <td colspan="2"> {{#ifCond header.trang_thai '==' 'CHUA NHAN HOA DON'}}
+                            <button class="btn btn-primary" id="print-bill">In hoá đơn</button>{{/ifCond}}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Chi tiết</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each details}}
+                    <tr>
+                        <td>{{ten_mat_hang}}</td>
+                        <td>{{gia_ban}}</td>
+                        <td>{{so_luong}}</td>
+                        <td>{{thanh_tien}}</td>
+                    </tr>
+                    {{/each}}
+
+                    <tr>
+                        <td colspan="3" id="total-cost">Tổng tiền</td>
+                        <td>{{#getTotalCostV2 details}}{{/getTotalCostV2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script src="script/tradingDetailsScript.js"></script>
+     <script src="script/globalScript.js"></script>
+</body>
