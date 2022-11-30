@@ -75,3 +75,11 @@ $('input.search-field').on('keypress', function(event) {
         return false;
     }
 })
+
+
+$('#recharge-btn').click(function(e)
+{
+    console.log('hahaha')
+    window.location.href = '/recharge'
+})
+

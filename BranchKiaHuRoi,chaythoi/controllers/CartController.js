@@ -150,7 +150,10 @@ const createOrder = async(req,res)=>
         queryStr=idStr+","+amountStr
         console.log(queryStr)
         const result = await dbModel.createOrder(idUser,queryStr)
-        res.send('OK')
+
+        const orderID = await dbModel.getOrderIDNewCreate(idUser)
+        console.log(orderID)
+        res.send({result: 'OK', orderID: orderID})
     } catch (error) {
         res.send('Đã xảy ra lỗi')
     }

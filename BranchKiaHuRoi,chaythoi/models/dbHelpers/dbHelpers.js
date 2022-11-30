@@ -500,6 +500,25 @@ const getUserBalance = async (idUser)=>
     return error
   }
 }
+
+const rechargeBalance = async(idUser,val) =>
+{
+  try {
+    if(val == 100)
+    {
+      const res = await dbConnector.query(`UPDATE KHACH_HANG SET so_du = so_du + '100000' WHERE id='${idUser}' `)
+
+    }
+    else if(val == 50){
+      const res = await dbConnector.query(`UPDATE KHACH_HANG SET so_du = so_du + '50000' WHERE id='${idUser}' `)
+
+    }
+    return res
+  } catch (error) {
+    
+  }
+}
+
 const getAllOrder= async ()=>
 {
   try {
@@ -542,6 +561,18 @@ const getDetailTrading= async (id)=>
     return error.message
   }
 }
+const getOrderIDNewCreate = async(idUser) =>
+{
+  try {
+    const res = await dbConnector.query(`
+    select dh.ma_don_hang as id_order from don_hang dh where dh.ma_khach_hang = '${idUser}'
+    ORDER BY dh.ma_don_hang DESC LIMIT 1
+    `)
+    return res.rows
+  } catch (error) {
+      return error.message
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -582,6 +613,8 @@ module.exports = {
   createOrder,
   setUsersBalance,
   getUserBalance,
+  rechargeBalance,
+
   getUserReCeiptID,
   getFoodInfoForCartHistory,
   getGoodsInfoForCartHistory,
@@ -591,6 +624,6 @@ module.exports = {
   
   getDetailTrading,
   getUserReCeiptByID,
-
-  getAllGoodsOfCategory
+  getAllGoodsOfCategory,
+  getOrderIDNewCreate
 };
