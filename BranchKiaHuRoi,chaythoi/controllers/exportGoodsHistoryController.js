@@ -1,7 +1,7 @@
 const dbModel = require("../models/dbHelpers/dbHelpers");
-var itemPerPage=12
-var totalPage=0
-var currentPage=0
+var itemPerPage = 12;
+var totalPage = 0;
+var currentPage = 0;
 
 const loadHistory = async (req, res, next) => {
   try {
@@ -9,88 +9,102 @@ const loadHistory = async (req, res, next) => {
     if (req.session.user) {
       user = req.session.user;
     }
-    if(req.query.page){
-      if(req.query.page!=""){
-        currentPage=parseInt(req.query.page)
+    if (req.query.page) {
+      if (req.query.page != "") {
+        currentPage = parseInt(req.query.page);
       }
     }
 
-    var receiptIDArr 
-    if(req.query.searchID){
-      if(req.query.searchID!=""){
+    var receiptIDArr;
+    if (req.query.searchID) {
+      if (req.query.searchID != "") {
         receiptIDArr = await dbModel.getExportReCeiptsByID(req.query.searchID);
+      }
+    } else {
+      receiptIDArr = await dbModel.getAllExportReCeiptID();
+    }
+    if (receiptIDArr.rows) {
+      receiptIDArr = receiptIDArr.rows;
+      var tempReceiptIDArr = receiptIDArr.slice(
+        currentPage * itemPerPage,
+        currentPage * itemPerPage + itemPerPage
+      );
+      totalPage =
+        parseInt(receiptIDArr.length / itemPerPage) +
+        (receiptIDArr.length % itemPerPage > 0 ? 1 : 0);
+
+      detailArr = [];
+      temp = {};
+      for (i = 0; i < tempReceiptIDArr.length; i++) {
+        temp[tempReceiptIDArr[i].ma_phieu] = {
+          ngay_xuat: tempReceiptIDArr[i].ngay_xuat,
+        };
+        detailArr.push(temp);
+        temp = {};
+      }
+
+      var preparedArr = [];
+      for (i = 0; i < tempReceiptIDArr.length; i++) {
+        var result;
+        detail = await dbModel.getExportReCeiptInfo(
+          tempReceiptIDArr[i].ma_phieu
+        );
+        result = Object.keys(detailArr[i]).map((key) => [
+          key,
+          Object.keys(detailArr[i][key]).map((key1) => [
+            key1,
+            detailArr[i][key][key1],
+          ]),
+        ]);
+        var c = result;
+        result[0][1][0].push(detail);
+        var a = result[0][1][0].reduce(function (result1, item, index, array) {
+          if (index == 0) {
+            result1[array[0]] = array[1];
+          }
+          if (index == 1) {
+            result1["chi_tiet"] = array[2];
+          }
+          return result1;
+        }, {});
+        c[0][1] = a;
+        var b = c[0].reduce(function (result1, item, index, array) {
+          if (index == 0) {
+            result1["ma_phieu"] = array[0];
+          }
+          if (index == 1) {
+            result1["chi_tiet_phieu"] = array[1];
+          }
+          return result1;
+        }, {});
+        c[0] = b;
+        preparedArr.push(c[0]);
+      }
+      if (preparedArr.length > 0) {
+        res.render("exportGoodsHistoryPage", {
+          user: user,
+          transactionsList: preparedArr,
+          totalPage: totalPage,
+          currentPage: currentPage,
+        });
+      } else {
+        res.render("exportGoodsHistoryPage", {
+          user: user,
+          transactionsList: preparedArr,
+        });
       }
     }
     else{
-      receiptIDArr = await dbModel.getAllExportReCeiptID();
-    }
-    console.log(receiptIDArr)
-
-    var tempReceiptIDArr=receiptIDArr.slice(currentPage*itemPerPage,currentPage*itemPerPage+itemPerPage)
-    totalPage=parseInt(receiptIDArr.length/itemPerPage) + (receiptIDArr.length%itemPerPage>0?1:0)
-    
-    detailArr = [];
-    temp = {};
-    for (i = 0; i < tempReceiptIDArr.length; i++) {
-      temp[tempReceiptIDArr[i].ma_phieu] = { ngay_xuat: tempReceiptIDArr[i].ngay_xuat };
-      detailArr.push(temp);
-      temp = {};
-    }
-
-    var preparedArr = [];
-    for (i = 0; i < tempReceiptIDArr.length; i++) {
-      var result;
-      detail = await dbModel.getExportReCeiptInfo(tempReceiptIDArr[i].ma_phieu);
-      result = Object.keys(detailArr[i]).map((key) => [
-        key,
-        Object.keys(detailArr[i][key]).map((key1) => [
-          key1,
-          detailArr[i][key][key1],
-        ]),
-      ]);
-      var c = result;
-      result[0][1][0].push(detail);
-      var a = result[0][1][0].reduce(function (result1, item, index, array) {
-        if (index == 0) {
-          result1[array[0]] = array[1];
-        }
-        if (index == 1) {
-          result1["chi_tiet"] = array[2];
-        }
-        return result1;
-      }, {});
-      c[0][1] = a;
-      var b = c[0].reduce(function (result1, item, index, array) {
-        if (index == 0) {
-          result1["ma_phieu"] = array[0];
-        }
-        if (index == 1) {
-          result1["chi_tiet_phieu"] = array[1];
-        }
-        return result1;
-      }, {});
-      c[0] = b;
-      preparedArr.push(c[0]);
-    }
-    if (preparedArr.length > 0) {
       res.render("exportGoodsHistoryPage", {
         user: user,
-        transactionsList: preparedArr,
-        totalPage:totalPage,
-        currentPage:currentPage,
-  
-      });
-    } else {
-      res.render("exportGoodsHistoryPage", {
-        user: user,
-        transactionsList: preparedArr
+        message:receiptIDArr,
       });
     }
   } catch (err) {
-    res.render('errorPage',{
-      user:user,
-      message:err.message
-  })
+    res.render("errorPage", {
+      user: user,
+      message: err.message,
+    });
   }
 };
 

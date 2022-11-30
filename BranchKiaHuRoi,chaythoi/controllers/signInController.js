@@ -25,38 +25,44 @@ const authentication = async (req, res, next) => {
     } else if (role == "admin") {
       uDb = await dbModel.adminAuthentication(user);
     }
-
-    if (uDb.length == 0) {
-      res.send("Tài khoản hoặc mật khẩu không đúng");
-    } else {
-      const passwordDb = uDb[0].mat_khau;
-      const salt = passwordDb.slice(hashLength);
-      const passwordSalt = password + salt;
-      const passwordHashed = CryptoJS.SHA3(passwordSalt, {
-        outputLength: hashLength * 4,
-      }).toString(CryptoJS.enc.Hex);
-      if (passwordDb === passwordHashed + salt) {
-        if (uDb[0].id.includes("CTMS")) {
-          req.session.user = {
-            role: "user",
-            id: uDb[0].id,
-            cartID: uDb[0].id_gio_hang,
-            img_url: uDb[0].img_url,
-          };
-          req.session.role = "user";
-        } else if (uDb[0].id.includes("ADMS")) {
-          req.session.user = {
-            role: "admin",
-            id: uDb[0].id,
-            img_url: uDb[0].img_url,
-          };
-          req.session.role = "admin";
-        }
-        res.send("Đăng nhập thành công");
-      } else {
+    if(uDb.rows){
+      uDb=uDb.rows
+      if (uDb.length == 0) {
         res.send("Tài khoản hoặc mật khẩu không đúng");
+      } else {
+        const passwordDb = uDb[0].mat_khau;
+        const salt = passwordDb.slice(hashLength);
+        const passwordSalt = password + salt;
+        const passwordHashed = CryptoJS.SHA3(passwordSalt, {
+          outputLength: hashLength * 4,
+        }).toString(CryptoJS.enc.Hex);
+        if (passwordDb === passwordHashed + salt) {
+          if (uDb[0].id.includes("CTMS")) {
+            req.session.user = {
+              role: "user",
+              id: uDb[0].id,
+              cartID: uDb[0].id_gio_hang,
+              img_url: uDb[0].img_url,
+            };
+            req.session.role = "user";
+          } else if (uDb[0].id.includes("ADMS")) {
+            req.session.user = {
+              role: "admin",
+              id: uDb[0].id,
+              img_url: uDb[0].img_url,
+            };
+            req.session.role = "admin";
+          }
+          res.send("Đăng nhập thành công");
+        } else {
+          res.send("Tài khoản hoặc mật khẩu không đúng");
+        }
       }
     }
+    else{
+      res.send(uDb);
+    }
+  
   } catch (err) {
     res.send(err.message);
   }

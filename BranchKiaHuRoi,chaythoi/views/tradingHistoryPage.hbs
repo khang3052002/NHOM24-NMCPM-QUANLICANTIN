@@ -1,6 +1,7 @@
 <body>
     <link rel="stylesheet" href="css/importGoodsHistoryStyle.css" />
  <link rel="stylesheet" href="css/tradingHistoryStyle.css" />
+
     <div class="container">
         <div class="records-container">
             <h3>
@@ -14,7 +15,7 @@
                             class="fa fa-search"></i></button>
                 </div>
             </div>
-
+             <h3>{{message}}</h3>
             <div class="accordion">
                 {{#each transactionsList as |parentList|}}
                 {{index}}

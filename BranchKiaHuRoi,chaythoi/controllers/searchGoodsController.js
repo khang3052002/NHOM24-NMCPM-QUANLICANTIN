@@ -2,13 +2,12 @@
 const dbModel = require('../models/dbHelpers/dbHelpers');
 
 const getGoods = async (req, res) => {
-
+    message=""
     try {
         console.log(req.query)
         user = {}
         if (req.session.user) {
             user = req.session.user
-            console.log(user)
         }
 
         var key=""
@@ -20,6 +19,7 @@ const getGoods = async (req, res) => {
             category = req.query.category
 
             const result = await dbModel.searchByCategory(category)
+           
             res.render('searchGoodsResultPage',
             {
                 user: user,
@@ -30,13 +30,25 @@ const getGoods = async (req, res) => {
         }
         else{
             const result = await dbModel.getGoodSearchInfo(key)
-        
-            res.render('searchGoodsResultPage',
+            if(result.rows){
+                result=result.rows
+                res.render('searchGoodsResultPage',
                 {
                     user: user,
                     key: key,
                     arrResult : result
                 })
+            }
+            else{
+                res.render('searchGoodsResultPage',
+                {
+                    user: user,
+                    key: key,
+                    message:result
+                })
+            }
+        
+            
     
         }
 

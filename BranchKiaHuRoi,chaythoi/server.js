@@ -58,6 +58,8 @@ const customerCartHistoryRoutes=require('./routers/customerCartHistoryRoutes')
 const tradingDetailsRoutes=require('./routers/tradingDetailsRoutes')
 // const tradingHistoryRoutes=require('./routers/tradingHistoryRoutes')
 const tradingHistoryRoutes=require('./routers/tradingHisRoutes')
+const manageCategoryRoutes=require('./routers/manageCategoryRoutes')
+
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
@@ -107,7 +109,7 @@ app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
 
 app.use('/tradings-history', tradingHistoryRoutes)
 app.use('/trading-details', tradingDetailsRoutes)
-
+app.use('/manage-category', manageCategoryRoutes)
 app.get('/',(req,res)=>{
    res.redirect('/home');
 })

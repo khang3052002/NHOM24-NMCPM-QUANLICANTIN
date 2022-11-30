@@ -34,20 +34,20 @@ const userAuthentication = async (user) => {
 
   try {
     const res = await dbConnector.query(`SELECT * FROM KHACH_HANG WHERE TAI_KHOAN='${user.username}'`);
-    return res.rows
+    return res
   }
   catch (err) {
-    console.log(err)
+    return err.message
   }
 };
 
 const adminAuthentication = async (user) => {
   try {
     const res = await dbConnector.query(`SELECT * FROM NGUOI_BAN WHERE TAI_KHOAN='${user.username}'`);
-    return res.rows
+    return res
   }
   catch (err) {
-    console.log(err)
+    return err.message
   }
 
 
@@ -67,12 +67,12 @@ const getFoodById = async (id) => {
     const resFoods = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN AND TA.MA_MON_AN='${id}'`);
     const resProduct = await dbConnector.query(`select slh.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia_ban_ra, mh.img_url from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and slh.ma_mat_hang = '${id}'
     `)
-    console.log(resFoods.rows)
-    console.log(resProduct.rows)
-    if (resFoods.rows.length == 0) {
-      return resProduct.rows
+    if(resFoods.rows){
+      if (resFoods.rows.length == 0) {
+        return resProduct
+      }
     }
-    return resFoods.rows;
+    return resFoods;
   }
   catch (err) {
     return err;
@@ -138,6 +138,21 @@ const getAllGoods = async () => {
   }
 }
 
+
+const getAllGoodsOfCategory = async (category) => {
+  try {
+    var res
+    if(category !='TYNU' && category!='TYDAV' && category!= 'TYDCHT'){
+      res = await dbConnector.query(`SELECT * FROM mon_an`)
+    }
+   else{
+    res = await dbConnector.query(`SELECT * FROM MAT_HANG WHERE ma_loai_hang='${category}'`)
+   }
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
 // call themPhieuNhapHang(ARRAY['#GDCxZxJT','#GDCxZxJT','#GDx3VH16','#GDCnX6D1'],ARRAY[10,10,15,20],ARRAY[17000,20000,30000,40000],'{2012-05-05,
 //   ma mh, so luong																											 2012-07-07,2017-03-03,2019-01-01}');
 const addNewReceipt = async (queryStringArr) => {
@@ -163,7 +178,7 @@ const addNewReceiptCT = async (queryStringArr) => {
 const getAllReCeiptID = async () => {
   try {
     const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk`)
-    return res.rows
+    return res
   } catch (error) {
     return error.message
   }
@@ -187,7 +202,7 @@ const getUserReCeiptID = async (id) => {
 const getReCeiptsByID = async (id) => {
   try {
     const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk where pnk.ma_phieu='${id}'`)
-    return res.rows
+    return res
   } catch (error) {
     return error.message
   }
@@ -224,16 +239,15 @@ const getGoodsInfoForCartHistory=async id=>{
 const getAllExportReCeiptID = async () => {
   try {
     const res = await dbConnector.query(`SELECT * FROM phieu_xuat_kho pxk`)
-    return res.rows
+    return res
   } catch (error) {
     return error.message
   }
 }
 const getExportReCeiptsByID = async (id) => {
-  console.log(id)
   try {
     const res = await dbConnector.query(`SELECT * FROM phieu_xuat_kho pxk where pxk.ma_phieu='${id}'`)
-    return res.rows
+    return res
   } catch (error) {
     return error.message
   }
@@ -262,10 +276,15 @@ const getGoodSearchInfo = async (key) => {
     const resProduct = await dbConnector.query(`select slh.ma_mat_hang, slh.so_luong, mh.ten_mat_hang, slh.gia_ban_ra, mh.img_url
      from sl_hang_canteen slh, mat_hang mh where slh.ma_mat_hang = mh.ma_mat_hang and mh.ten_mat_hang ILIKE '%${key}%'
     `)
-    arrResult = resFoods.rows.concat(resProduct.rows)
+    if (resFoods.rows &&resProduct.rows){
+      arrResult = resFoods.rows.concat(resProduct.rows)
+    }
+    else{
+      arrResult=[]
+    }
     return arrResult
   } catch (error) {
-    return error
+    return error.message
   }
 }
 
@@ -281,10 +300,9 @@ const searchByCategory = async (category) => {
     else {
       res = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`)
     }
-    console.log(res)
-    return res.rows
+    return res
   } catch (error) {
-    return error
+    return error.message
   }
 }
 
@@ -386,7 +404,7 @@ const setUsersBalance = async users => {
 
 const getCurrentStorageDetails = async () => {
   try {
-    const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1 and soLuong>0  `);
     return res.rows;
   }
   catch (err) {
@@ -396,7 +414,7 @@ const getCurrentStorageDetails = async () => {
 
 const getCurrentCanteenDetails = async () => {
   try {
-    const res = await dbConnector.query(`SELECT *  FROM mat_hang_canteen kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1  `);
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_canteen kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1 and so_luong>0 `);
     return res.rows;
   }
   catch (err) {
@@ -486,7 +504,7 @@ const getAllOrder= async ()=>
 {
   try {
     const res = await dbConnector.query(`SELECT * FROM DON_HANG`)
-    return res.rows
+    return res
   } catch (error) {
     return error.message
   }
@@ -572,5 +590,7 @@ module.exports = {
   getOrderByID,
   
   getDetailTrading,
-  getUserReCeiptByID 
+  getUserReCeiptByID,
+
+  getAllGoodsOfCategory
 };

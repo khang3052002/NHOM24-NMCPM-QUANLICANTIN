@@ -16,7 +16,6 @@ loadStockPage= async (req,res,next)=>{
         }
         else{
             const product=await dbModel.getCurrentCanteen();
-            // console.log(product)
             res.render('inStockPage',{
                 user:user,
                 product:product
