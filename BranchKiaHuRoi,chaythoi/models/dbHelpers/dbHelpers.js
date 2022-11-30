@@ -433,6 +433,17 @@ const editCart = async (idUser, strQuery) => {
   }
 }
 
+const deleteUserCart = async (idUser) => {
+  try {
+    // console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
+    const res = await dbConnector.query(`DELETE FROM chi_tiet_gio_hang where id_gio_hang = (select id_gio_hang from khach_hang where id='${idUser}')`)
+    // console.log(res)
+    return res
+  } catch (error) {
+    return error.message
+  }
+}
+
 const deleteProductInStore = async (id, date) => {
   try {
     console.log(id, date)
@@ -482,7 +493,7 @@ const addNewFood=async(ten_mon_an,gia_ban,img_url)=>{
 }
 const createOrder = async (idUser, strQuery) => {
   try {
-    console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
+    // console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
     const res = await dbConnector.query(`call themdonhang('${idUser}',${strQuery})`)
     // console.log(res)
     // return 1
@@ -602,6 +613,7 @@ module.exports = {
   getReCeiptsByID,
   getCurrentStorageDetails,
   editCart,
+  deleteUserCart,
   deleteProductInStore,
   getCurrentCanteen,
   deleteProductInCanteen,

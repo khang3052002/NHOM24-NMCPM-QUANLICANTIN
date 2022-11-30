@@ -64,6 +64,7 @@ $('#payment').click(function () {
                     if (data.result == 'OK') {
                         
                         console.log(data.orderID)
+                        $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
                         $(".noti-content").html('Thanh toán thành công');
                         // window.location.href='/shopping-cart'
 
@@ -71,6 +72,9 @@ $('#payment').click(function () {
                         // window.location.reload()
                         $('.pop-up').removeClass('hidden')
                         $('#view-receipt-btn').removeClass('hidden')
+                    }
+                    else{
+                        console.log(data)
                     }
                 }
             })
@@ -234,6 +238,8 @@ $('#update-cart').click(function (e) {
     console.log('heheheh')
     var arrProductsID = []
     var arrQuantity = []
+
+    
     $('.product-item').each(function (e) {
         // console.log($(this).attr('id'))
         arrProductsID.push($(this).attr('id'))
@@ -243,11 +249,15 @@ $('#update-cart').click(function (e) {
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
+    console.log(arrProductsID,arrQuantity)
 
+    data= { arrProID: arrProductsID, arrQuantity: arrQuantity }
+
+    console.log(data)
     $.ajax({
         method: 'post',
         url: 'shopping-cart',
-        data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
+        data: data,
         success: function (data) {
 
 
@@ -264,7 +274,7 @@ $('#update-cart').click(function (e) {
             });
         }
     })
-    console.log(arrProductsID, arrQuantity)
+    // console.log(arrProductsID, arrQuantity)
 
 
 })

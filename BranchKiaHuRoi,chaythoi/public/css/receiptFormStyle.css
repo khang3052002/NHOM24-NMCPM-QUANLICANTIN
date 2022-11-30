@@ -8,6 +8,7 @@
     border-radius: 1%;
 }
 .container-pos{
+    overflow-y: scroll;
     z-index: 100;
     position: fixed;
     top: 0;
@@ -72,7 +73,7 @@ p {
     background-size: 50px 50px;
 } */
 #logo{
-    height: 50px;
+    /* height: 50px; */
     width: 50px;
 }
 
@@ -111,9 +112,16 @@ table {
   } */
 .tabletitle {
     /* //padding: 5px; */
-    font-size: .5em;
+    font-size: .5em !important;
     background: #DAE5FC;
 }
+
+.tabletitle h2{
+    /* //padding: 5px; */
+    font-size: .5em !important;
+    background: #DAE5FC;
+}
+
 
 .service {
     border-bottom: 1px solid #EEE;

@@ -1,6 +1,99 @@
 <body>
     <link rel="stylesheet" href="css/tradingDetailsStyle.css">
+    <link rel="stylesheet" href="/css/receiptFormStyle.css">
 
+<div class="container-pos ">
+        <div id="invoice-POS">
+
+            <div id="top">
+                <!-- <div class="logo"></div> -->
+                <img id="logo" src="/images/logo-hcmus.png" alt="">
+                <div class="info">
+                    <h2>CĂN TIN HCMUS</h2>
+                </div>
+                <!--End Info-->
+            </div>
+            <!--End InvoiceTop-->
+
+            <div id="mid">
+                <div class="info">
+                    <!-- <h2>Thông tin liên hệ</h2> -->
+                    <p id="contact-info">
+                        Địa chỉ : Khu phố 6, Phường Linh Trung, Quận Thủ Đức, Hồ Chí Minh</br>
+                        Email : cantinHCMUS@edu.com.vn</br>
+                        Điện thoại : 028.3896.7366</br>
+                    </p>
+                </div>
+            </div>
+            <!--End Invoice Mid-->
+            <div class="info">
+                <h2>HÓA ĐƠN BÁN HÀNG</h2>
+                <h3 id="orderID"></h3>
+            </div>
+            <div id="bot">
+
+                <div id="table">
+                    <table>
+                        <tr class="tabletitle">
+                            <td class="item">
+                                <h2>Mặt hàng</h2>
+                            </td>
+                            <td class="Hours">
+                                <h2>Số lượng</h2>
+                            </td>
+                            <td class="Rate">
+                                <h2>Thành tiền</h2>
+                            </td>
+                        </tr>
+
+                                            {{!-- {{#each details}}
+                    <tr>
+                        <td>{{ten_mat_hang}}</td>
+                        <td>{{gia_ban}}</td>
+                        <td>{{so_luong}}</td>
+                        <td>{{thanh_tien}}</td>
+                    </tr>
+                    {{/each}} --}}
+
+                        {{#each details}}
+                        <tr class="service">
+                            <td class="tableitem">
+                                <p class="itemtext">{{this.ten_mat_hang}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext">{{this.so_luong}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext">{{ConvertToVND this.thanh_tien}}</p>
+                            </td>
+                        </tr>
+                        {{/each}}
+
+
+                        <tr class="tabletitle">
+                            <td></td>
+                            <td class="Rate">
+                                <h2>Tổng cộng</h2>
+                            </td>
+                            <td class="payment">
+                                <h2>{{#getTotalCostV2 details}}{{/getTotalCostV2}}</h2>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!--End Table-->
+
+                <div id="legalcopy">
+                    <p class="legal"><strong>Cám ơn Quý khách. Hẹn gặp lại!</strong> 
+                    </p>
+                </div>
+
+            </div>
+            <!--End InvoiceBot-->
+        </div>
+        
+    </div>
 
 <div class="pop-up hidden">
         <div class="popup-container">
@@ -87,4 +180,6 @@
     </div>
     <script src="script/tradingDetailsScript.js"></script>
      <script src="script/globalScript.js"></script>
+
+
 </body>
