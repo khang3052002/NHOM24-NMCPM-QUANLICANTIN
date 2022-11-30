@@ -70,7 +70,23 @@ const loadDetails = async (req, res, next) => {
     user = req.session.user;
   }
   try {
-    res.render("tradingDetailsPage", { user: {} });
+    if (req.query.page) {
+      if (req.query.page != "") {
+        currentPage = parseInt(req.query.page);
+      }
+    }
+    id = "";
+    if (req.query.id) {
+      id = req.query.id;
+    }
+    const orderInfor = await dbModel.getOrderByID(id);
+    const result = await dbModel.getDetailTrading(id);
+
+    res.render("tradingDetailsPage", {
+      user: user,
+      details: result,
+      header: orderInfor[0],
+    });
   } catch (err) {
     res.render("errorPage", {
       user: user,

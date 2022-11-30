@@ -14,19 +14,13 @@
                             class="fa fa-search"></i></button>
                 </div>
             </div>
-            <a href="/import-goods">
-                <div class="add-new-rec btn btn-primary visibility-hidden">
-                    Thêm đơn hàng
-                    <i class="fa-solid fa-plus"></i>
-                </div>
-            </a>
 
             <div class="accordion">
                 {{#each transactionsList as |parentList|}}
                 {{index}}
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
-                        <div class="form-control" type="button" value="{{this.ma_don_hang}}">
+                        <div class="form-control custom-fc" type="button" value="{{this.ma_don_hang}}">
                             <div class="card-header-custom">
                                 <div class="title-custom time-column">{{#customDate this.thong_tin.ngaynhap}}{{/customDate}}
                                 </div>

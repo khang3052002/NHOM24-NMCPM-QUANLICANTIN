@@ -461,6 +461,17 @@ const getAllOrder= async ()=>
   }
 }
 
+const getOrderByID= async (id)=>
+{
+  try {
+    const res = await dbConnector.query(`SELECT * FROM DON_HANG where ma_don_hang= '${id}'`)
+    return res.rows
+  } catch (error) {
+    return error.message
+  }
+}
+
+
 const getOrderInfo= async (id)=>
 {
   try {
@@ -476,7 +487,7 @@ const getOrderInfo= async (id)=>
 const getDetailTrading= async (id)=>
 {
   try {
-    const res = await dbConnector.query(`SELECT ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
+    const res = await dbConnector.query(`SELECT ct.ma_don_hang,ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
     return res.rows
   } catch (error) {
     return error.message
@@ -525,6 +536,7 @@ module.exports = {
 
   getAllOrder,
   getOrderInfo,
-
+  getOrderByID,
+  
   getDetailTrading
 };
