@@ -54,6 +54,7 @@ const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 const inStockRoutes=require('./routers/inStockRoutes')
 const addNewItemRoutes=require('./routers/addNewItemRoutes')
+const customerCartHistoryRoutes=require('./routers/customerCartHistoryRoutes')
 const tradingDetailsRoutes=require('./routers/tradingDetailsRoutes')
 // const tradingHistoryRoutes=require('./routers/tradingHistoryRoutes')
 const tradingHistoryRoutes=require('./routers/tradingHisRoutes')
@@ -102,6 +103,7 @@ app.use('/in-store',restrictForAdmin, inStoreRoutes)
 app.use('/manage-users',restrictForAdmin, getAllUsersInfoRoutes);
 app.use('/add-new-item',restrictForAdmin, addNewItemRoutes);
 app.use('/in-stock',restrictForAdmin, inStockRoutes)
+app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
 
 app.use('/tradings-history', tradingHistoryRoutes)
 app.use('/trading-details', tradingDetailsRoutes)
