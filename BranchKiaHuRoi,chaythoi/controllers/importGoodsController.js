@@ -8,8 +8,14 @@ const loadPage=async(req,res,next)=>{
             user=req.session.user
         }
         allGoods=await dbModel.getAllGoods()
-        // console.log(allGoods)
-        res.render('importGoodsPage',{user:user,goodsList:allGoods})
+        if(allGoods.rows){
+            allGoods=allGoods.rows
+            res.render('importGoodsPage',{user:user,goodsList:allGoods})
+        }
+        else{
+            res.render('importGoodsPage',{user:user,message:allGoods})
+        }
+       
     }
     catch(err){
         res.render('errorPage',{

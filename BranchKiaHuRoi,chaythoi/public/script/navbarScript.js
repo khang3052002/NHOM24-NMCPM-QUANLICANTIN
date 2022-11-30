@@ -83,3 +83,7 @@ $('#recharge-btn').click(function(e)
     window.location.href = '/recharge'
 })
 
+$('#search-receipt-btn').click(function(){
+    window.location.href = `/trading-details?id=${$('#search-id-key').val()}`
+    
+})

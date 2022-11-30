@@ -123,10 +123,6 @@ const editCart = async(req,res) =>
         else{
             resultDelete = await dbModel.deleteUserCart(idUser)
         }
-        // var queryStr=idStr+","+amountStr
-        console.log(arrProID)
-        console.log(queryStr)
-       
 
         if(resultDelete.rows){
             res.send('Cập nhật thành công')
@@ -177,8 +173,6 @@ const createOrder = async(req,res)=>
         else{
             res.send({result: 'fail'})
         }
-        // const orderID = await dbModel.getOrderIDNewCreate(idUser)
-        // console.log(orderID)
         
     } catch (error) {
         res.send('Đã xảy ra lỗi')

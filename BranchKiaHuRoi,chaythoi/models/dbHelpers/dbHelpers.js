@@ -132,7 +132,7 @@ const updateUserInfo = async (id, name, email, phone) => {
 const getAllGoods = async () => {
   try {
     const res = await dbConnector.query(`SELECT * FROM MAT_HANG`)
-    return res.rows
+    return res
   } catch (error) {
     return error
   }
