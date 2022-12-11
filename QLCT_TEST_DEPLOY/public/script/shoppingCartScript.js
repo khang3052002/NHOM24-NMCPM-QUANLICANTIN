@@ -45,8 +45,7 @@ $('#payment').click(function () {
     // console.log(typeof typePayment, numTotal)
     // thanh toán tiền tài khoản
     if (typePayment == 1) {
-        if(numTotal == 0)
-        {
+        if (numTotal == 0) {
             $(".noti-content").html('Không có mặt hàng trong giỏ');
             $('.pop-up').removeClass('hidden')
         }
@@ -62,7 +61,7 @@ $('#payment').click(function () {
                 data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
                 success: function (data) {
                     if (data.result == 'OK') {
-                        
+
                         console.log(data.orderID)
                         $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
                         $(".noti-content").html('Thanh toán thành công');
@@ -73,7 +72,7 @@ $('#payment').click(function () {
                         $('.pop-up').removeClass('hidden')
                         $('#view-receipt-btn').removeClass('hidden')
                     }
-                    else{
+                    else {
                         console.log(data)
                     }
                 }
@@ -96,7 +95,7 @@ $('#payment').click(function () {
 
                         .done(function (data) {
                             var isEmpty = Object.keys(data).length === 0;
-                            if (count > 9) {
+                            if (count > 10) {
                                 if (isEmpty) {
                                     console.log('KHONG LAM GI HET')
                                     console.log(data)
@@ -112,10 +111,14 @@ $('#payment').click(function () {
                                         console.log(data)
                                         // $('.notify').html(`<h1>GIAO DỊCH THẤT BẠI</h1>`)
                                         $(".noti-content").html('Thánh toán thất bại');
-
+                                        setTimeout(function () {
+                                            window.location.reload()
+                                        }, 800)
+                                        count = 1
 
                                     }
                                     else {
+                                        console.log(data)
                                         // $('.notify').html(`<h1>GIAO DỊCH THÀNH CÔNG</h1>`)
                                         // $('#spin').addClass('d-none')
                                         $(".noti-content").html('Thanh toán thành công');
@@ -132,7 +135,7 @@ $('#payment').click(function () {
                                                     setTimeout(function () {
                                                         window.location.reload()
                                                     }, 800)
-                                                    
+
 
                                                 }
                                             }
@@ -163,21 +166,18 @@ $('#payment').click(function () {
 
 })
 
-$('#view-receipt-btn').click(function()
-{
+$('#view-receipt-btn').click(function () {
     $('.container-pos').removeClass('hidden')
 })
 
 
-$('.container-pos').click(function()
-{
-  $(this).addClass('hidden')
+$('.container-pos').click(function () {
+    $(this).addClass('hidden')
 
 })
 
-$('#invoice-POS').click(function(event)
-{
-  event.stopPropagation()
+$('#invoice-POS').click(function (event) {
+    event.stopPropagation()
 })
 
 
@@ -243,7 +243,7 @@ $('#update-cart').click(function (e) {
     var arrProductsID = []
     var arrQuantity = []
 
-    
+
     $('.product-item').each(function (e) {
         // console.log($(this).attr('id'))
         arrProductsID.push($(this).attr('id'))
@@ -253,9 +253,9 @@ $('#update-cart').click(function (e) {
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
-    console.log(arrProductsID,arrQuantity)
+    console.log(arrProductsID, arrQuantity)
 
-    data= { arrProID: arrProductsID, arrQuantity: arrQuantity }
+    data = { arrProID: arrProductsID, arrQuantity: arrQuantity }
 
     console.log(data)
     $.ajax({
