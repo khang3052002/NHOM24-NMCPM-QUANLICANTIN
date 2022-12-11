@@ -228,8 +228,8 @@ const getFoodInfoForCartHistory=async id=>{
 }
 const getGoodsInfoForCartHistory=async id=>{
   try {
-    const res = await dbConnector.query(`select ctdh.ma_don_hang as id, mh.ten_mat_hang as ten, ctdh.gia_ban as don_gia, ctdh.so_luong, ctdh.thanh_tien
-    from chi_tiet_don_hang ctdh, mat_hang mh where ctdh.ma_don_hang = '${id}' and mh.ma_mat_hang = ctdh.ma_mat_hang`)
+    const res = await dbConnector.query(`select ctdh.ma_don_hang as id, mh.ten_mat_hang as ten, slhct.gia_ban_ra as don_gia, ctdh.so_luong, ctdh.thanh_tien
+    from chi_tiet_don_hang ctdh, mat_hang mh, sl_hang_canteen slhct where ctdh.ma_don_hang = '${id}' and mh.ma_mat_hang = ctdh.ma_mat_hang and slhct.ma_mat_hang = ctdh.ma_mat_hang`)
     return res.rows
   } catch (err) {
     return err.message
