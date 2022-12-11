@@ -9,7 +9,7 @@ function CreateOrder(params = {}) {
 function xuLiThanhToan() {
     return $.ajax({
         type: 'post',
-        url: '/payment-momo/callback',
+        url: '/callback',
         // url: `https://webhook.site/67f5b308-2734-45a5-8d1a-1f32e4d2be66`,
         // data: {value: value,name:'Momo'},
     })

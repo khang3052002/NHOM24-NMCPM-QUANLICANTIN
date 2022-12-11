@@ -8,7 +8,7 @@ const extraData = "";
 
 const redirectUrl = configMomo.redirectUrl // thay đổi đường dẫn trả về khi thanh toán xong
 
-const ipnUrl = configMomo.redirectUrl +'payment-momo/callback'
+const ipnUrl = configMomo.redirectUrl +'callback'
 // const ipnUrl = configMomo.redirectUrl +'payment-momo/callback' // api cung cấp cho Server momo để trả kq thanh toán
 class Momo {
     constructor() {

@@ -12,6 +12,7 @@ app.engine('hbs',exphbs.engine({
     layoutsDir:'views/_layouts',
     helpers:hbsHelper
 }))
+
 app.set('view engine', 'hbs')
 app.use(express.static(__dirname+ '/public/'))
 
@@ -117,6 +118,29 @@ app.use('/create-new-bill',restrictForAdmin,createBillRoutes)
 app.use('/daily-turnover',restrictForAdmin, dailyTurnoverRoutes)
 app.use('/monthly-turnover',restrictForAdmin,monthlyTurnoverRoutes)
 app.use('/food-stock',inStockFoodRoutes)
+
+
+var data = ''
+var arr = []
+app.post('/callback', (req, res) => {
+    console.log('da vao callback')
+    if (Object.keys(data).length !== 0) {
+        arr.push(data)
+    }
+    if (Object.keys(req.body).length !== 0) {
+
+        // NƠI LƯU KQ THANH TOÁN VÀO DATABASE
+        data = req.body
+        // res.send(data)
+        console.log('KET QUA THANH TOAN: ', data)
+
+        // console.log('da send')
+
+    }
+    console.log('arr: ', arr)
+    res.send(data)
+})
+
 app.get('/',(req,res)=>{
    res.redirect('/home');
 })
