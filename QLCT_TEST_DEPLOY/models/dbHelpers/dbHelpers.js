@@ -493,7 +493,7 @@ const addNewFood=async(ten_mon_an,gia_ban,img_url)=>{
 }
 const createOrder = async (idUser, strQuery) => {
   try {
-    // console.log(`call capnhatgiohang('${idUser}',${strQuery})`)
+    console.log(`call themdonhang('${idUser}',${strQuery})`)
     const res = await dbConnector.query(`call themdonhang('${idUser}',${strQuery})`)
     // console.log(res)
     // return 1

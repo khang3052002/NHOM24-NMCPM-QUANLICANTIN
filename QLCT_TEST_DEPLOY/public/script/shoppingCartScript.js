@@ -23,6 +23,8 @@ $('#payment').click(function () {
     console.log('tao ne m')
     var arrProductsID = []
     var arrQuantity = []
+    var arrProductsName = []
+    var strInfo = ''
     $('.product-item').each(function (e) {
         // console.log($(this).attr('id'))
         arrProductsID.push($(this).attr('id'))
@@ -32,6 +34,14 @@ $('#payment').click(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
     // console.log(arrProductsID, arrQuantity)
+    $('.name-pro').each(function () {
+        arrProductsName.push($(this).html())
+    })
+    for(i=0;i<arrProductsName.length;i++)
+    {
+        strInfo += arrProductsName[i] + ' - ' + arrQuantity[i] + '\n'
+    }
+    // console.log(strInfo)
 
     var typePayment = $('.form-select').val()
 
@@ -73,6 +83,9 @@ $('#payment').click(function () {
                         $('#view-receipt-btn').removeClass('hidden')
                     }
                     else {
+                        $(".noti-content").html('Không đủ mặt hàng trong kho');
+
+                        $('.pop-up').removeClass('hidden')
                         console.log(data)
                     }
                 }
@@ -82,7 +95,7 @@ $('#payment').click(function () {
     }
     // thanh toán Momo
     else if (typePayment == 2) {
-        $.when(CreateOrder({ value: numTotal, orderID: '123' }))
+        $.when(CreateOrder({ value: numTotal, orderID: strInfo }))
             .then(function success(data) {
                 console.log(data.payUrl)
                 window.open(data.payUrl)
@@ -95,7 +108,7 @@ $('#payment').click(function () {
 
                         .done(function (data) {
                             var isEmpty = Object.keys(data).length === 0;
-                            if (count > 10) {
+                            if (count > 9) {
                                 if (isEmpty) {
                                     console.log('KHONG LAM GI HET')
                                     console.log(data)
@@ -134,7 +147,7 @@ $('#payment').click(function () {
 
                                                     // setTimeout(function () {
                                                     //     window.location.reload()
-                                                    // }, 800)
+                                                    // }, 2000)
                                                     $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
 
                                                     $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`);
