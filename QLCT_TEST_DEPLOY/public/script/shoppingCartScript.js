@@ -132,10 +132,14 @@ $('#payment').click(function () {
                                                 if (data) {
                                                     // window.location.href='/shopping-cart'
 
-                                                    setTimeout(function () {
-                                                        window.location.reload()
-                                                    }, 800)
+                                                    // setTimeout(function () {
+                                                    //     window.location.reload()
+                                                    // }, 800)
+                                                    $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
 
+                                                    $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`);
+
+                                                    $('#view-receipt-btn').removeClass('hidden')
 
                                                 }
                                             }
