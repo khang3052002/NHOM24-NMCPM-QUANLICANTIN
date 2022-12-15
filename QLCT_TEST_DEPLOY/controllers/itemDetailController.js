@@ -6,11 +6,17 @@ const loadItemDetail=async(req,res,next)=>{
         user=req.session.user;
     }
     try{
+        foodList=await dbModel.getTodayFood();
+
         query=req.query
         item=await dbModel.getFoodById(query.id);
         if(item.rows){
             item=item.rows
-            res.render('itemDetailPage',{title:'Chi tiết sản phẩm',user:user,item:item[0]})
+            res.render('itemDetailPage',{title:'Chi tiết sản phẩm',
+            user:user,item:item[0],
+        
+            foodList:foodList,
+        })
         }
         else{
             res.render('itemDetailPage',{title:'Chi tiết sản phẩm',user:user,message:'Đã xảy ra lỗi'})

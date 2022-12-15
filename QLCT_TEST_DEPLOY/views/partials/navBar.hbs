@@ -95,6 +95,11 @@
                             <div class="d-flex align-items-end justify-content-end h-100">
 
                                 {{#ifCond (getJSONLen user) '>' 3}}
+                                <div>
+                                   <p style="margin-bottom: 0.6rem; font-size:1.3rem">
+                                        Xin chào, {{../user.username}}
+                                   </p> 
+                                </div>
                                 <div class="col-1 text-end">
                                     <div class="dropdown">
                                         <button id="user-avatar-btn" class="btn" type="button" data-bs-toggle="dropdown"

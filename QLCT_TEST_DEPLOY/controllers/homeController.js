@@ -17,7 +17,8 @@ const loadHomePage=async(req,res,next)=>{
                 role:req.session.role,
                 foodList:foodList,
                 user:user,
-                popularList
+                popularList,
+                
             });
         }
         else if(req.session&&req.session.role=='admin'){
@@ -25,7 +26,9 @@ const loadHomePage=async(req,res,next)=>{
                 title:'Trang chủ admin',
                 role:req.session.role,
                 user:user,
-                popularList:popularList
+                popularList:popularList,
+                
+
             });
         }
     }catch(err){

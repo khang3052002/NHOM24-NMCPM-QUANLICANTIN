@@ -1,6 +1,10 @@
 <body>
+    {{#if message}}
     <h3>{{message}}</h3>
+    {{/if}}
     <link rel="stylesheet" href="css/itemDetailStyle.css">
+    <link rel="stylesheet" href="css/homePageNeutralStyle.css">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 border p-3 main-section bg-white">
@@ -104,6 +108,57 @@
                 {{/if}}
             </div>
         </div>
+
+
+
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="0">
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        {{#each foodList}}
+                        {{index}}
+                        {{#ifCond (getRemainder @index 3) '==' 0}}
+                        <div class="carousel-item {{#if @first}}active {{/if}}">
+                            <div class="row">
+                                {{#each ../../foodList as |fl|}}
+                                {{index}}
+                                {{#ifCond (getQuotient @index 3) '==' (getQuotient @../index 3)}}
+                                <div class="col-sm-4">
+                                    <div class="thumb-wrapper item-container" id="{{fl.ma_mon_an}}">
+
+                                        <div class="img-box">
+                                            <img src="{{fl.img_url}}" class="img-fluid today-food-img" alt="">
+                                        </div>
+                                        <div class="thumb-content">
+                                            <p class="text-center today-food-name">{{fl.ten_mon_an}}</p>
+                                            <p class="text-center">{{ConvertToVND fl.gia_ban}}</p>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                {{/ifCond}}
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{/ifCond}}
+
+                        {{/each}}
+                    </div>
+                    <!-- Carousel controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel"
+                        data-bs-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel"
+                        data-bs-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -121,6 +176,7 @@
         </div>
 
     </div>
+    <script src="script/itemSelectScript.js"></script>
 
     <script src="script/itemDetailScript.js"></script>
     <script src="script/globalScript.js"></script>

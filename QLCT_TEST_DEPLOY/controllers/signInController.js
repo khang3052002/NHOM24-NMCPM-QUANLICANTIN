@@ -43,6 +43,7 @@ const authentication = async (req, res, next) => {
               id: uDb[0].id,
               cartID: uDb[0].id_gio_hang,
               img_url: uDb[0].img_url,
+              username: uDb[0].tai_khoan
             };
             req.session.role = "user";
           } else if (uDb[0].id.includes("ADMS")) {
