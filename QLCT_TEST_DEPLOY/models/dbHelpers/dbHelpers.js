@@ -599,7 +599,7 @@ const updateState = async(id) =>
 
 const getTodayReciept= async()=>{
   try {
-    const res= await dbConnector.query('select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = current_date and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang')
+    const res= await dbConnector.query('select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = current_date and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang ORDER BY dh.ngay_mua DESC')
     return res
   }catch(err){
       return err.message
@@ -628,7 +628,7 @@ const getTurnoverByDate=async(date)=>{
     queStr = `select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang`
 
    
-    const res=await dbConnector.query(`select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang`)
+    const res=await dbConnector.query(`select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang ORDER BY dh.ngay_mua DESC`)
     return res
   }
   catch(err){
