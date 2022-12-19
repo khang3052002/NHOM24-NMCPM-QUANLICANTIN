@@ -9,17 +9,23 @@
                             <i id="close-nav-btn" class="fas fa-bars"></i>
                         </div>
                         {{#ifCond (getJSONLen user) '==' 3}}
-                        <a href="/import-goods">Nhập kho</a>
-                        <a href="/import-goods-history">Lịch sử nhập kho</a>
-                        <a href="/export-goods">Chuyển hàng đến canteen</a>
-                        <a href="/export-goods-history">Lịch sử chuyển hàng đến canteen</a>
-                        <a href="/manage-users">Quản lí khách hàng</a>
-                        <a href="/manage-category">Xem hàng theo từng loại</a>
-                        <a href="/create-new-bill">Tạo đơn cho khách</a>
                         <a href="/today-menu">Chỉnh sửa thực đơn</a>
-                        <a href="/in-store">Quản lí kho</a>
+                        <a href="/trading-details">In hoá đơn</a>
+                        <a href="/export-goods-history">Lịch sử nhập hàng canteen</a>
+                        <a href="/import-goods-history">Lịch sử nhập kho</a>
+                        <a href="/export-goods">Nhập hàng canteen</a>
+
+                        <a href="/import-goods">Nhập hàng kho</a>
+                        <a href="/in-store">Quản lí hàng trong kho</a>
                         <a href="/in-stock">Quản lí hàng trong canteen</a>
-                        <a href="/food-stock">Thức ăn trong kho</a>
+                        <a href="/manage-users">Quản lí khách hàng</a>
+                        <a href="/food-stock">Quản lí kho thức ăn</a>
+                        <a href="/manage-category">Quản lí theo từng loại</a>
+                        <a href="/create-new-bill">Tạo đơn hàng mới</a>
+                        <a href="/add-new-item">Thêm mặt hàng mới</a>
+                        <a href="/tradings-history">Xem lịch sử giao dịch</a>
+   
+   
 
                         {{/ifCond}}
 
