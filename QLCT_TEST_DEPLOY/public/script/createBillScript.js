@@ -1,8 +1,14 @@
 count = 2;
-function convertToVND(value) {
-  value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
-  return value
+function convertToVND(value) {
+  try {
+    value = value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+
+    return value
+  } catch (error) {
+    return value
+  }
+  
 }
 $(".add-new-line").click(function () {
   var clone = $("#row-1").clone();
@@ -101,13 +107,15 @@ $("#confirm-btn").click(function () {
         if (data.result == "OK") {
           console.log(data.orderID);
           $("#orderID").html(`Mã đơn hàng: ${data.orderID}`);
-          $(".noti-content").html("Thanh toán thành công");
+          $(".noti-content").html(`Tạo đơn thành công<br>Mã đơn hàng: ${data.orderID}`);
           // window.location.href='/shopping-cart'
 
-          $("#qr-order").attr(
-            "src",
-            `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`
-          );
+          // $("#qr-order").attr(
+          //   "src",
+          //   `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`
+          // );
+
+          
           // window.location.reload()
           $(".pop-up").removeClass("hidden");
           $("#view-receipt-btn").removeClass("hidden");

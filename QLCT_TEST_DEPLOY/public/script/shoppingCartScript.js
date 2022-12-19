@@ -77,7 +77,7 @@ $('#payment').click(function () {
                         $(".noti-content").html('Thanh toán thành công');
                         // window.location.href='/shopping-cart'
 
-                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`);
+                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://test1-nhom24-qlct.onrender.com/trading-details?id=${data.orderID}`);
                         // window.location.reload()
                         $('.pop-up').removeClass('hidden')
                         $('#view-receipt-btn').removeClass('hidden')

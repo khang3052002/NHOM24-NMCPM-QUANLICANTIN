@@ -7,6 +7,14 @@ const loadPage = async (req, res, next) => {
   try {
     currentCanteen = await dbModel.getCurrentCanteen();
     todayFood = await dbModel.getTodayFood();
+    console.log('current: ',currentCanteen)
+    console.log('today: ',todayFood)
+    if(currentCanteen.rows)
+    {
+      currentCanteen = currentCanteen.rows
+    }
+      
+
     var allGoods;
     if (Array.isArray(todayFood) && Array.isArray(currentCanteen)) {
       for (i = 0; i < todayFood.length; i++) {

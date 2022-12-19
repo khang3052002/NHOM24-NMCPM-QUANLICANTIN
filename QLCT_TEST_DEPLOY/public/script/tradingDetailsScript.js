@@ -18,12 +18,36 @@ $("#print-bill").click(function () {
     },
     url: "/trading-details",
     success: function (data) {
-        $('.container-pos').removeClass('hidden')
-        $('.noti-content').html(data)
-        setTimeout(function(){
-          $('.pop-up').removeClass('hidden')
+      $('.pop-up').removeClass('hidden')
+      $('.noti-content').html(data)
+      setTimeout(function(){
+        // window.location.reload()
+        $('.pop-up').addClass('hidden')
         },1500)
+      setTimeout(function(){
+        // window.location.reload()
+        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://test1-nhom24-qlct.onrender.com/trading-details?id=${id}`);
+
+        $('.container-pos').removeClass('hidden')
+        },1500)
+
+        // setTimeout(function(){
+        //   // $('.pop-up').removeClass('hidden')
+        //   window.location.reload()
+        // },1500)
        
     },
 });
 });
+
+$('#invoice-POS').click(function(event)
+{
+  event.stopPropagation()
+})
+
+$('.container-pos').click(function()
+{
+  window.location.reload()
+  $(this).addClass('hidden')
+
+})

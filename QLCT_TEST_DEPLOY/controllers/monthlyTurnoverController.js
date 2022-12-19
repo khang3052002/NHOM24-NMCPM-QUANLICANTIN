@@ -10,7 +10,7 @@ const loadPage = async (req, res, next) => {
   try {
 
     var updateTurnover= await dbModel.updateMonthTurnover();
-    console.log('haha',updateTurnover)
+    // console.log('haha',updateTurnover)
     updateTurnover=updateTurnover.rows[0]
     updateTurnover.doanh_thu=parseInt(updateTurnover.doanhthuthang)
     console.log(updateTurnover)
@@ -24,11 +24,11 @@ const loadPage = async (req, res, next) => {
     if (req.query.date) {
       if (req.query.month != "") {
         receiptIDArr = await dbModel.getTurnoverByMonth(req.query.month);
-        console.log(receiptIDArr)
+        // console.log(receiptIDArr)
       }
     } else {
       receiptIDArr = await dbModel.getThisMonthTurnover();
-      console.log(receiptIDArr)
+      // console.log(receiptIDArr)
    
     }
     if( receiptIDArr.rows){

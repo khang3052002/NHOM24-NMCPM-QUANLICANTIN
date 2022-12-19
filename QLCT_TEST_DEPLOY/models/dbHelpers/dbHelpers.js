@@ -566,7 +566,7 @@ const getOrderInfo= async (id)=>
 const getDetailTrading= async (id)=>
 {
   try {
-    const res = await dbConnector.query(`SELECT ct.ma_don_hang,ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
+    const res = await dbConnector.query(`SELECT ct.ma_don_hang,ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where ct.ma_mat_hang = mh.ma_mat_hang and dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
     return res.rows
   } catch (err) {
     return err.message
@@ -610,12 +610,14 @@ const updateDailyTurnover=async()=>{
     const res= await dbConnector.query('call capnhatdoanhthu()')
     return res
   }catch(err){
-    return err.message
+    return err
   }
 }
-const getUpdatedDailyTurnoverTime=async()=>{
+const getUpdatedDailyTurnoverTime=async(date)=>{
   try{
-    const res= await dbConnector.query('select * from doanh_thu_ngay')
+
+    console.log('QueryStr: ',`select * from doanh_thu_ngay where ngay = '${date}'`)
+    const res= await dbConnector.query(`select * from doanh_thu_ngay where ngay = '${date}'`)
     return res
   }catch(err){
     return err.message
@@ -623,6 +625,9 @@ const getUpdatedDailyTurnoverTime=async()=>{
 }
 const getTurnoverByDate=async(date)=>{
   try{
+    queStr = `select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang`
+
+   
     const res=await dbConnector.query(`select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang`)
     return res
   }
