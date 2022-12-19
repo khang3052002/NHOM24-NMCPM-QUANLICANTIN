@@ -18,7 +18,9 @@
 
 <body>
     <script src="script/allUserInfoScript.js"></script>
-    <h3>{{message}}</h3>
+    {{#if message}}
+        <h3>{{message}}</h3>
+    {{/if}}
     <link rel="stylesheet" href="css/allUserInfoPageStyle.css">
         <div class="pop-up hidden">
         <div class="popup-container">

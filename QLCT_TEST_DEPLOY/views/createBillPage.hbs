@@ -15,7 +15,9 @@
         </div>
     </div>
 
-<h3>{{message}}</h3>
+    {{#if message}}
+    <h3>{{message}}</h3>
+    {{/if}}
     <div class="panel-container">
         <h3>Tạo đơn hàng</h3>
 
@@ -34,7 +36,8 @@
                         {{/each}}
                     </select>
                     <span class="input-group-text">Số lượng hiện có</span>
-                    <input type="number" class="form-control remain-amount-field" id="remain-amount-1" value="" disabled>
+                    <input type="number" class="form-control remain-amount-field" id="remain-amount-1" value=""
+                        disabled>
                     <span class="input-group-text">Giá bán</span>
                     <input type="text" class="form-control price-field" id="price-1" value="" disabled>
                     <span class="input-group-text ">Số lượng mua</span>
