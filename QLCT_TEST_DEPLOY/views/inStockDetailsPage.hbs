@@ -1,4 +1,5 @@
-{{!-- <!DOCTYPE html>
+{{!--
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,7 +19,7 @@
 <body>
     <h3>{{message}}</h3>
     <link rel="stylesheet" href="css/inStockDetailsPageStyle.css">
-            <div class="pop-up  hidden">
+    <div class="pop-up  hidden">
         <div class="popup-container">
             <div class="notification">
                 <div class="noti-header">
@@ -26,9 +27,9 @@
                 </div>
                 <div class="noti-content-container d-flex flex-column">
                     <div class="noti-content">
-                       Xác nhận xóa 
+                        Xác nhận xóa
                     </div>
-                     <button class="btn btn-success confirm-delete hidden">ok</button>
+                    <button class="btn btn-success confirm-delete hidden">ok</button>
                 </div>
             </div>
         </div>
@@ -42,35 +43,67 @@
                     <h3 class="panel-title">Hiện có trong canteen</h3>
 
                 </div>
+                <div class="confirm-btn-div">
+                    <a href="/in-stock"> <button id="show-details-btn" type="button"
+                            class="btn btn-success">Chung</button>
+                    </a>
+                </div>
                 <table class="table">
                     <thead>
-                        <tr >
-                            <th><p class="user-info-display">Sản phẩm</p></th>
-                            <th><p class="user-info-display">Số lượng</p></th>
-                            {{!-- <th><p class="user-info-display">Đơn giá</p></th> --}}
-                            <th><p class="user-info-display">Ngày sản xuất</p></th>
-                            <th><p class="user-info-display">Ngày hết hạn</p></th>
-                            <th><p class="user-info-display adjust-header">Xóa</p></th>
+                        <tr>
+                            <th>
+                                <p class="user-info-display">Sản phẩm</p>
+                            </th>
+                            <th>
+                                <p class="user-info-display">Số lượng</p>
+                            </th>
+                            {{!-- <th>
+                                <p class="user-info-display">Giá nhập</p>
+                            </th>
+                            <th>
+                                <p class="user-info-display">Giá bán</p>
+                            </th> --}}
+                            <th>
+                                <p class="user-info-display">Ngày sản xuất</p>
+                            </th>
+                            <th>
+                                <p class="user-info-display">Ngày hết hạn</p>
+                            </th>
+                            <th>
+                                <p class="user-info-display adjust-header">Xóa</p>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each product}}
-                        <tr  proId="{{this.ma_mat_hang}}" dateM="{{this.ngay_san_xuat}}" dateExp="{{this.ngay_het_han}}">
-                            <td><p class="user-info-display">{{this.ten_mat_hang}}</p></td>
-                            <td><p class="user-info-display">{{this.so_luong}}</p></td>
-                            {{!-- <td><p class="user-info-display">{{this.gia}}</p></td> --}}
-                            <td><p class="user-info-display">{{#customDateWOTime
-                                                this.ngay_san_xuat}}{{/customDateWOTime}}</p></td>
-                            <td><p class="user-info-display">{{#customDateWOTime
-                                                this.ngay_het_han}}{{/customDateWOTime}}</p></td>
+                        <tr proId="{{this.ma_mat_hang}}" dateM="{{this.ngay_san_xuat}}" dateExp="{{this.ngay_het_han}}">
                             <td>
-                                <button type="button" class="btn  btn-sm px-3"
-                                    data-ripple-color="dark">
-                                                   <i class="fa-solid fa-delete-left" id="delete-btn"></i>
+                                <p class="user-info-display">{{this.ten_mat_hang}}</p>
+                            </td>
+                            <td>
+                                <p class="user-info-display">{{this.so_luong}}</p>
+                            </td>
+                            {{!-- <td>
+                                <p class="user-info-display">{{this.gia}}</p>
+                            </td>
+                            <td>
+                                <p class="user-info-display">{{this.gia_ban_ra}}</p>
+                            </td> --}}
+                            <td>
+                                <p class="user-info-display">{{#customDateWOTime
+                                    this.ngay_san_xuat}}{{/customDateWOTime}}</p>
+                            </td>
+                            <td>
+                                <p class="user-info-display">{{#customDateWOTime
+                                    this.ngay_het_han}}{{/customDateWOTime}}</p>
+                            </td>
+                            <td>
+                                <button type="button" class="btn  btn-sm px-3" data-ripple-color="dark">
+                                    <i class="fa-solid fa-delete-left" id="delete-btn"></i>
                                 </button>
                             </td>
                         </tr>
-                         {{/each}}
+                        {{/each}}
                     </tbody>
                 </table>
             </div>

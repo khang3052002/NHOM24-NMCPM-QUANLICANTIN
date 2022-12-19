@@ -145,3 +145,11 @@ table {
    
     padding-left: 10px;
 }
+.confirm-btn-div{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3rem;
+    margin-right: 2.5rem;
+    width: 100%;
+ 
+}

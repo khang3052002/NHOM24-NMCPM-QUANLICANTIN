@@ -51,3 +51,10 @@ th, td{
 .receipt-id-column{
     /* margin-left: auto; */
 }
+.qr-row{
+    text-align: right;
+}
+.qr-row > img{
+    width:50px;
+    margin-top:5px;
+}

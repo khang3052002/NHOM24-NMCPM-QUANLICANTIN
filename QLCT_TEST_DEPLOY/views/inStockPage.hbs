@@ -56,9 +56,11 @@
                                 <p class="user-info-display">Số lượng</p>
                             </th>
                             <th>
-                                <p class="user-info-display">Đơn giá</p>
+                                <p class="user-info-display">Giá nhập</p>
                             </th>
-
+                            <th>
+                                <p class="user-info-display">Giá bán</p>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +74,9 @@
                             </td>
                             <td>
                                 <p class="user-info-display">{{ConvertToVND this.gia}}</p>
+                            </td>
+                                                        <td>
+                                <p class="user-info-display">{{ConvertToVND this.gia_ban_ra}}</p>
                             </td>
                         </tr>
                         {{/each}}

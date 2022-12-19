@@ -26,6 +26,7 @@ const loadHistory = async (req, res, next) => {
 
       console.log(getUserId)
       receiptIDArr = await dbModel.getUserReCeiptID(getUserId);
+      console.log('list items',receiptIDArr)
     }
 
     var tempReceiptIDArr = receiptIDArr.slice(currentPage * itemPerPage, currentPage * itemPerPage + itemPerPage)

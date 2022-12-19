@@ -54,7 +54,7 @@ const adminAuthentication = async (user) => {
 };
 const getTodayFood = async () => {
   try {
-    const res = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN`);
+    const res = await dbConnector.query(`SELECT * FROM THUC_AN_TRONG_KHO TA, MON_AN MA WHERE TA.MA_MON_AN=MA.MA_MON_AN and so_luong > 0`);
     return res.rows;
   }
   catch (err) {
@@ -102,7 +102,7 @@ const getCurrentStorage = async () => {
 
 const getCurrentCanteen = async () => {
   try {
-    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong,sl.gia  FROM sl_hang_canteen sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang,mh.ten_mat_hang,sl.so_luong,sl.gia,sl.gia_ban_ra  FROM sl_hang_canteen sl, mat_hang mh where mh.ma_mat_hang=sl.ma_mat_hang and so_luong>0`);
     return res;
   }
   catch (err) {
@@ -193,7 +193,7 @@ const getUserReCeiptByID = async (id) => {
 }
 const getUserReCeiptID = async (id) => {
   try {
-    const res = await dbConnector.query(`select * from don_hang dh where dh.ma_khach_hang = '${id}'`)
+    const res = await dbConnector.query(`select * from don_hang dh where dh.ma_khach_hang = '${id}' order by ngay_mua desc`)
     return res.rows
   } catch (err) {
     return err.message
@@ -404,7 +404,7 @@ const setUsersBalance = async users => {
 
 const getCurrentStorageDetails = async () => {
   try {
-    const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH WHERE kho.ma_mat_hang=MH.ma_mat_hang and ton_tai=1 and so_luong>0  `);
+    const res = await dbConnector.query(`SELECT *  FROM mat_hang_trong_kho kho, mat_hang MH,sl_hang_canteen slh  WHERE kho.ma_mat_hang=MH.ma_mat_hang and slh.ma_mat_hang = MH.ma_mat_hang and kho.ton_tai=1 and kho.so_luong>0`);
     return res;
   }
   catch (err) {

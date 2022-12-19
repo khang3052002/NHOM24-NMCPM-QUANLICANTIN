@@ -130,7 +130,7 @@ p {
     padding-bottom: 0px !important;
 }
 td,th{
-    width: 24%;
+    width: 19%;
     border: 0px solid !important;
 }
 .amount-input{
@@ -144,4 +144,12 @@ table {
     text-align: left;
    
     padding-left: 10px;
+}
+.confirm-btn-div{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3rem;
+    margin-right: 2.5rem;
+    width: 100%;
+    padding-right: 0px;
 }

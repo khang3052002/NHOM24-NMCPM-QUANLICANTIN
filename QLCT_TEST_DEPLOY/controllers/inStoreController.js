@@ -8,6 +8,7 @@ loadStorePage= async (req,res,next)=>{
     try{
         if(req.query.section=='details'){
             var productDetails=await dbModel.getCurrentStorageDetails();
+            console.log('details',productDetails.rows)
             if(productDetails.rows){
                 productDetails=productDetails.rows
 
