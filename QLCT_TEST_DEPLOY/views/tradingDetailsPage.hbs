@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="css/tradingDetailsStyle.css">
     <link rel="stylesheet" href="/css/receiptFormStyle.css">
 
-<div class="container-pos hidden">
+    <div class="container-pos hidden">
         <div id="invoice-POS">
 
             <div id="top">
@@ -70,8 +70,8 @@
                                 <h2>{{#getTotalCostV2 details}}{{/getTotalCostV2}}</h2>
                             </td>
                         </tr>
-                        
-                            
+
+
 
                     </table>
                     <div class="d-flex justify-content-center mt-3 mb-3">
@@ -89,10 +89,10 @@
             </div>
             <!--End InvoiceBot-->
         </div>
-        
+
     </div>
 
-<div class="pop-up hidden">
+    <div class="pop-up hidden">
         <div class="popup-container">
             <div class="notification">
                 <div class="noti-header">
@@ -105,12 +105,19 @@
             </div>
         </div>
     </div>
+
     <h3>{{message}}</h3>
-    <h3>Tìm kiếm đơn hàng</h3>
-    <div class="main-body-container">
+
+    <div class="main-body-container" style="width: 100%;">
+        <div>
+
+                <h3>Tìm kiếm đơn hàng</h3>
+            </div>
         <div class="search-id-container">
+            
             <input type="search" placeholder="Tìm kiếm theo mã" aria-describedby="button-addon1"
-                class="form-control border-0 bg-light search-field" id="id-order-search-field" value="{{header.ma_don_hang}}">
+                class="form-control border-0 bg-light search-field" id="id-order-search-field"
+                value="{{header.ma_don_hang}}">
             <div class="input-group-append">
                 <button id="search-id-btn" type="button" class="btn btn-link text-primary search-items"><i
                         class="fa fa-search"></i></button>
@@ -176,7 +183,7 @@
 
     </div>
     <script src="script/tradingDetailsScript.js"></script>
-     <script src="script/globalScript.js"></script>
+    <script src="script/globalScript.js"></script>
 
 
 </body>
