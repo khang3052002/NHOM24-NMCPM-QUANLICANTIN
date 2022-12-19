@@ -22,7 +22,9 @@
     
     <link rel="stylesheet" href="css/searchGoodsPageStyle.css">
     <link rel="stylesheet" href="css/manageCategoryStyle.css">
-    <h3>{{message}}</h3>
+    {{#if message}}
+        <h3>{{message}}</h3>
+    {{/if}}
     <div class="container" style="margin-top: 20px">
         <div class="section-btn-container">
             <a href="?category=TYNU">

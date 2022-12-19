@@ -3,7 +3,9 @@
     <script src="./js/bootstrap.bundle.min.js"></script> --}}
     {{!--
     <script src="./js/bootstrap.min.js"></script> --}}
-    <h3>{{message}}</h3>
+    {{#if message}}
+        <h3>{{message}}</h3>
+    {{/if}}
     <link rel="stylesheet" href="css/login-signupStyle.css">
 
     <div class="pop-up hidden">
@@ -22,7 +24,7 @@
 
     <div class="login-parent-container">
 
-        <div class="container">
+        <div class="container" style="width: 60vw;">
             <h3>Đăng nhập</h3>
             <ul class="nav nav-tabs nav-justified mb-3 nav-pills col-sm-12 col-lg-6 offset-lg-3" id="myTab"
                 role="tablist">
