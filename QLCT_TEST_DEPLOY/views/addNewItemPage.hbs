@@ -19,7 +19,9 @@
 <body>
     <link rel="stylesheet" href="css/addNewItemStyle.css" />
     <link rel="stylesheet" href="css/importGoodsStyle.css" />
-    <h3>{{message}}</h3>
+    {{#if message}}
+        <h3>{{message}}</h3>
+    {{/if}}
     <div class="pop-up hidden">
         <div class="popup-container">
             <div class="notification">
