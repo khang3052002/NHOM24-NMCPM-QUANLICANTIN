@@ -12,20 +12,17 @@
                 <input type="search" placeholder="Tìm kiếm đơn theo mã" aria-describedby="button-addon1"
                     class="rounded rounded-pill form-control border-0 bg-light" id="search-rec-id" value="">
                 <div class="input-group-append">
-                    <button id="search-receipt-btn" type="button" class="btn btn-link text-primary"><i
+                    <button id="search-receipt-btn-2" type="button" class="btn btn-link text-primary"><i
                             class="fa fa-search"></i></button>
                 </div>
             </div>
 
-            <a href="/import-goods">
-                <div class="add-new-rec btn btn-primary">
 
+                <div class="add-new-rec btn btn-primary">
                     Thêm đơn xuất hàng
                     <i class="fa-solid fa-plus"></i>
-
-
                 </div>
-            </a>
+
 
 
 
@@ -34,15 +31,15 @@
                 {{index}}
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapseOne">
                             <div class="card-header-custom">
-                                <div class="title-custom">{{#customDate this.chi_tiet_phieu.ngaynhap}}{{/customDate}}
+                                <div class="title-custom">{{#customDate this.chi_tiet_phieu.ngay_xuat}}{{/customDate}}
                                 </div>
                                 <div class="title-custom">Tổng tiền: {{ConvertToVND (getTotalCost this)}}</div>
                                 <div class="title-custom">ID: {{this.ma_phieu}}</div>
                             </div>
-                        </button>
+                        </div>
                     </h2>
                     <div id="collapse{{@index}}" class="accordion-collapse collapse" aria-labelledby="headingOne">
                         <div class="accordion-body">

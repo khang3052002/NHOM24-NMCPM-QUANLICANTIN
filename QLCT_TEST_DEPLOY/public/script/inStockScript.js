@@ -75,6 +75,7 @@ $(document).ready(function () {
     $('#show-details-btn').click(
         function(){
             window.location.href='/in-stock?section=details'
+            
             //window.location.reload()
         }
     )
@@ -82,6 +83,7 @@ $(document).ready(function () {
         $('.input-price').each(function(){
         
             $(this).prop("disabled", !$(this).prop("disabled"));
+            $('.update-user-balance-submit').removeClass('hidden')
         })
   
     })

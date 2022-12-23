@@ -59,7 +59,7 @@ $("#confirm-btn").click(function () {
   var priceArr = [];
   var mfDateArr = [];
   $(".category-field").each(function () {
-    if ($(this).val() == "") {
+    if ($(this).val() == "" && !$(this).prop('disabled',false)) {
       $(this).addClass("red-border");
       checkFlag = false;
       return;
@@ -69,7 +69,7 @@ $("#confirm-btn").click(function () {
   });
 
   $(".amount-field").each(function () {
-    if ($(this).val() == "") {
+    if ($(this).val() == "" && !$(this).prop('disabled',false)) {
       $(this).addClass("red-border");
       checkFlag = false;
       return;
@@ -79,7 +79,7 @@ $("#confirm-btn").click(function () {
   });
 
   $(".price-field").each(function () {
-    if ($(this).val() == "") {
+    if ($(this).val() == "" && !$(this).prop('disabled',false)) {
       $(this).addClass("red-border");
       checkFlag = false;
       return;
@@ -89,7 +89,7 @@ $("#confirm-btn").click(function () {
   });
 
   $(".mf-date").each(function () {
-    if ($(this).val() == "") {
+    if ($(this).val() == "" && !$(this).prop('disabled',false)) {
       $(this).addClass("red-border");
       checkFlag = false;
       return;

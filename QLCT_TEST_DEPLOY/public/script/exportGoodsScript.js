@@ -52,7 +52,7 @@ $("#confirm-btn").click(function () {
   $(".take-amount").each(function () {
     if (
       $(this).val() != "" &&
-      $(this).prop("disabled") == false &&
+      $(this).prop("disabled")==false &&
       $(this).val() > 0 &&
       $(this).siblings('.current-amount') >=  $(this).val()
       
@@ -61,11 +61,14 @@ $("#confirm-btn").click(function () {
       amountArr.push($(this).val());
     }
     else{
-      $(this).addClass('red-border')
-      checkFlag=false
+      if($(this).prop("disabled")==false){
+        $(this).addClass('red-border') 
+      }
     }
-
   });
+  if(idArr.length==0){
+    checkFlag=false
+  }
   if (checkFlag == false) {
     return;
   } else {

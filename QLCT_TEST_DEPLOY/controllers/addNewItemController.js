@@ -9,7 +9,13 @@ const loadPage = async(req,res)=>
             user=req.session.user
         }
         goodCategory=await dbModel.getAllGoodCategory()
-        res.render('addNewItemPage',{title:'Thêm sản phẩm', user:user,goodsCategory:goodCategory})
+        if(Array.isArray(goodCategory)){
+            res.render('addNewItemPage',{title:'Thêm sản phẩm', user:user,goodsCategory:goodCategory})
+        }
+        else{
+            res.render('addNewItemPage',{title:'Thêm sản phẩm', user:user,message:goodCategory.message})
+        }
+        
     } catch (error) {
         console.log(error)
     }

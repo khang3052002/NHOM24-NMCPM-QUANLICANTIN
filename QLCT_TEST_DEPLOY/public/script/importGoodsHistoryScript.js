@@ -10,3 +10,6 @@ $('#search-rec-id').on('keypress', function(event) {
         return false;
     }
 })
+$('.add-new-rec').click(function(){
+    window.location.href=`/import-goods`
+})

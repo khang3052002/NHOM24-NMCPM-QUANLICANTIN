@@ -177,7 +177,7 @@ const addNewReceiptCT = async (queryStringArr) => {
 
 const getAllReCeiptID = async () => {
   try {
-    const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk`)
+    const res = await dbConnector.query(`SELECT * FROM phieu_nhap_kho pnk order by ngay_nhap desc`)
     return res
   } catch (err) {
     return err.message
@@ -238,7 +238,7 @@ const getGoodsInfoForCartHistory=async id=>{
 
 const getAllExportReCeiptID = async () => {
   try {
-    const res = await dbConnector.query(`SELECT * FROM phieu_xuat_kho pxk`)
+    const res = await dbConnector.query(`SELECT * FROM phieu_xuat_kho pxk order by ngay_xuat desc`)
     return res
   } catch (err) {
     return err.message
@@ -533,7 +533,7 @@ const rechargeBalance = async(idUser,val) =>
 const getAllOrder= async ()=>
 {
   try {
-    const res = await dbConnector.query(`SELECT * FROM DON_HANG`)
+    const res = await dbConnector.query(`SELECT * FROM DON_HANG order by ngay_mua desc`)
     return res
   } catch (err) {
     return err.message
@@ -566,7 +566,11 @@ const getOrderInfo= async (id)=>
 const getDetailTrading= async (id)=>
 {
   try {
-    const res = await dbConnector.query(`SELECT ct.ma_don_hang,ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where ct.ma_mat_hang = mh.ma_mat_hang and dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
+    var res = await dbConnector.query(`SELECT ct.ma_don_hang,ct.so_luong, ct.gia_ban, ct.thanh_tien, dh.ma_don_hang, mh.ten_mat_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct, mat_hang mh where ct.ma_mat_hang = mh.ma_mat_hang and dh.ma_don_hang=ct.ma_don_hang and dh.ma_don_hang='${id}'`)
+    if(res.rows.length==0){
+      res = await dbConnector.query(`SELECT ct.ma_don_hang,ct.so_luong, ct.gia_ban, ct.thanh_tien, ma.ten_mon_an as ten_mat_hang from  mon_an ma, chi_tiet_don_hang ct where ct.ma_don_hang='${id}' and
+      ma.ma_mon_an=ct.ma_mat_hang`)
+    }
     return res.rows
   } catch (err) {
     return err.message
