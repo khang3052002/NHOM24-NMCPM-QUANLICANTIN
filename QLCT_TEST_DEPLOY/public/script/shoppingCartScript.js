@@ -283,7 +283,7 @@ $('#edit-cart').click(function (e) {
     $('.visibility-change').toggleClass('visibility-hidden')
 })
 $('#update-cart').click(function (e) {
-    console.log('heheheh')
+    // console.log('heheheh')
     var arrProductsID = []
     var arrQuantity = []
 
@@ -297,11 +297,11 @@ $('#update-cart').click(function (e) {
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
-    console.log(arrProductsID, arrQuantity)
+    // console.log(arrProductsID, arrQuantity)
 
     data = { arrProID: arrProductsID, arrQuantity: arrQuantity }
 
-    console.log(data)
+    // console.log(data)
     $.ajax({
         method: 'post',
         url: 'shopping-cart',

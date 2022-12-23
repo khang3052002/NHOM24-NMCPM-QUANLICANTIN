@@ -10,7 +10,7 @@ $('#add-to-cart').click(function()
         data: {id: id,quantity:quantity,name:name},
         success: function(data)
         {
-          console.log('hhaha',data.name)
+          // console.log('hhaha',data.name)
           if(data.name==false){
             $('.noti-content').html('Vui lòng đăng nhập')
             $('.pop-up').removeClass('hidden')
@@ -34,7 +34,7 @@ $('#add-to-cart').click(function()
 
         }
     })
-    console.log(id,quantity)
+    // console.log(id,quantity)
 })
 
 $('#payment-now').click(function(e)

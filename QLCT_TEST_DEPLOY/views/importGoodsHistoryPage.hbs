@@ -55,8 +55,8 @@
                                         <tr>
                                             <td scope="row">{{this.ten_mat_hang}}</td>
                                             <td>{{this.so_luong}}</td>
-                                            <td>{{this.don_gia}}</td>
-                                            <td class="text-right">{{this.thanh_tien}}</td>
+                                            <td>{{ConvertToVND this.don_gia}}</td>
+                                            <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
                                             <td class="text-right">{{#customDateWOTime
                                                 this.ngay_san_xuat}}{{/customDateWOTime}}</td>
                                         </tr>
