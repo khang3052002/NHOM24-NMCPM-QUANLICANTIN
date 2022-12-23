@@ -78,5 +78,70 @@ $(document).ready(function () {
             //window.location.reload()
         }
     )
+    $('.change-price').click(function(){
+        $('.input-price').each(function(){
+        
+            $(this).prop("disabled", !$(this).prop("disabled"));
+        })
+  
+    })
+    $('.input-price').click(
+        function(){
+            var currency =$(this).val();
+            var number = Number(currency.replace(/[^0-9-]+/g,""));
+            $(this).val(number)
+
+        }
+    )
+    $('.input-price').change(
+        function(){
+            $(this).attr('change-balance','');
+        }
+    )
+    $('.update-user-balance-submit').click(
+        function(){
+            var users=[];
+            var index=0;
+            var checkFlag=true
+            $("input[change-balance='']").each(
+                function(){
+                    var id =$(this).attr('line-id');
+                    var balance=$(this).val();
+                    index++;
+                    console.log(id, balance);
+                    users[index]={'id':id,'balance':balance}
+                    if(balance==''){
+
+                        checkFlag=false
+                    }
+                }
+            )
+            if(checkFlag==false){
+                $('.noti-content').html(`Vui lòng không để trống số dư`)
+                $('.pop-up').removeClass('hidden')
+                return;
+            }
+            if(users.length==0){
+                $('.noti-content').html(`Oops! Bạn chưa thực hiện thay đổi`)
+                $('.pop-up').removeClass('hidden')
+                return;
+            }
+            $.ajax({
+                method: "put",
+                data: {
+                    products:users
+                },
+                url: "/in-stock",
+                success: function (data) {
+                  $('.noti-content').html(data);
+                  $('.pop-up').removeClass('hidden')
+                  $('.fa-window-close').click(function () {
+                    window.location.reload()
+                  })
+          
+                },
+              });
+        }
+    )
     
 });

@@ -1,20 +1,37 @@
 const dbModel = require('../models/dbHelpers/dbHelpers');
 const moment = require('moment')
+var itemPerPage = 10;
+var totalPage = 0;
+var currentPage = 0;
 loadStockFoodPage= async (req,res,next)=>{
     try{
         var user={}
         if(req.session.user){
             user=req.session.user
         }
-
+        if (req.query.page) {
+            if (req.query.page != "") {
+              currentPage = parseInt(req.query.page);
+            }
+          }
         var product=await dbModel.getCurrentRemainedFood();
         if(product.rows){
             product=product.rows
+            totalPage =
+            parseInt( product.length / itemPerPage) +
+            ( product.length % itemPerPage > 0 ? 1 : 0);
+   
+            var  product = product.slice(
+                currentPage * itemPerPage,
+                currentPage * itemPerPage + itemPerPage
+                );
             console.log(product)
             res.render('inStockFoodPage',{
                 title:'Hàng trong canteen',
                 user:user,
-                product:product
+                product:product,
+                currentPage:currentPage,
+                totalPage:totalPage
             })
         }
         else{

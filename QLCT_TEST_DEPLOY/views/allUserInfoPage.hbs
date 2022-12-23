@@ -19,21 +19,21 @@
 <body>
     <script src="script/allUserInfoScript.js"></script>
     {{#if message}}
-        <h3>{{message}}</h3>
+    <h3>{{message}}</h3>
     {{/if}}
     <link rel="stylesheet" href="css/allUserInfoPageStyle.css">
-        <div class="pop-up hidden">
+    <div class="pop-up hidden">
         <div class="popup-container">
-        <div class="notification">
-            <div class="noti-header">
-                <i class="fas fa-window-close"></i>
-            </div>
-            <div class="noti-content-container">
-                <div class="noti-content">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </div>
     <div class="container">
@@ -66,22 +66,31 @@
                         <tr>
                             <td class="btn-container-cell"></td>
                             <td class="btn-container-cell">
-                                    <button type="button" class="btn btn-sm px-3 change-user-balance-btn"
+                                <button type="button" class="btn btn-sm px-3 change-user-balance-btn"
                                     line-id="{{this.id}}" data-ripple-color="dark" style="top: 0;">
                                     <i class="fa fa-edit"></i>
                                 </button>
                             </td>
                         </tr>
                         <tr>
-                            <td> <p class="user-info-display">{{this.id}}</p></td>
-                            <td  class="">
+                            <td>
+                                <p class="user-info-display">{{this.id}}</p>
+                            </td>
+                            <td class="">
                                 <p class="user-info-display">
-                                    <input type="number " value="{{ConvertToVND this.so_du}}" line-id="{{this.id}}" class="user-info-display user-balance" disabled required>
+                                    <input type="number " value="{{ConvertToVND this.so_du}}" line-id="{{this.id}}"
+                                        class="user-info-display user-balance" disabled required>
                                 </p>
                             </td>
-                            <td ><p class="user-info-display">{{this.ten_kh}}</p></td>
-                            <td><p class="user-info-display">{{this.ten_kh}}</p> </td>
-                            <td><p class="user-info-display">{{this.email}}</p> </td>
+                            <td>
+                                <p class="user-info-display">{{this.ten_kh}}</p>
+                            </td>
+                            <td>
+                                <p class="user-info-display">{{this.ten_kh}}</p>
+                            </td>
+                            <td>
+                                <p class="user-info-display">{{this.email}}</p>
+                            </td>
                             <td>
                             </td>
                         </tr>
@@ -90,9 +99,18 @@
                 </table>
             </div>
         </div>
-
+        <nav class="pagination-div" aria-label="Page navigation example">
+            <ul class="pagination">
+                {{#times totalPage}}
+                <li class="page-item page-number {{#ifCond  ../currentPage  '==' this }}active{{/ifCond}}">
+                    <a class="page-link" href="?page={{this}}">{{this}}</a>
+                </li>
+                {{/times}}
+            </ul>
+        </nav>
         <div class="cart-footer text-center">
-            <button type="button" class="btn btn-info my-1 update-user-balance-submit"><i class="ri-save-line mr-2"></i>Update</button>
+            <button type="button" class="btn btn-info my-1 update-user-balance-submit"><i
+                    class="ri-save-line mr-2"></i>Update</button>
         </div>
     </div>
     <script src="script/globalScript.js"></script>

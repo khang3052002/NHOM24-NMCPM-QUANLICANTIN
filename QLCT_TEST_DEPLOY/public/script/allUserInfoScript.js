@@ -54,6 +54,14 @@ $(document).ready(function () {
          
         }
     ),
+    $('.user-balance').click(
+        function(){
+            var currency =$(this).val();
+            var number = Number(currency.replace(/[^0-9-]+/g,""));
+            $(this).val(number)
+
+        }
+    )
     $('.user-balance').change(
         function(){
             $(this).attr('change-balance','');

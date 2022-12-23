@@ -151,3 +151,6 @@ table {
 .confirm-delete{
     margin-bottom: 20px;
 }
+.input-price{
+    height: 35px;
+}

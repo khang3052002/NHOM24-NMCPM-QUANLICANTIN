@@ -101,6 +101,15 @@
                     </tbody>
                 </table>
             </div>
+            <nav class="pagination-div" aria-label="Page navigation example">
+                <ul class="pagination">
+                    {{#times totalPage}}
+                    <li class="page-item page-number {{#ifCond  ../currentPage  '==' this }}active{{/ifCond}}">
+                        <a class="page-link" href="?section=details&page={{this}}">{{this}}</a>
+                    </li>
+                    {{/times}}
+                </ul>
+            </nav>
         </div>
     </div>
     <script src="script/globalScript.js"></script>

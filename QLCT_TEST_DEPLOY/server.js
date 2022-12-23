@@ -117,7 +117,7 @@ app.use('/manage-category', restrictForAdmin, manageCategoryRoutes)
 app.use('/create-new-bill', restrictForAdmin, createBillRoutes)
 app.use('/daily-turnover', restrictForAdmin, dailyTurnoverRoutes)
 app.use('/monthly-turnover', restrictForAdmin, monthlyTurnoverRoutes)
-app.use('/food-stock', inStockFoodRoutes)
+app.use('/food-stock',restrictForAdmin, inStockFoodRoutes)
 
 var data = ''
 var arr = []

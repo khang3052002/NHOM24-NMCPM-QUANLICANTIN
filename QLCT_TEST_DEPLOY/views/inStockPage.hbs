@@ -43,8 +43,16 @@
                     <h3 class="panel-title">Hiện có trong canteen</h3>
 
                 </div>
+
                 <div class="confirm-btn-div">
                     <button id="show-details-btn" type="button" class="btn btn-success">Chi tiết</button>
+                    <button type="button" class="btn btn-sm px-3 change-price" line-id="{{this.id}}"
+                        data-ripple-color="dark" style="top: 0;">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </div>
+                <div>
+
                 </div>
                 <table class="table">
                     <thead>
@@ -75,8 +83,9 @@
                             <td>
                                 <p class="user-info-display">{{ConvertToVND this.gia}}</p>
                             </td>
-                                                        <td>
-                                <p class="user-info-display">{{ConvertToVND this.gia_ban_ra}}</p>
+                            <td>
+                                <input class="user-info-display input-price" value="{{ConvertToVND this.gia_ban_ra}}"
+                                    disabled line-id="{{this.ma_mat_hang}}"></input>
                             </td>
                         </tr>
                         {{/each}}
@@ -84,6 +93,20 @@
                 </table>
 
             </div>
+            <nav class="pagination-div" aria-label="Page navigation example">
+                <ul class="pagination">
+                    {{#times totalPage}}
+                    <li class="page-item page-number {{#ifCond  ../currentPage  '==' this }}active{{/ifCond}}">
+                        <a class="page-link" href="?page={{this}}">{{this}}</a>
+                    </li>
+                    {{/times}}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="cart-footer text-center">
+            <button type="button" class="btn btn-info my-1 update-user-balance-submit"><i
+                    class="ri-save-line mr-2"></i>Update</button>
         </div>
     </div>
     <script src="script/globalScript.js"></script>

@@ -672,6 +672,17 @@ const getCurrentRemainedFood=async()=>{
     return err.message
   }
 }
+
+const updatePrice=async(productID,price)=>{
+  try{
+    queryStr=`UPDATE SL_HANG_CANTEEN SET GIA_BAN_RA=${price} WHERE MA_MAT_HANG='${productID}' `;
+    console.log(queryStr)
+    const res=await dbConnector.query(queryStr)
+    return res
+  }catch(err){
+    return err.message
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -734,5 +745,6 @@ module.exports = {
   getThisMonthTurnover,
   getTurnoverByMonth,
   updateMonthTurnover,
-  getCurrentRemainedFood
+  getCurrentRemainedFood,
+  updatePrice
 };
