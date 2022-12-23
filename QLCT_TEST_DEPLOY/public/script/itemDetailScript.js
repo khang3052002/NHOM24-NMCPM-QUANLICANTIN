@@ -16,7 +16,7 @@ $('#add-to-cart').click(function()
             $('.pop-up').removeClass('hidden')
             $('.fa-window-close').click(
               function(){
-                window.location.href='http://localhost:3000/sign-in'
+                window.location.href='/sign-in'
               }
             )
           }else{

@@ -1,4 +1,6 @@
 // console.log('hehe')
+const WEB = "https://nhom24-qlct.onrender.com"
+
 $("#search-id-btn").click(function () {
   // console.log('heeh')
   if ($("#id-order-search-field").val() != "") {
@@ -26,7 +28,7 @@ $("#print-bill").click(function () {
         },1500)
       setTimeout(function(){
         // window.location.reload()
-        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://test1-nhom24-qlct.onrender.com/trading-details?id=${id}`);
+        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${WEB}/trading-details?id=${id}`);
 
         $('.container-pos').removeClass('hidden')
         },1500)

@@ -1,3 +1,11 @@
+
+// const config = require('./CONST.json')
+// import config from './CONST.json'
+const WEB = "https://nhom24-qlct.onrender.com"
+
+{/* <script type="module" src="./file.js"></script> */}
+
+
 function CreateOrder(params = {}) {
     return $.ajax({
         type: 'post',
@@ -10,8 +18,7 @@ function xuLiThanhToan() {
     return $.ajax({
         type: 'post',
         url: '/callback',
-        // url: `https://webhook.site/67f5b308-2734-45a5-8d1a-1f32e4d2be66`,
-        // data: {value: value,name:'Momo'},
+        
     })
 }
 
@@ -65,7 +72,7 @@ $('#payment').click(function () {
 
     // console.log(typeof typePayment, numTotal)
     // thanh toán tiền tài khoản
-
+    
     if (typePayment == 1) {
         if (numTotal == 0) {
             $(".noti-content").html('Không có mặt hàng trong giỏ');
@@ -88,8 +95,8 @@ $('#payment').click(function () {
                         $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
                         $(".noti-content").html('Thanh toán thành công');
                         // window.location.href='/shopping-cart'
-
-                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://test1-nhom24-qlct.onrender.com/trading-details?id=${data.orderID}`);
+                        // web = config.WEB
+                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${WEB}/trading-details?id=${data.orderID}`);
                         // window.location.reload()
                         $('.pop-up').removeClass('hidden')
                         $('#view-receipt-btn').removeClass('hidden')
@@ -168,7 +175,7 @@ $('#payment').click(function () {
                                                         // }, 2000)
                                                         $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
 
-                                                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`);
+                                                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${WEB}/trading-details?id=${data.orderID}`);
 
                                                         $('#view-receipt-btn').removeClass('hidden')
 

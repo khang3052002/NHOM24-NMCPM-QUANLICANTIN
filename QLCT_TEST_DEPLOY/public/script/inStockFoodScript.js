@@ -74,7 +74,7 @@ $(document).ready(function () {
     )
     $('#show-details-btn').click(
         function(){
-            window.location.href='http://localhost:3000/in-stock?section=details'
+            window.location.href='/in-stock?section=details'
             //window.location.reload()
         }
     )

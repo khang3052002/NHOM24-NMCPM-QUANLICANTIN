@@ -75,7 +75,7 @@ $(document).ready(function () {
 
     $('#show-details-btn').click(
         function(){
-            window.location.href='http://localhost:3000/in-store?section=details'
+            window.location.href='/in-store?section=details'
             //window.location.reload()
         }
     )

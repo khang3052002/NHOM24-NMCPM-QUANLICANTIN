@@ -39,7 +39,7 @@
                             <div class="card-header-custom">
                                 <div class="title-custom">{{#customDate this.chi_tiet_phieu.ngaynhap}}{{/customDate}}
                                 </div>
-                                <div class="title-custom">Tổng tiền: {{#getTotalCost this}}{{/getTotalCost}}</div>
+                                <div class="title-custom">Tổng tiền: {{ConvertToVND (getTotalCost this)}}</div>
                                 <div class="title-custom">ID: {{this.ma_phieu}}</div>
                             </div>
                         </button>
