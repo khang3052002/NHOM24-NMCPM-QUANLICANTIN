@@ -9,7 +9,6 @@ $('#search-receipt-btn').click(function(){
     
 })
 $('.month-select').change(function(){
-    console.log('change',$(this).val())
     month=$(this).val()
     window.location.href= `/monthly-turnover?month=${month}`
 })

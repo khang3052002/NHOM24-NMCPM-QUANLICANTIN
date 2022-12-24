@@ -506,3 +506,14 @@ end;$$;
 call capNhatDoanhThu()
 SELECT * FROM DOANH_THU_NGAY
 call doanhThuThang()
+
+drop procedure if exists resetFood;
+create or replace procedure resetFood()
+language plpgsql    
+as $$
+begin
+ 	update thuc_an_trong_kho set so_luong=50;
+end;$$;
+
+select * from thuc_an_trong_kho
+call resetFood()

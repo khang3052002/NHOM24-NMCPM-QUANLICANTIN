@@ -687,6 +687,33 @@ const updatePrice=async(productID,price)=>{
     return err.message
   }
 }
+const resetFood=async()=>{
+  try{
+    queryStr=`call resetFood()`;
+    const res=await dbConnector.query(queryStr)
+    return res
+  }catch(err){
+    return err
+  }
+}
+
+const getStatistical=async(month,year)=>{
+  try{
+    queryStr=`select mh.ma_mat_hang,mh.ten_mat_hang, sum(ct.so_luong)::int as so_luong, sum(ct.thanh_tien)::bigint as thanh_tien from chi_tiet_don_hang ct, don_hang dh,
+    mat_hang mh where dh.ma_don_hang=ct.ma_don_hang and mh.ma_mat_hang=ct.ma_mat_hang 
+    and extract(MONTH from dh.ngay_mua::timestamp::date)=${month} and extract (YEAR from dh.ngay_mua::timestamp::date)=${year}
+    group by (mh.ma_mat_hang)
+    UNION
+    select ma.ma_mon_an as ma_mat_hang,ma.ten_mon_an, sum(ct.so_luong)::int as so_luong, sum(ct.thanh_tien)::bigint as thanh_tien from chi_tiet_don_hang ct, don_hang dh,
+    mon_an ma where dh.ma_don_hang=ct.ma_don_hang and ma.ma_mon_an=ct.ma_mat_hang 
+    and extract(MONTH from dh.ngay_mua::timestamp::date)=${month} and extract (YEAR from dh.ngay_mua::timestamp::date)=${year}
+    group by (ma.ma_mon_an) order by so_luong desc`;
+    const res=await dbConnector.query(queryStr)
+    return res
+  }catch(err){
+    return err
+  }
+}
 module.exports = {
   updateTodayFood,
   getAllFood,
@@ -750,5 +777,7 @@ module.exports = {
   getTurnoverByMonth,
   updateMonthTurnover,
   getCurrentRemainedFood,
-  updatePrice
+  updatePrice,
+  resetFood,
+  getStatistical,
 };

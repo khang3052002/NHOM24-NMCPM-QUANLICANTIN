@@ -66,6 +66,7 @@ const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
 const dailyTurnoverRoutes = require('./routers/dailyTurnoverRoutes')
 const monthlyTurnoverRoutes = require('./routers/monthlyTurnoverRoutes')
 const inStockFoodRoutes = require('./routers/inStockFoodRoutes')
+const statisticRoutes=require('./routers/statisticRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
 // const productDetailsRoutes = require('./routes/productDetailsRoutes');
@@ -118,7 +119,7 @@ app.use('/create-new-bill', restrictForAdmin, createBillRoutes)
 app.use('/daily-turnover', restrictForAdmin, dailyTurnoverRoutes)
 app.use('/monthly-turnover', restrictForAdmin, monthlyTurnoverRoutes)
 app.use('/food-stock',restrictForAdmin, inStockFoodRoutes)
-
+app.use('/statistic',restrictForAdmin, statisticRoutes)
 var data = ''
 var arr = []
 app.post('/callback', (req, res) => {

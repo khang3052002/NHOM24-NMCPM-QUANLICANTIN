@@ -1,5 +1,9 @@
 
 const dbModel = require('../models/dbHelpers/dbHelpers');
+const schedule=require('node-schedule')
+schedule.scheduleJob('55 23 * * *',()=>{
+    dbModel.resetFood()
+})
 const loadTodayMenuPage=async(req,res,next)=>{
     user={}
     if(req.session.user){

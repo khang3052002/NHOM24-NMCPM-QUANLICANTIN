@@ -80,11 +80,21 @@ const ifCond = (v1, operator, v2, options) => {
 const ConvertToVND = (value) => {
   // console.log(value)
   try {
+    if(typeof(value)=='string')
+    {
+      try{
+        value=parseInt(value)
+      }
+      catch(err){
+
+      }
+    }
     gia_ban = value.toLocaleString("it-IT", {
       style: "currency",
       currency: "VND",
     });
     return gia_ban;
+   
   } catch (error) {
     return value;
   }

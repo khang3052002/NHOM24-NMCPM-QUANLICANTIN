@@ -23,7 +23,6 @@ loadStockPage= async (req,res,next)=>{
                 totalPage =
                 parseInt(productDetails.length / itemPerPage) +
                 (productDetails.length % itemPerPage > 0 ? 1 : 0);
-                console.log(totalPage)
                 var productDetails = productDetails.slice(
                     currentPage * itemPerPage,
                     currentPage * itemPerPage + itemPerPage
