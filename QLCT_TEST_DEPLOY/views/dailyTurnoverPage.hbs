@@ -12,13 +12,14 @@
                     <input type="search" placeholder="Tìm kiếm đơn theo mã" aria-describedby="button-addon1"
                         class="rounded rounded-pill form-control border-0 bg-light" id="search-rec-id" value="">
                     <div class="input-group-append">
-                        <button id="search-receipt-btn" type="button" class="btn btn-link text-primary"><i
+                        <button id="search-receipt" type="button" class="btn btn-link text-primary"><i
                                 class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="date-and-totalTurnover d-flex justify-content-between">
                     <div>Thời gian cập nhật: {{#customDate total.tg_cap_nhat}} {{/customDate}}</div>
                     <div>Doanh thu: {{ConvertToVND total.doanh_thu}}</div>
+                    <div>Lợi nhuận: {{ConvertToVND total.loi_nhuan}}</div>
                 </div>
             </div>
 

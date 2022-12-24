@@ -170,6 +170,7 @@ const createOrder = async(req,res)=>
         {
             orderID = result.rows[0].madonhang
             res.send({result: 'OK', orderID: orderID})
+            var updateTurnover = await dbModel.updateDailyTurnover();
         }
         else{
             res.send({result: 'fail'})

@@ -19,7 +19,12 @@ const customDate = (date) => {
 };
 
 const customDateWOTime = (date) => {
-  return moment(date).format("YYYY-MM-DD");
+  try{
+    return moment(date).format("YYYY-MM-DD");
+  }catch(err){
+    console.log(err)
+  }
+
 };
 const getJSONLen = (jObject) => {
   try {

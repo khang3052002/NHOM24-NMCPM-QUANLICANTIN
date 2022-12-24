@@ -48,7 +48,24 @@ h3{
     transition: width 2s, height 2s, background-color 2s, transform 2s;
     /* margin: 30vh auto 0 auto; */
 }
+.graph-container{
 
+    margin: 0 auto;
+    width: 70rem;
+    height:30rem;
+    position: relative;
+    animation: modalHideIn ease 0.35s;
+}
+.graph{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 70rem;
+    height: 30rem;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.181);
+    margin-top: 7rem;
+    overflow: hidden;
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
+}
 
 .fa-window-close{
     margin-right: auto ;

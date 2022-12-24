@@ -23,7 +23,7 @@
 .date-and-totalTurnover{
     font-size: 18px;
     font-weight: 500;
-    margin-right: 120px;
+    margin-right: 0px;
     width: 650px;
 }
 .time-column{
@@ -31,4 +31,21 @@
 }
 .date-and-totalTurnover>div{
     line-height: 45px;
+
+}
+.date-and-totalTurnover>div:first-child{
+    margin-right:40px
+}
+.month-select{
+    width:150px;
+    margin-left:auto;
+    margin-right:10px
+}
+.graph-month-container{
+    display:flex;
+    
+}
+canvas {
+    height: 25rem !important;
+    margin:0px auto;
 }
