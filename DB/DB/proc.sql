@@ -462,7 +462,7 @@ end;$$;
 ---------------------------------------------------------------
 drop procedure if exists capNhatDoanhThu
 create or replace procedure capNhatDoanhThu(
-INOUT doanhThu bigint default null)
+INOUT doanhThu bigint default null, INOUT loiNhuan bigint default null)
 language plpgsql    
 as $$
 begin
@@ -474,17 +474,33 @@ begin
 	ELSE
 	UPDATE DOANH_THU_NGAY SET DOANH_THU=doanhThu, TG_CAP_NHAT=current_timestamp WHERE NGAY=current_date;
 	END IF;
+	
+	loiNhuan:=(SELECT SUM(tien_1_don) FROM (SELECT sum(bang4.thanh_tien-COALESCE(bang4.gia_che_bien,0)*bang4.so_luong-COALESCE(bang4.gia,0)*bang4.so_luong) as tien_1_don FROM (SELECT bang3.ma_mat_hang,bang3.so_luong,bang3.ma_don_hang,bang3.thanh_tien,bang3.gia,bang3.gia_ban_ra, ma.gia_ban,ma.gia_che_bien FROM mon_an ma right outer join (SELECT bang2.so_luong,bang2.ma_don_hang,bang2.thanh_tien, bang2.ma_mat_hang, sl.gia,sl.gia_ban_ra FROM sl_hang_canteen sl right outer join (SELECT ct.ma_mat_hang, ct.thanh_tien,ct.so_luong, dh.ma_don_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct WHERE current_date=dh.ngay_mua::timestamp::date and dh.ma_don_hang=ct.ma_don_hang) bang2
+on sl.ma_mat_hang=bang2.ma_mat_hang) bang3 on ma.ma_mon_an=bang3.ma_mat_hang) bang4 group by bang4.ma_don_hang) bang5);
+	UPDATE DOANH_THU_NGAY SET LOI_NHUAN=loiNhuan WHERE NGAY=current_date ;
 end;$$;
 
 
+SELECT sum(bang4.thanh_tien-COALESCE(bang4.gia_che_bien,0)*bang4.so_luong-COALESCE(bang4.gia,0)*bang4.so_luong) as tien_1_don FROM (SELECT bang3.ma_mat_hang,bang3.so_luong,bang3.ma_don_hang,bang3.thanh_tien,bang3.gia,bang3.gia_ban_ra, ma.gia_ban,ma.gia_che_bien FROM mon_an ma right outer join (SELECT bang2.so_luong,bang2.ma_don_hang,bang2.thanh_tien, bang2.ma_mat_hang, sl.gia,sl.gia_ban_ra FROM sl_hang_canteen sl right outer join (SELECT ct.ma_mat_hang, ct.thanh_tien,ct.so_luong, dh.ma_don_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct WHERE current_date=dh.ngay_mua::timestamp::date and dh.ma_don_hang=ct.ma_don_hang) bang2
+on sl.ma_mat_hang=bang2.ma_mat_hang) bang3 on ma.ma_mon_an=bang3.ma_mat_hang) bang4 group by bang4.ma_don_hang
+
+SELECT * FROM doanh_thu_ngay
+-- SELECT * from MON_AN
+SELECT sum(bang4.thanh_tien-COALESCE(bang4.gia_che_bien,0)*bang4.so_luong-COALESCE(bang4.gia,0)*bang4.so_luong) FROM (SELECT bang3.ma_mat_hang,bang3.so_luong,bang3.ma_don_hang,bang3.thanh_tien,bang3.gia,bang3.gia_ban_ra, ma.gia_ban,ma.gia_che_bien FROM mon_an ma right outer join (SELECT bang2.so_luong,bang2.ma_don_hang,bang2.thanh_tien, bang2.ma_mat_hang, sl.gia,sl.gia_ban_ra FROM sl_hang_canteen sl right outer join (SELECT ct.ma_mat_hang, ct.thanh_tien,ct.so_luong, dh.ma_don_hang FROM DON_HANG dh, CHI_TIET_DON_HANG ct WHERE current_date=dh.ngay_mua::timestamp::date and dh.ma_don_hang=ct.ma_don_hang) bang2
+on sl.ma_mat_hang=bang2.ma_mat_hang) bang3 on ma.ma_mon_an=bang3.ma_mat_hang) bang4
+sl_hang_canteen sl
+
+SELECT * FROM DON_HANG order by ngay_mua desc
+SELECT * FROM CHI_TIET_DON_HANG where ma_don_hang='IDzWsxtK'
 drop procedure if exists doanhThuThang
 create or replace procedure doanhThuThang(
- thang int default null, INOUT doanhThuThang bigint default NULL)
+ thang int default null, INOUT doanhThuThang bigint default NULL, INOUT loiNhuanThang bigint default NULL )
 language plpgsql    
 as $$
 begin
  	thang:=COALESCE(thang, EXTRACT(MONTH FROM CURRENT_DATE));
 	doanhThuThang:=(SELECT SUM(dtn.doanh_thu) FROM DOANH_THU_NGAY dtn WHERE EXTRACT(MONTH FROM dtn.ngay)=thang);
+	loiNhuanThang:=(SELECT SUM(dtn.loi_nhuan) FROM DOANH_THU_NGAY dtn WHERE EXTRACT(MONTH FROM dtn.ngay)=thang);
 end;$$;
 
 call capNhatDoanhThu()
