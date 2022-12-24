@@ -619,7 +619,7 @@ const updateDailyTurnover=async()=>{
 }
 const getUpdatedDailyTurnoverTime=async(date)=>{
   try{
-
+    
     console.log('QueryStr: ',`select * from doanh_thu_ngay where ngay = '${date}'`)
     const res= await dbConnector.query(`select * from doanh_thu_ngay where ngay = '${date}'`)
     return res
@@ -641,7 +641,7 @@ const getTurnoverByDate=async(date)=>{
 }
 const getThisMonthTurnover=async()=>{
   try{
-    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = (date_part('month',(select current_timestamp)))`)
+    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = (date_part('month',(select current_timestamp))) order by ngay asc `)
     return res
   }
   catch(err){
@@ -650,16 +650,16 @@ const getThisMonthTurnover=async()=>{
 }
 const getTurnoverByMonth=async(month)=>{
   try{
-    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = '${month}'`)
-    return res
+    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = '${month}' order by ngay asc`)
+    return res     
   }
   catch(err){
     return err.message
   }
 }
-const updateMonthTurnover=async()=>{
+const updateMonthTurnover=async(month)=>{
   try{
-    const res=await dbConnector.query(`call doanhthuthang()`)
+    const res=await dbConnector.query(`call doanhthuthang(${month})`)
     return res
   }
   catch(err){

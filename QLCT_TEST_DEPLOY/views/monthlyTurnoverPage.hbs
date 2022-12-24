@@ -1,7 +1,45 @@
 <body>
     <link rel="stylesheet" href="css/importGoodsHistoryStyle.css" />
     <link rel="stylesheet" href="css/monthlyTurnoverStyle.css" />
-
+    <div class="pop-up">
+        <div class="graph-container">
+            <div class="graph">
+                <div class="noti-header ">
+                    <i class="fas fa-window-close graph-close"></i>
+                </div>
+                <div class="graph-content">
+                    <canvas id="line-chart"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        new Chart(document.getElementById("line-chart"), {
+                            type: 'line',
+                            data: {
+                                labels: [{{date}}],
+                                datasets: [{
+                                    data: [{{turnover}}],
+                                    label: "Doanh thu",
+                                    borderColor: "#3e95cd",
+                                    fill: false
+                                }, {
+                                    data: [{{profit}}],
+                                    label: "Lợi nhuận",
+                                    borderColor: "#8e5ea2",
+                                    fill: false
+                                }
+                                ]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: 'World population per region (in millions)'
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="records-container">
             <h3>
@@ -18,9 +56,32 @@
                 </div>
                 <div class="date-and-totalTurnover d-flex justify-content-end">
                     <div>Doanh thu: {{ConvertToVND total.doanh_thu}}</div>
+                    <div>Lợi nhuận: {{ConvertToVND total.loi_nhuan}}</div>
+                </div>
+
+            </div>
+            <div class="graph-month-container">
+                <select class="form-select month-select" aria-label="Default select example" value="">
+                    <option selected>Chọn tháng</option>
+                    <option value="1">Tháng 1</option>
+                    <option value="2">Tháng 2</option>
+                    <option value="3">Tháng 3</option>
+                    <option value="4">Tháng 4</option>
+                    <option value="5">Tháng 5</option>
+                    <option value="6">Tháng 6</option>
+                    <option value="7">Tháng 7</option>
+                    <option value="8">Tháng 8</option>
+                    <option value="9">Tháng 9</option>
+                    <option value="10">Tháng 10</option>
+                    <option value="11">Tháng 11</option>
+                    <option value="12">Tháng 12</option>
+                </select>
+                <div>
+                    <button class="btn btn-primary graph-btn">
+                        Biểu đồ
+                    </button>
                 </div>
             </div>
-
             <h3>{{message}}</h3>
 
             <div class="accordion">
@@ -28,14 +89,17 @@
                 {{index}}
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
-                        <div class="form-control custom-fc" type="button" value="{{customDateWOTime this.thong_tin.ngaynhap}}">
+                        <div class="form-control custom-fc" type="button"
+                            value="{{customDateWOTime this.thong_tin.ngaynhap}}">
                             <div class="card-header-custom">
                                 <div class="title-custom time-column">Ngày: {{#customDate
                                     this.thong_tin.ngaynhap}}{{/customDate}}
                                 </div>
-        
-                                <div class="title-custom reciept-status">Ngày cập nhật: {{#customDate this.thong_tin.trang_thai}} {{/customDate}}</div>
+
+                                <div class="title-custom reciept-status">Ngày cập nhật: {{#customDate
+                                    this.thong_tin.trang_thai}} {{/customDate}}</div>
                                 <div class="title-custom total-column">Doanh thu: {{ConvertToVND this.doanh_thu}}</div>
+
                             </div>
                         </div>
                     </h2>
@@ -56,6 +120,7 @@
 
     </div>
     <script src="script/monthlyTurnoverScript.js"></script>
+    <script src="script/globalScript.js"></script>
 </body>
 
 </html>

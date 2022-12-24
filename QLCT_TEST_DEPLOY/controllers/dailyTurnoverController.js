@@ -11,12 +11,12 @@ const loadPage = async (req, res, next) => {
    
     var today = new Date().toISOString().slice(0, 10)
     console.log("Today:",today)
-    var updateTurnover = await dbModel.updateDailyTurnover();
-    console.log(updateTurnover)
-    var dateAndTotalTurnover =await dbModel.getUpdatedDailyTurnoverTime(today);;
+    // var updateTurnover = await dbModel.updateDailyTurnover();
+    // console.log(updateTurnover)
+    var dateAndTotalTurnover =await dbModel.getUpdatedDailyTurnoverTime(today);
     dateAndTotalTurnover=dateAndTotalTurnover.rows[0]
     dateAndTotalTurnover.doanh_thu=parseInt(dateAndTotalTurnover.doanh_thu)
-    
+    // console.log('loi nhuan', dateAndTotalTurnover)
     if (req.query.page) {
       if (req.query.page != "") {
         currentPage = parseInt(req.query.page);
