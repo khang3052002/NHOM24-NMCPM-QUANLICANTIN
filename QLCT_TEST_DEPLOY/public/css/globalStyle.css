@@ -102,7 +102,7 @@ h3{
     justify-content: center;
 }
 
-.pop-up
+.pop-up,.pop-up-graph
 {
     z-index: 100;
     position: fixed;
@@ -114,6 +114,7 @@ h3{
     align-items: center;
     justify-content: center;
 }
+
 
 .visibility-hidden{
     visibility: hidden;
@@ -151,5 +152,6 @@ h3{
 .accordion-button{
     font-weight:normal;
 }
+
 
 

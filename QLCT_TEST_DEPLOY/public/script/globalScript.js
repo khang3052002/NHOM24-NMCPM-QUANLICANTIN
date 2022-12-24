@@ -11,6 +11,7 @@ firebase.initializeApp(firebaseConfig);
 
 $('.fa-window-close').click(function(){
     $('.noti-content').html('')
+    $('.pop-up-graph').toggleClass('visibility-hidden')
     if(!($('.pop-up').hasClass('hidden'))){
       $('.pop-up').addClass('hidden')
     }
@@ -41,4 +42,9 @@ $('#invoice-POS').click(function(event)
   event.stopPropagation()
 })
 
-  
+
+$('.graph-btn').click(function(){
+  $('.pop-up-graph').toggleClass('visibility-hidden')
+})
+
+
