@@ -630,9 +630,22 @@ const getUpdatedDailyTurnoverTime=async(date)=>{
 const getTurnoverByDate=async(date)=>{
   try{
     queStr = `select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang`
-
    
     const res=await dbConnector.query(`select dh.ma_don_hang as id, dh.ngay_mua, dh.trang_thai, sum(ctdh.thanh_tien) as tong_tien from don_hang dh, chi_tiet_don_hang ctdh where ngay_mua::timestamp::date = '${date}' and dh.ma_don_hang = ctdh.ma_don_hang GROUP BY dh.ma_don_hang ORDER BY dh.ngay_mua DESC`)
+    return res
+  }
+  catch(err){
+    return err.message
+  }
+}
+
+const getNumberOfReceiptsInTimeInterval=async(date)=>{
+  try{
+    queStr = `select count(distinct dh.ma_don_hang) as so_don_hang, to_timestamp(floor((extract('epoch' from ngay_mua) / 600 )) * 600) 
+    AT TIME ZONE 'UTC' as gio  from don_hang dh, chi_tiet_don_hang ct where dh.ma_don_hang=ct.ma_don_hang and 
+    ngay_mua::timestamp::date = '${date}' group by gio order by gio asc`
+   
+    const res=await dbConnector.query(queStr)
     return res
   }
   catch(err){
@@ -780,4 +793,5 @@ module.exports = {
   updatePrice,
   resetFood,
   getStatistical,
+  getNumberOfReceiptsInTimeInterval
 };

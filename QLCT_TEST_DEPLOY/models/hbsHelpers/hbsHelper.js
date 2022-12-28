@@ -15,9 +15,23 @@ const myCSLog = (x) => {
 };
 
 const customDate = (date) => {
-  return moment(date).format("YYYY-MM-DD, h:mm:ss A");
-};
+  try{
+    return moment(date).format("YYYY-MM-DD, h:mm:ss A");
+  }
+  catch(err){
+    return date
+  }
 
+};
+const customDateWithTime = (date) => {
+  try{
+    return moment(date).format("h:mm:ss A");
+  }
+  catch(err){
+    return date
+  }
+
+};
 const customDateWOTime = (date) => {
   try{
     return moment(date).format("YYYY-MM-DD");
@@ -124,4 +138,5 @@ module.exports = {
   customDateWOTime,
   ConvertToVND,
   getTotalCostV2,
+  customDateWithTime
 };

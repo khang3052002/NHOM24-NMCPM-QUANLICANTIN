@@ -1,12 +1,25 @@
 <body>
     <link rel="stylesheet" href="css/importGoodsHistoryStyle.css" />
     <link rel="stylesheet" href="css/dailyTurnoverStyle.css" />
+    <div class="pop-up-graph visibility-hidden">
+        <div class="graph-container">
+            <div class="graph">
+                <div class="noti-header ">
+                    <i class="fas fa-window-close graph-close"></i>
+                </div>
+                <div class="graph-content">
+                    <canvas id="line-chart"></canvas>
 
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container ">
         <div class="records-container">
             <h3>
                 Doanh thu hôm nay
             </h3>
+
             <div class="d-flex justify-content-between">
                 <div class="input-group receipt-search">
                     <input type="search" placeholder="Tìm kiếm đơn theo mã" aria-describedby="button-addon1"
@@ -21,6 +34,12 @@
                     <div>Doanh thu: {{ConvertToVND total.doanh_thu}}</div>
                     <div>Lợi nhuận: {{ConvertToVND total.loi_nhuan}}</div>
                 </div>
+
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary graph-btn">
+                    Biểu đồ
+                </button>
             </div>
 
             <h3>{{message}}</h3>
@@ -58,6 +77,29 @@
 
     </div>
     <script src="script/dailyTurnoverScript.js"></script>
+    <script src="script/globalScript.js"></script>
+    <script>
+        new Chart(document.getElementById("line-chart"), {
+            type: 'bar',
+            data: {
+            labels: [{{{hour}}}],
+            datasets: [{
+            data: [{{numberOfReceipt}}],
+            label: "Số đơn hàng",
+            fill: false,
+            tension: 0.1
+        }
+                            ]
+                            },
+            options: {
+            title: {
+                display: true,
+                text: 'Thống kê số đơn hàng'
+            }
+        }
+                        });
+    </script>
+    </script>
 </body>
 
 </html>

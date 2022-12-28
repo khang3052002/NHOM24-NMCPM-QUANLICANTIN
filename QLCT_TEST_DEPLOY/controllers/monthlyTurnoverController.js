@@ -17,7 +17,7 @@ const loadPage = async (req, res, next) => {
     user = req.session.user;
   }
   try {
-    console.log(req.query)
+
     if (req.query.month) {
       month = req.query.month
     }

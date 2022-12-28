@@ -29,3 +29,7 @@
 .date-and-totalTurnover>div{
     line-height: 45px;
 }
+canvas {
+    height: 25rem !important;
+    margin: 0px auto;
+}

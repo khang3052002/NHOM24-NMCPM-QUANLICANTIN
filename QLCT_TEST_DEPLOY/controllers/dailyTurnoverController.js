@@ -1,4 +1,14 @@
 const dbModel = require("../models/dbHelpers/dbHelpers");
+const moment=require('moment')
+const customDateWithTime = (date) => {
+  try{
+    return moment(date).format("h:mm:ss A");
+  }
+  catch(err){
+    return date
+  }
+
+};
 var itemPerPage = 12;
 var totalPage = 0;
 var currentPage = 0;
@@ -20,8 +30,19 @@ const loadPage = async (req, res, next) => {
         queryDate=req.query.date
       }
     }
+
     var dateAndTotalTurnover = await dbModel.getUpdatedDailyTurnoverTime(queryDate);
     if (dateAndTotalTurnover.rows && dateAndTotalTurnover.rows.length > 0) {
+      hour=[]
+      numberOfReceipt=[]
+      var getNumber=await dbModel.getNumberOfReceiptsInTimeInterval(queryDate)
+      if(getNumber.rows){
+        getNumber=getNumber.rows
+        for(i=0;i<getNumber.length;i++){
+          hour.push(`"${customDateWithTime(getNumber[i].gio)}"`)
+          numberOfReceipt.push(getNumber[i].so_don_hang)
+        }
+      }
       dateAndTotalTurnover = dateAndTotalTurnover.rows[0];
       dateAndTotalTurnover.doanh_thu = parseInt(dateAndTotalTurnover.doanh_thu);
       var receiptIDArr;
@@ -58,6 +79,8 @@ const loadPage = async (req, res, next) => {
             totalPage: totalPage,
             currentPage: currentPage,
             total: dateAndTotalTurnover,
+            hour:hour,
+            numberOfReceipt:numberOfReceipt,
           });
           return
         } else {
