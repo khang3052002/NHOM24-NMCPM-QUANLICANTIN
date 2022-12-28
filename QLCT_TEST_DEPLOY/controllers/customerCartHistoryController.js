@@ -26,7 +26,7 @@ const loadHistory = async (req, res, next) => {
 
       console.log(getUserId)
       receiptIDArr = await dbModel.getUserReCeiptID(getUserId);
-      console.log('list items',receiptIDArr)
+      // console.log('list items',receiptIDArr)
     }
 
     var tempReceiptIDArr = receiptIDArr.slice(currentPage * itemPerPage, currentPage * itemPerPage + itemPerPage)
@@ -36,10 +36,12 @@ const loadHistory = async (req, res, next) => {
     temp = {};
     // console.log(Array.from({hehe:3}))
     for (i = 0; i < tempReceiptIDArr.length; i++) {
-      temp[tempReceiptIDArr[i].ma_don_hang] = { ngaynhap: tempReceiptIDArr[i].ngay_mua };
+      temp[tempReceiptIDArr[i].ma_don_hang] = { ngaynhap: tempReceiptIDArr[i].ngay_mua,
+        trang_thai: tempReceiptIDArr[i].trang_thai };
       detailArr.push(temp);
       temp = {};
     }
+  
     var preparedArr = [];
     for (i = 0; i < tempReceiptIDArr.length; i++) {
       var result;
@@ -55,14 +57,22 @@ const loadHistory = async (req, res, next) => {
           detailArr[i][key][key1],
         ]),
       ]);
+      // console.log(result[0][1][2])
       var c = result;
       result[0][1][0].push(detail);
+      result[0][1][0].push( result[0][1][1][0]);
+      result[0][1][0].push( result[0][1][1][1]);
+
       var a = result[0][1][0].reduce(function (result1, item, index, array) {
         if (index == 0) {
+          // console.log(array[1],array[2],array[3])
           result1[array[0]] = array[1];
         }
         if (index == 1) {
           result1["chi_tiet"] = array[2];
+        }
+        if (index == 2) {
+          result1[array[3]] = array[4];
         }
         return result1;
       }, {});
@@ -80,7 +90,6 @@ const loadHistory = async (req, res, next) => {
       preparedArr.push(c[0]);
     }
 
-    console.log('haha',user,user,totalPage,currentPage)
     if (preparedArr.length > 0) {
       res.render("customerCartHistoryPage", {
         title:'Lịch sử mua hàng',
