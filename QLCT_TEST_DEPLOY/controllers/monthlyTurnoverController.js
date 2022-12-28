@@ -82,7 +82,9 @@ const loadPage = async (req, res, next) => {
         temp = {};
       }
 
-
+      date.reverse()
+      turnover.reverse()
+      profit.reverse()
       if (detailArr.length > 0) {
         res.render("monthlyTurnoverPage", {
           title: 'Doanh thu tháng',
