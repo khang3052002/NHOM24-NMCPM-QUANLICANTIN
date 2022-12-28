@@ -1,5 +1,6 @@
 const { query } = require('express');
 const dbModel = require('../models/dbHelpers/dbHelpers');
+const serverSocket=require('../configs/serverSocket')
 const loadPage=async(req,res,next)=>{
     try{
         user={}
@@ -48,6 +49,7 @@ const addNewCTReceipt =async(req,res,next)=>{
         result=await dbModel.addNewReceiptCT(queryStr)
         // console.log(result.rows[0])
         if(result.rows){
+            serverSocket.targetProxy.dataChange=1
             res.send(result.rows[0])
         }
         else{

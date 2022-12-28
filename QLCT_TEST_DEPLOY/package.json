@@ -19,10 +19,14 @@
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "forever": "^4.0.3",
+    "http": "^0.0.1-security",
+    "json2csv": "^5.0.7",
     "moment": "^2.29.4",
     "node-schedule": "^2.1.0",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "socket.io": "^4.5.4",
+    "socket.io-client": "^4.5.4"
   }
 }

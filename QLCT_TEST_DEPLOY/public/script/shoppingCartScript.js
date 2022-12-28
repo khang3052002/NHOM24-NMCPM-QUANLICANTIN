@@ -26,8 +26,7 @@ var arr = []
 var count = 1
 var click = 1
 
-$('#payment').click(function () {
-    console.log('tao ne m')
+$('#payment').click(function () {       
     var arrProductsID = []
     var arrQuantity = []
     var arrProductsName = []

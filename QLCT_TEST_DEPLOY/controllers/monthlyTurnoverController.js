@@ -2,6 +2,8 @@ const dbModel = require("../models/dbHelpers/dbHelpers");
 var itemPerPage = 12;
 var totalPage = 0;
 var currentPage = 0;
+const hbsHelper=require("../models/hbsHelpers/hbsHelper");
+const dataExporter=require('json2csv').Parser
 const moment = require("moment");
 const customDateWOTime = (date) => {
   try{
@@ -26,7 +28,6 @@ const loadPage = async (req, res, next) => {
       month = d.getMonth() + 1;
       // console.log(month)
     }
-    console.log(month)
     var updateTurnover = await dbModel.updateMonthTurnover(month);
     // console.log('haha',updateTurnover)
     updateTurnover = updateTurnover.rows[0]
@@ -86,6 +87,7 @@ const loadPage = async (req, res, next) => {
         res.render("monthlyTurnoverPage", {
           title: 'Doanh thu tháng',
           user: user,
+          month:month,
           transactionsList: detailArr,
           totalPage: totalPage,
           currentPage: currentPage,
@@ -97,6 +99,7 @@ const loadPage = async (req, res, next) => {
       } else {
         res.render("monthlyTurnoverPage", {
           title: 'Doanh thu tháng',
+          month:month,
           user: user,
           transactionsList: detailArr,
           message: 'Đã xảy ra lỗi'
@@ -107,6 +110,7 @@ const loadPage = async (req, res, next) => {
       res.render("monthlyTurnoverPage", {
         title: 'Doanh thu tháng',
         user: user,
+        month:month,
         message: 'Đã xảy ra lỗi'
       });
     }
@@ -115,6 +119,7 @@ const loadPage = async (req, res, next) => {
     res.render("errorPage", {
       title: 'Lỗi',
       user: user,
+      month:month,
       message: err.message,
     });
   }
@@ -182,4 +187,70 @@ const updateState = async (req, res, next) => {
     });
   }
 };
-module.exports = { loadPage, loadDetails, updateState };
+
+const getCSV = async (req, res, next) => {
+  user = {};
+  if (req.session.user) {
+    user = req.session.user;
+  }
+  try {
+    if(req.body.month){
+      month=req.body.month
+    }
+    var updateTurnover = await dbModel.updateMonthTurnover(month);
+    updateTurnover = updateTurnover.rows[0]
+
+    if (req.query.page) {
+      if (req.query.page != "") {
+        currentPage = parseInt(req.query.page);
+      }
+    }
+
+    var receiptIDArr;
+    date=[]
+    turnover=[]
+    profit=[]
+    if (req.query.month) {
+   
+        receiptIDArr = await dbModel.getTurnoverByMonth(req.query.month);
+    
+    } else {
+      receiptIDArr = await dbModel.getThisMonthTurnover();
+
+    }
+
+    if (receiptIDArr.rows) {
+      receiptIDArr = receiptIDArr.rows
+      for(var i=0;i<receiptIDArr.length;i++){
+        receiptIDArr[i].ngay=hbsHelper.customDate(receiptIDArr[i].ngay)
+        receiptIDArr[i].tg_cap_nhat=hbsHelper.customDate(receiptIDArr[i].tg_cap_nhat)
+      }
+      data=JSON.parse(JSON.stringify(receiptIDArr))
+      newData = data.map(
+        obj => {
+            return {
+                "Ngày" : obj.ngay,
+                "Doanh thu":obj.doanh_thu,
+                "Thời gian cập nhật":obj.tg_cap_nhat,
+                "Lợi nhuận":obj.loi_nhuan
+            }
+        }
+    );
+      fileHeader=["Ngày","Doanh thu","Thời gian cập nhật", "Lợi nhuận"]
+      jsonData=new dataExporter({fileHeader})
+      csvData=jsonData.parse(data)
+      res.setHeader("Content-type","text/csv")
+      res.setHeader("Content-Disposition",`attachment; filename=DuLieuThang${month}.csv`)
+      res.status(200).end(csvData)
+      return
+    }
+    else {
+      res.status(403).send('Fail')
+    }
+
+  } catch (err) {
+    console.log(err)
+  }
+};
+
+module.exports = { loadPage, loadDetails, updateState,getCSV };

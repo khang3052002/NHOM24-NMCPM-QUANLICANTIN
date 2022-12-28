@@ -1,6 +1,6 @@
 
 const dbModel = require('../models/dbHelpers/dbHelpers');
-
+const serverSocket=require('../configs/serverSocket')
 const getCart = async(req,res)=>
 {
     try {
@@ -12,7 +12,6 @@ const getCart = async(req,res)=>
             const idCart = req.session.user.cartID
     
             var balance = await dbModel.getUserBalance(idUser)
-            console.log(balance[0].so_du)
             
             const result = await dbModel.getProductsCart(idCart)
             var total= 0
@@ -45,7 +44,6 @@ const deleteItem = async(req,res)=>
     try {
         const idCart = req.session.user.cartID
         const idProduct = req.body.id
-        console.log(idCart,idProduct)
         const res = await dbModel.deleteProductCart(idCart,idProduct)
     } catch (error) {
         console.log(error)
@@ -94,7 +92,6 @@ const editCart = async(req,res) =>
         
         const idUser = req.session.user.id
         // const arrQuantity = req.body.arrQuantity
-        console.log(arrProID,arrQuantity)
         var queryStr = ''
 
         idStr='ARRAY['
@@ -163,11 +160,10 @@ const createOrder = async(req,res)=>
             }
         }
         queryStr=idStr+","+amountStr
-        console.log(queryStr)
         const result = await dbModel.createOrder(idUser,queryStr)
-        console.log(result.rows)
         if(result.rows)
         {
+            serverSocket.targetProxy.dataChange=1
             orderID = result.rows[0].madonhang
             res.send({result: 'OK', orderID: orderID})
             var updateTurnover = await dbModel.updateDailyTurnover();

@@ -1,11 +1,13 @@
-
-const express = require('express');
-const dbConnector = require('./models/dbConnect/db');
-const exphbs = require('express-handlebars');
-const session = require('express-session')
-const hbsHelper = require('./models/hbsHelpers/hbsHelper');
-const port = 3000;
-const app = express();
+const app=require('./configs/customConfig').app
+const http=require('./configs/customConfig').http
+const session=require('./configs/customConfig').session
+const dbConnector=require('./configs/customConfig').dbConnector
+const express=require('./configs/customConfig').express
+const port=require('./configs/customConfig').port
+const io=require('./configs/customConfig').io
+const hbsHelper=require('./configs/customConfig').hbsHelper
+const exphbs=require('./configs/customConfig').exphbs
+const dbModel=require('./models/dbHelpers/dbHelpers')
 app.engine('hbs', exphbs.engine({
     extname: 'hbs',
     defaultLayout: 'container.hbs',
@@ -31,7 +33,7 @@ const sessionConfig = {
     saveUninitialized: true
 }
 app.use(session(sessionConfig));
-app.listen(port, () => {
+http.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
@@ -151,7 +153,14 @@ app.use((req, res) => {
     }
     res.render('errorPage', { message: '404 Page not found', user: user })
 })
+const serverSocket=require('./configs/serverSocket')
+io.on('connection', (socket) => {
+    serverSocket.pushID(socket.id)
+    socket.on("disconnect", (reason) => {
+        serverSocket.popID(socket.id)
 
+    });
+});
 
 
 

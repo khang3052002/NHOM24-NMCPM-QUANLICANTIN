@@ -97,7 +97,16 @@ deleteProductInStock=async(req,res,next)=>{
         // const dateExp=req.body.dateExp;
         // console.log(dateM)
         const result=await dbModel.deleteProductInCanteen(id,date)
-        res.send('Xóa sản phẩm thành công')
+        if(result.rows){
+            serverSocket.targetProxy.dataChange=1
+            res.send('Xóa sản phẩm thành công')
+            return
+        }
+        else{
+            res.send('Xóa sản phẩm thất bại')
+            return
+        }
+        
 
     }catch(err){
         console.log(err)

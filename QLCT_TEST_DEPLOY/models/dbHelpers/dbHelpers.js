@@ -109,6 +109,18 @@ const getCurrentCanteen = async () => {
     return err;
   }
 };
+const getCurrentStorageOfAll = async () => {
+  try {
+    queryStr=`SELECT ma_mat_hang,so_luong FROM SL_HANG_CANTEEN 
+    UNION
+    SELECT ma_mon_an as ma_mat_hang,so_luong FROM THUC_AN_TRONG_KHO`
+    const res = await dbConnector.query(queryStr);
+    return res;
+  }
+  catch (err) {
+    return err;
+  }
+};
 
 // const getFoodInfo =async (foodID) => {
 //   try{
@@ -263,7 +275,7 @@ const getExportReCeiptInfo = async (id) => {
 
 const getPopularItems = async (amount) => {
   try {
-    const res = await dbConnector.query(`SELECT sl.ma_mat_hang, sl.gia_ban_ra, mh.ten_mat_hang, mh.img_url FROM sl_hang_canteen sl, mat_hang mh WHERE sl.ma_mat_hang=mh.ma_mat_hang and sl.so_luong>0 LIMIT ${amount}`)
+    const res = await dbConnector.query(`SELECT sl.ma_mat_hang, sl.gia_ban_ra,sl.so_luong, mh.ten_mat_hang, mh.img_url FROM sl_hang_canteen sl, mat_hang mh WHERE sl.ma_mat_hang=mh.ma_mat_hang and sl.so_luong>0 LIMIT ${amount}`)
     return res.rows
   } catch (err) {
     return err
@@ -654,7 +666,7 @@ const getNumberOfReceiptsInTimeInterval=async(date)=>{
 }
 const getThisMonthTurnover=async()=>{
   try{
-    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = (date_part('month',(select current_timestamp))) order by ngay asc `)
+    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = (date_part('month',(select current_timestamp))) order by ngay desc `)
     return res
   }
   catch(err){
@@ -663,7 +675,7 @@ const getThisMonthTurnover=async()=>{
 }
 const getTurnoverByMonth=async(month)=>{
   try{
-    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = '${month}' order by ngay asc`)
+    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = '${month}' order by ngay desc`)
     return res     
   }
   catch(err){
@@ -793,5 +805,6 @@ module.exports = {
   updatePrice,
   resetFood,
   getStatistical,
-  getNumberOfReceiptsInTimeInterval
+  getNumberOfReceiptsInTimeInterval,
+  getCurrentStorageOfAll
 };

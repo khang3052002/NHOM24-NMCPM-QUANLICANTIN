@@ -1,7 +1,7 @@
 <body>
     <link rel="stylesheet" href="css/importGoodsHistoryStyle.css" />
     <link rel="stylesheet" href="css/monthlyTurnoverStyle.css" />
-    <div class="pop-up-graph visibility-hidden" >
+    <div class="pop-up-graph visibility-hidden">
         <div class="graph-container">
             <div class="graph">
                 <div class="noti-header ">
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="records-container">
             <h3>
-                Doanh thu tháng
+                Doanh thu tháng {{ month}}
             </h3>
             <div class="d-flex justify-content-between">
                 <div class="input-group receipt-search">
@@ -55,6 +55,15 @@
                         Biểu đồ
                     </button>
                 </div>
+                <div>
+                    <form action="/monthly-turnover" method="post">
+                        <input type="text" name="month" value="{{month}}" class="hidden"/>
+                        <button type="submit" class="btn btn-success CSV-btn">
+                            Xuất CSV
+                        </button>
+                    </form>
+
+                </div>
             </div>
             <h3>{{message}}</h3>
 
@@ -66,8 +75,8 @@
                         <div class="form-control custom-fc" type="button"
                             value="{{customDateWOTime this.thong_tin.ngaynhap}}">
                             <div class="card-header-custom">
-                                <div class="title-custom time-column">Ngày: {{#customDate
-                                    this.thong_tin.ngaynhap}}{{/customDate}}
+                                <div class="title-custom time-column">Ngày: {{#customDateWOTime
+                                    this.thong_tin.ngaynhap}}{{/customDateWOTime}}
                                 </div>
 
                                 <div class="title-custom reciept-status">Ngày cập nhật: {{#customDate
