@@ -103,12 +103,12 @@
 
                                 {{#ifCond (getJSONLen user) '>' 3}}
                                 <div>
-                                   <p style="margin-bottom: 0.6rem; font-size:1.3rem">
+                                   <p style="margin-bottom: 0.6rem; font-size:1.0rem">
                                         Xin chào, {{../user.username}}
                                    </p> 
                                 </div>
                                 <div class="col-1 text-end">
-                                    <div class="dropdown">
+                                    <div class="dropdown user-id" id="{{../user.id}}">
                                         <button id="user-avatar-btn" class="btn" type="button" data-bs-toggle="dropdown"
                                             aria-expanded="false">
                                             <img src="{{../user.img_url}}" id="user-avatar-img" alt="Avatar"

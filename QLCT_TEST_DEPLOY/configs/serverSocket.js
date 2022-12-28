@@ -21,11 +21,21 @@ const popID=(id)=>{
 const sendToAllSocket=async()=>{
     try{
         var result=await dbModel.getCurrentStorageOfAll()
+        var info={so_du:0}
+        try{
+            info=await dbModel.getUserBalance(dataObj.id)
+            if(Array.isArray(info) && info.length>0){
+                info=info[0]
+            }
+        }
+        catch(err){
+
+        }
         if(result.rows){
             result=result.rows
             for(i=0;i<listSocketID.length;i++){
 
-                io.to(listSocketID[i]).emit('send datachange',result)
+                io.to(listSocketID[i]).emit('send datachange',{data:result,info:{id:dataObj.id,balance:info.so_du}})
             }
         }
     }

@@ -163,7 +163,7 @@ const createOrder = async(req,res)=>
         const result = await dbModel.createOrder(idUser,queryStr)
         if(result.rows)
         {
-            serverSocket.targetProxy.dataChange=1
+            serverSocket.targetProxy.id=req.session.user.id
             orderID = result.rows[0].madonhang
             res.send({result: 'OK', orderID: orderID})
             var updateTurnover = await dbModel.updateDailyTurnover();

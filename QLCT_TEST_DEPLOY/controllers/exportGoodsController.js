@@ -49,7 +49,7 @@ const addNewCTReceipt =async(req,res,next)=>{
         result=await dbModel.addNewReceiptCT(queryStr)
         // console.log(result.rows[0])
         if(result.rows){
-            serverSocket.targetProxy.dataChange=1
+            serverSocket.targetProxy.id=req.session.user.id
             res.send(result.rows[0])
         }
         else{

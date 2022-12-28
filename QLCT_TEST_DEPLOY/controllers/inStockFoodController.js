@@ -26,7 +26,7 @@ loadStockFoodPage= async (req,res,next)=>{
                 currentPage * itemPerPage,
                 currentPage * itemPerPage + itemPerPage
                 );
-            console.log(product)
+
             res.render('inStockFoodPage',{
                 title:'Hàng trong canteen',
                 user:user,
@@ -61,7 +61,14 @@ deleteProductInStockFood=async(req,res,next)=>{
         // const dateExp=req.body.dateExp;
         // console.log(dateM)
         const result=await dbModel.deleteProductInCanteen(id,date)
-        res.send('Xóa sản phẩm thành công')
+        if(result.rows){
+            serverSocket.targetProxy.id=req.session.user.id
+            res.send('Xóa sản phẩm thành công')
+        }
+        else{
+            res.send('Xóa sản phẩm thất bại')
+        }
+       
 
     }catch(err){
         console.log(err)

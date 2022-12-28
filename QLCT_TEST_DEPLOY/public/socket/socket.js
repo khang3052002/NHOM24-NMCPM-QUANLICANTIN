@@ -1,10 +1,26 @@
+const ConvertToVND = (value) => {
+  // console.log(value)
+  try {
+    if (typeof value == "string") {
+      try {
+        value = parseInt(value);
+      } catch (err) {}
+    }
+    gia_ban = value.toLocaleString("it-IT", {
+      style: "currency",
+      currency: "VND",
+    });
+    return gia_ban;
+  } catch (error) {
+    return value;
+  }
+};
 var socket = io();
 socket.on("connect", () => {});
 
 socket.on("send update", function (data) {
   $(".product-item").each(function () {
     arr = data.filter((item) => item.ma_mat_hang == $(this).attr("id"));
-    console.log(arr);
     if (arr.length > 0) {
       $(this).children(".quantity-item-store").html(arr[0].so_luong);
     }
@@ -14,7 +30,16 @@ socket.on("send update", function (data) {
 socket.on("connect", function () {
   console.log("id: ", socket.id);
 });
-socket.on("send datachange", function (data) {
+socket.on("send datachange", function (response) {
+  var data = response.data;
+  var info = response.info;
+  if (info.id) {
+    if (info.id == $(".user-id").attr("id")) {
+      $(".my-user-balance").html(ConvertToVND(info.balance));
+      $(".my-user-balance").addClass("text-success");
+      $(".my-user-balance").addClass("fw-bold");
+    }
+  }
   $(".product-item").each(function () {
     arr = data.filter((item) => item.ma_mat_hang == $(this).attr("id"));
     if (arr.length > 0) {

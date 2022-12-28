@@ -1,4 +1,5 @@
 const dbModel = require('../models/dbHelpers/dbHelpers');
+const serverSocket=require('../configs/serverSocket')
 const moment = require('moment')
 var itemPerPage = 10;
 var totalPage = 0;
@@ -98,7 +99,7 @@ deleteProductInStock=async(req,res,next)=>{
         // console.log(dateM)
         const result=await dbModel.deleteProductInCanteen(id,date)
         if(result.rows){
-            serverSocket.targetProxy.dataChange=1
+            serverSocket.targetProxy.id=req.session.user.id
             res.send('Xóa sản phẩm thành công')
             return
         }

@@ -1,5 +1,6 @@
 
 const dbModel = require('../models/dbHelpers/dbHelpers');
+const serverSocket=require('../configs/serverSocket')
 const schedule=require('node-schedule')
 schedule.scheduleJob('55 23 * * *',()=>{
     dbModel.resetFood()
@@ -12,6 +13,7 @@ const loadTodayMenuPage=async(req,res,next)=>{
     try{
         var todayMenu=await dbModel.getTodayFood();
         var foodList=await dbModel.getAllFood();
+        serverSocket.targetProxy.id=req.session.user.id
         res.render('todayMenuPage',{
             title:'Menu hôm nay',
             user:user,
