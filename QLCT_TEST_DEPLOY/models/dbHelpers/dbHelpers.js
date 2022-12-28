@@ -481,11 +481,11 @@ const addNewGood=async(ma_loai_hang,ten_mat_hang,img_url,tien_loi,han_su_dung)=>
     return err.message
   }
 }
-const addNewFood=async(ten_mon_an,gia_ban,img_url)=>{
-  // console.log(`call themMonAnMoi('${ten_mon_an}', ${gia_ban},'${img_url}')`)
+const addNewFood=async(ten_mon_an,gia_ban,gia_che_bien,img_url)=>{
+
   try{
    
-    const res = await dbConnector.query(`call themMonAnMoi('${ten_mon_an}', ${gia_ban},'${img_url}')`)
+    const res = await dbConnector.query(`call themMonAnMoi('${ten_mon_an}', ${gia_ban},${gia_che_bien},'${img_url}')`)
     return res
   }catch(err){
     return err.message

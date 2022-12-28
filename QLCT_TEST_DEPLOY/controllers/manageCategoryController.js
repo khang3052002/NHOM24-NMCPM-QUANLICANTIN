@@ -6,20 +6,17 @@ const loadPage = async (req, res) => {
     user = {}
     if (req.session.user) {
         user = req.session.user
-        console.log(user)
     }
     message=""
     try {
-        var category=""
+        var category="TYNU"
         if(req.query.category){
             category = req.query.category
         }
-        console.log(category)
         const result = await dbModel.getAllGoodsOfCategory(category)
-        
         res.render('categoryPage',
         {
-            title:category,
+            title:"Danh sách sản phẩm",
             user: user,
             key: category,
             arrResult : result,

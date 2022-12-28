@@ -12,17 +12,21 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
-#life-span{
-    max-width: 100px;
+.input-field{
+    width: 400px;
 }
-
-#name-1{
-    max-width: 200px;
+.input-group-text{
+    color:black !important;
+    border: none !important;
+    background-color: transparent !important;
 }
-
-#price-1{
-    max-width: 150px;
+.rows-container{
+    width: max-content;
+    margin: 0 auto;
 }
-#category-field-1{
-    max-width: 200px;
+.one-row{
+    margin: 10px;
+}
+.uploaded-img{
+    width: 100px;
 }

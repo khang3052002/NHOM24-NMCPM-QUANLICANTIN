@@ -42,10 +42,9 @@ const addNewItem= async(req,res)=>
         else if(req.body.type=='monAn'){
             ten_mon_an=req.body.ten_mon_an
             gia_ban=req.body.gia_ban
+            gia_che_bien=req.body.gia_che_bien
             img_url=req.body.img_url
-            console.log(ten_mon_an,gia_ban,img_url)
-            console.log('hehe')
-            result=await dbModel.addNewFood(ten_mon_an,gia_ban,img_url)
+            result=await dbModel.addNewFood(ten_mon_an,gia_ban,gia_che_bien,img_url)
         }
         if(result.rows){
             res.send('Thành công')

@@ -411,12 +411,13 @@ drop procedure themMonAnMoi
 create or replace procedure themMonAnMoi(
 	tenMA text,
 	giaBan int,
+	giaCheBien int,
 	img_url text
 )
 language plpgsql    
 as $$
 begin
-	INSERT INTO MON_AN(TEN_MON_AN,GIA_BAN,IMG_URL) VALUES (tenMA,giaBan,img_url);
+	INSERT INTO MON_AN(TEN_MON_AN,GIA_CHE_BIEN,GIA_BAN,IMG_URL) VALUES (tenMA,giaCheBien,giaBan,img_url);
 end;$$;
 ------------------------------------------------------------
 

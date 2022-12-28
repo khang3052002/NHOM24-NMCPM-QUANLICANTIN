@@ -41,6 +41,7 @@ $("#confirm-btn-1").click(async function () {
   ) {
     img_url = await uploadImage($("#img-1")[0].files[0]);
     if (img_url.includes("https")) {
+      $('#good-img').attr('src',img_url)
       $.ajax({
         method: "post",
         data: {
@@ -81,16 +82,19 @@ $("#add-food-btn").click(function () {
 
 $("#confirm-btn-2").click(async function () {
   ten_mon_an = $("#name-2").val();
+  gia_che_bien=$("#mf-price-2").val();
   gia_ban = $("#price-2").val();
   if ($("#img-2")[0].files[0] && ten_mon_an != "" && gia_ban != "") {
     img_url = await uploadImage($("#img-2")[0].files[0]);
     if (img_url.includes("https")) {
+      $('#food-img').attr('src',img_url)
       $.ajax({
         method: "post",
         data: {
           type: "monAn",
           ten_mon_an:ten_mon_an,
           gia_ban: gia_ban,
+          gia_che_bien:gia_che_bien,
           img_url: img_url,
         },
         url: "/add-new-item",
