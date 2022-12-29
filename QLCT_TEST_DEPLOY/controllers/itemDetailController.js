@@ -44,7 +44,7 @@ const addProToCart=async(req,res)=>
             if(req.session.user){
                 user=req.session.user
             }
-
+            // console.log(req.session.user.id)
             const params = {
                 id: req.session.user.id,
                 idPro : idPro,

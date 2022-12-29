@@ -19,6 +19,7 @@ $('#add-to-cart').click(function()
                 window.location.href='/sign-in'
               }
             )
+            
           }else{
             console.log(data.name)
             if(data.name){

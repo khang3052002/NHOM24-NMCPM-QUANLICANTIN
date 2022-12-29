@@ -38,4 +38,32 @@ const loadHomePage=async(req,res,next)=>{
         })
     }
 }
+
+// const addToCart=async(req,res,next)=>{
+//     try{
+//         if(!req.session.user){
+//             res.redirect('/sign-in')
+//         }
+//         else{
+//             const idPro = req.body.id
+//             const quantity = req.body.quantity
+//             const name = req.body.name
+//             if(req.session.user){
+//                 user=req.session.user
+//             }
+
+//             const params = {
+//                 id: req.session.user.id,
+//                 idPro : idPro,
+//                 quantity:quantity
+//             }
+    
+//             const result = await dbModel.addProductToCart(params)
+//             res.send({name:name})
+//         }
+
+//     }catch(err){
+
+//     }
+// }
 module.exports={loadHomePage};

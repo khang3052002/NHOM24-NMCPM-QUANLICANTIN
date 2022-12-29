@@ -20,13 +20,16 @@ const loadPage = async (req, res, next) => {
   }
   try {
 
-    if (req.query.month) {
+    if (req.query.month && req.query.year) {
       month = req.query.month
+      year=req.query.year
+      console.log(month,year)
     }
     else {
       const d = new Date();
       month = d.getMonth() + 1;
-      // console.log(month)
+      year=d.getFullYear();
+      console.log(year)
     }
     var updateTurnover = await dbModel.updateMonthTurnover(month);
     // console.log('haha',updateTurnover)

@@ -108,14 +108,36 @@
                     <div class="card-text text-center">
                         {{ConvertToVND this.gia_ban_ra}}
                     </div>
-                     <div class="quantity-text card-text text-center">
+                    <div class="quantity-text card-text text-center">
                         Còn lại: <span class="good-quantity text-info">{{this.so_luong}}</span>
+                    </div>
+                    <div class="add-to-cart-container card-text">
+                        <button class="btn btn-primary add-to-cart-btn" id="{{this.ma_mat_hang}}"
+                            name="{{this.ten_mat_hang}}">
+                            Thêm vào giỏ hàng
+                        </button>
                     </div>
                 </div>
             </div>
             {{/each}}
         </div>
     </div>
+
+    <div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script/globalScript.js"></script>
     <script src="script/itemSelectScript.js"></script>
 </body>
 

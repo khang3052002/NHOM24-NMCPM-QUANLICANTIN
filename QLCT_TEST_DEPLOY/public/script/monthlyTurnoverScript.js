@@ -10,5 +10,25 @@ $('#search-receipt-btn').click(function(){
 })
 $('.month-select').change(function(){
     month=$(this).val()
-    window.location.href= `/monthly-turnover?month=${month}`
+    year= $('.year-select').val()
+    month=parseInt(month)
+    year=parseInt(year)
+    console.log(month,year)
+    
+    if(Number.isInteger(year) && Number.isInteger(month)){
+        window.location.href= `/monthly-turnover?month=${month}&year=${year}`
+    }
+
+})
+$('.year-select').change(function(){
+    year=$(this).val()
+
+    month= $('.month-select').val()
+    month=parseInt(month)
+    year=parseInt(year)
+    console.log(month,year)
+    
+    if(Number.isInteger(year) && Number.isInteger(month)){
+        window.location.href= `/monthly-turnover?month=${month}&year=${year}`
+    }
 })
