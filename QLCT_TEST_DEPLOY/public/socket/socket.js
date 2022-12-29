@@ -123,3 +123,6 @@ socket.on("send datachange", function (response) {
     }
   });
 });
+socket.on("update quantity",function(response){
+
+})
