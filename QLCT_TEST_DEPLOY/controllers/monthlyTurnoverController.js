@@ -23,20 +23,19 @@ const loadPage = async (req, res, next) => {
     if (req.query.month && req.query.year) {
       month = req.query.month
       year=req.query.year
-      console.log(month,year)
+      // console.log(month,year)
     }
     else {
       const d = new Date();
       month = d.getMonth() + 1;
       year=d.getFullYear();
-      console.log(year)
+      // console.log(year)
     }
-    var updateTurnover = await dbModel.updateMonthTurnover(month);
+    var updateTurnover = await dbModel.updateMonthTurnover(month,year);
     // console.log('haha',updateTurnover)
     updateTurnover = updateTurnover.rows[0]
     updateTurnover.doanh_thu = parseInt(updateTurnover.doanhthuthang)
     updateTurnover.loi_nhuan = parseInt(updateTurnover.loinhuanthang)
-    console.log(updateTurnover)
     if (req.query.page) {
       if (req.query.page != "") {
         currentPage = parseInt(req.query.page);
@@ -44,19 +43,14 @@ const loadPage = async (req, res, next) => {
     }
 
     var receiptIDArr;
-    console.log(req.query)
     date=[]
     turnover=[]
     profit=[]
-    if (req.query.month) {
-   
-        receiptIDArr = await dbModel.getTurnoverByMonth(req.query.month);
-    
-    } else {
-      receiptIDArr = await dbModel.getThisMonthTurnover();
-      // console.log(receiptIDArr)
 
-    }
+   
+    receiptIDArr = await dbModel.getTurnoverByMonth(month, year);
+    
+
 
     if (receiptIDArr.rows) {
       receiptIDArr = receiptIDArr.rows
@@ -99,7 +93,8 @@ const loadPage = async (req, res, next) => {
           total: updateTurnover,
           date:date,
           turnover:turnover,
-          profit:profit
+          profit:profit,
+          year:year
         });
       } else {
         res.render("monthlyTurnoverPage", {

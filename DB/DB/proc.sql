@@ -495,13 +495,14 @@ SELECT * FROM DON_HANG order by ngay_mua desc
 SELECT * FROM CHI_TIET_DON_HANG where ma_don_hang='IDzWsxtK'
 drop procedure if exists doanhThuThang
 create or replace procedure doanhThuThang(
- thang int default null, INOUT doanhThuThang bigint default NULL, INOUT loiNhuanThang bigint default NULL )
+ thang int default null,nam int default null, INOUT doanhThuThang bigint default NULL, INOUT loiNhuanThang bigint default NULL )
 language plpgsql    
 as $$
 begin
- 	thang:=COALESCE(thang, EXTRACT(MONTH FROM CURRENT_DATE));
-	doanhThuThang:=(SELECT SUM(dtn.doanh_thu) FROM DOANH_THU_NGAY dtn WHERE EXTRACT(MONTH FROM dtn.ngay)=thang);
-	loiNhuanThang:=(SELECT SUM(dtn.loi_nhuan) FROM DOANH_THU_NGAY dtn WHERE EXTRACT(MONTH FROM dtn.ngay)=thang);
+ 	thang:=COALESCE(thang, EXTRACT(MONTH FROM timezone('ALMST'::text, now())::date));
+	nam:=COALESCE(nam, EXTRACT(YEAR FROM timezone('ALMST'::text, now())::date));
+	doanhThuThang:=(SELECT SUM(dtn.doanh_thu) FROM DOANH_THU_NGAY dtn WHERE EXTRACT(MONTH FROM dtn.ngay)=thang and EXTRACT(YEAR FROM dtn.ngay)=nam);
+	loiNhuanThang:=(SELECT SUM(dtn.loi_nhuan) FROM DOANH_THU_NGAY dtn WHERE EXTRACT(MONTH FROM dtn.ngay)=thang and EXTRACT(YEAR FROM dtn.ngay)=nam);
 end;$$;
 
 call capNhatDoanhThu()

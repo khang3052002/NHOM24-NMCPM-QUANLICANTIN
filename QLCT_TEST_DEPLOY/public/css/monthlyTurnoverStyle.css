@@ -37,11 +37,11 @@
 .month-select {
   width: 150px;
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 .year-select {
   width: 150px;
-  margin-left: 20px;
+  margin-left: 5px;
   margin-right: 10px;
 }
 .graph-month-container {
@@ -50,4 +50,12 @@
 canvas {
   height: 25rem !important;
   margin: 0px auto;
+}
+.odd{
+  color:black;
+  background-color: blue;
+}
+.even{
+  color:black;
+  background-color: blue;
 }

@@ -1,4 +1,6 @@
 const dbModel = require("../models/dbHelpers/dbHelpers");
+const dataExporter=require('json2csv').Parser
+const json2csv=require('json2csv')
 var itemPerPage = 15;
 var totalPage = 0;
 var currentPage = 0;
@@ -10,13 +12,17 @@ const loadPage = async (req, res) => {
   }
   message = "";
   try {
-    currentDate = new Date();
+    var currentDate = new Date();
     if (req.query.month) {
       currentMonth = req.query.month;
     } else {
       currentMonth = currentDate.getMonth() + 1;
     }
-    currentYear = currentDate.getFullYear();
+    if (req.query.year) {
+      currentYear = req.query.year;
+    } else {
+      currentYear = currentDate.getFullYear();
+    }
     var result = await dbModel.getStatistical(currentMonth, currentYear);
     if (result.rows) {
       result = result.rows;
@@ -48,7 +54,9 @@ const loadPage = async (req, res) => {
         totalPage,
         productList:productList,
         number:number,
-        color:color
+        color:color,
+        month:currentMonth,
+        year:currentYear
       });
       return;
     } else {
@@ -57,6 +65,8 @@ const loadPage = async (req, res) => {
         message: result.message,
         user: user,
         product: result,
+        month:currentMonth,
+        year:currentYear
       });
       return;
     }
@@ -68,4 +78,52 @@ const loadPage = async (req, res) => {
     });
   }
 };
-module.exports = { loadPage };
+
+const getCSV = async (req, res) => {
+  user = {};
+  if (req.session.user) {
+    user = req.session.user;
+    console.log(user);
+  }
+  message = "";
+  try {
+    var currentDate = new Date();
+    if (req.query.month) {
+      currentMonth = req.query.month;
+    } else {
+      currentMonth = currentDate.getMonth() + 1;
+    }
+    if (req.query.year) {
+      currentYear = req.query.year;
+    } else {
+      currentYear = currentDate.getFullYear();
+    }
+    var result = await dbModel.getStatistical(currentMonth, currentYear);
+    if (result.rows) {
+      result=result.rows
+      data=JSON.parse(JSON.stringify(result))
+      fileHeader=[]
+      var jsonData=new dataExporter({withBOM:true,excelStrings:true})
+      var BOM = "\uFEFF"; 
+      var csvData=jsonData.parse(data)
+      // a=json2csv({data:data})
+      // json2csv.parse()
+      // console.log(a)
+      res.setHeader("Content-type","text/csv;charset=utf-8")
+      res.setHeader("Content-Disposition",`attachment; filename=ThongKe${currentMonth}_${currentYear}.csv`)
+      res.status(200).end(csvData)
+      return
+    }
+
+    else {
+      res.status(403).send('Fail')
+    }
+  } catch (error) {
+    res.render("errorPage", {
+      title: "Lỗi",
+      user: user,
+      message: error.message,
+    });
+  }
+};
+module.exports = { loadPage,getCSV };

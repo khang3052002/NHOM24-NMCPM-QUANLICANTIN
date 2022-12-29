@@ -13,7 +13,6 @@ $('.month-select').change(function(){
     year= $('.year-select').val()
     month=parseInt(month)
     year=parseInt(year)
-    console.log(month,year)
     
     if(Number.isInteger(year) && Number.isInteger(month)){
         window.location.href= `/monthly-turnover?month=${month}&year=${year}`
@@ -26,7 +25,6 @@ $('.year-select').change(function(){
     month= $('.month-select').val()
     month=parseInt(month)
     year=parseInt(year)
-    console.log(month,year)
     
     if(Number.isInteger(year) && Number.isInteger(month)){
         window.location.href= `/monthly-turnover?month=${month}&year=${year}`

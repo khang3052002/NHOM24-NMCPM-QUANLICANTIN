@@ -3,5 +3,6 @@ const router = app.Router();
 const statisticController=require('../controllers/statisticController')
 
 router.get('/', statisticController.loadPage)
+router.post('/', statisticController.getCSV)
 // router.post('/',manageCategory.addProToCart)
 module.exports = router;

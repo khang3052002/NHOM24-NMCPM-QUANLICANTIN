@@ -672,18 +672,19 @@ const getThisMonthTurnover=async()=>{
     return err.message
   }
 }
-const getTurnoverByMonth=async(month)=>{
+const getTurnoverByMonth=async(month,year)=>{
   try{
-    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = '${month}' order by ngay desc`)
+    const res=await dbConnector.query(`select * from doanh_thu_ngay where EXTRACT(MONTH FROM ngay) = '${month}'
+    and EXTRACT(YEAR FROM ngay) = '${year}' order by ngay desc`)
     return res     
   }
   catch(err){
     return err.message
   }
 }
-const updateMonthTurnover=async(month)=>{
+const updateMonthTurnover=async(month,year)=>{
   try{
-    const res=await dbConnector.query(`call doanhthuthang(${month})`)
+    const res=await dbConnector.query(`call doanhthuthang(${month},${year})`)
     return res
   }
   catch(err){

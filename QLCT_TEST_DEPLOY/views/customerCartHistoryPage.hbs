@@ -33,7 +33,9 @@
                                     this.chi_tiet_phieu.ngaynhap}}{{/customDate}}
                                 </div>
                                 <div class="title-custom id-column">ID: {{this.ma_phieu}}</div>
-                                <div class="title-custom">{{this.chi_tiet_phieu.trang_thai}}</div>
+                                <div class="title-custom {{#ifCond this.chi_tiet_phieu.trang_thai '==' 'CHUA NHAN HOA DON'}}
+                                text-danger{{/ifCond}} {{#ifCond this.chi_tiet_phieu.trang_thai '==' 'DA NHAN HOA DON'}}
+                                text-success{{/ifCond}}">{{this.chi_tiet_phieu.trang_thai}}</div>
                             </div>
                         </div>
                     </h2>
