@@ -35,6 +35,7 @@ const addProToCart=async(req,res)=>
 {
     try {
         if(!(req.session&&req.session.user)){
+            console.log('no')
             res.send({name:false});
         }
         else{
@@ -56,6 +57,7 @@ const addProToCart=async(req,res)=>
         }
 
     } catch (error) {
+        console.log('err')
         res.send(error.message)
     }
 }

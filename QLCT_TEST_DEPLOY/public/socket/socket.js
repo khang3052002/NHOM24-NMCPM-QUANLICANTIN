@@ -4,7 +4,7 @@ const ConvertToVND = (value) => {
     if (typeof value == "string") {
       try {
         value = parseInt(value);
-      } catch (err) {}
+      } catch (err) { }
     }
     gia_ban = value.toLocaleString("it-IT", {
       style: "currency",
@@ -16,7 +16,7 @@ const ConvertToVND = (value) => {
   }
 };
 var socket = io();
-socket.on("connect", () => {});
+socket.on("connect", () => { });
 
 socket.on("send update", function (data) {
   $(".product-item").each(function () {
@@ -80,6 +80,10 @@ socket.on("send datachange", function (response) {
           .children(".quantity-text")
           .children(".good-quantity")
           .addClass("fw-bold");
+
+        $(this).children(".card-sl").children(".add-to-cart-container").children(".quantity-input").attr("max", arr[0].so_luong)
+
+
       }
     }
   });
@@ -107,6 +111,8 @@ socket.on("send datachange", function (response) {
           .children(".quantity-text")
           .children(".good-quantity")
           .addClass("fw-bold");
+
+        $(this).children(".add-to-cart-container").children(".quantity-input").attr("max", arr[0].so_luong)
       }
     }
   });
@@ -123,6 +129,3 @@ socket.on("send datachange", function (response) {
     }
   });
 });
-socket.on("update quantity",function(response){
-
-})
