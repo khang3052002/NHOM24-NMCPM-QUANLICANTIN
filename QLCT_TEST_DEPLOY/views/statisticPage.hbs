@@ -123,7 +123,7 @@
                 <ul class="pagination">
                     {{#times totalPage}}
                     <li class="page-item page-number {{#ifCond  ../currentPage  '==' this }}active{{/ifCond}}">
-                        <a class="page-link" href="?page={{this}}">{{this}}</a>
+                        <a class="page-link" href="?page={{this}}{{#if ../month}}&month={{../month}}{{/if}}{{#if ../year}}&year={{../year}}{{/if}}">{{this}}</a>
                     </li>
                     {{/times}}
                 </ul>

@@ -106,9 +106,6 @@ const getCSV = async (req, res) => {
       var jsonData=new dataExporter({withBOM:true,excelStrings:true})
       var BOM = "\uFEFF"; 
       var csvData=jsonData.parse(data)
-      // a=json2csv({data:data})
-      // json2csv.parse()
-      // console.log(a)
       res.setHeader("Content-type","text/csv;charset=utf-8")
       res.setHeader("Content-Disposition",`attachment; filename=ThongKe${currentMonth}_${currentYear}.csv`)
       res.status(200).end(csvData)
