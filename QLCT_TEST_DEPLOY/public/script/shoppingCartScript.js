@@ -396,6 +396,7 @@ $('.delete-product-btn').click(function (e) {
         }
     })
 
+
 })
 
 $('#edit-cart').click(function (e) {
