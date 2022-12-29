@@ -153,6 +153,8 @@ app.use((req, res) => {
     }
     res.render('errorPage', { message: '404 Page not found', user: user })
 })
+
+
 const serverSocket=require('./configs/serverSocket')
 io.on('connection', (socket) => {
     serverSocket.pushID(socket.id)

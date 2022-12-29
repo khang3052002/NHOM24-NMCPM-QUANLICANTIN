@@ -37,14 +37,12 @@ const makePayment = async (req, res) => {
         // const name = req.body.name
         const orderID = req.body.orderID
         var result = ""
-        console.log(val,orderID)
+        console.log('Momo: ',val,orderID)
 
-        // if (name == 'Zalo') {
-        //     result = await ZaloPay.CreateOrder({ amount: val, description: orderID })
-
-        // } else {
+        
         result = await Momo.CreateOrder({ amount: val, description: orderID })
-        // }
+        
+        console.log(result)
 
         res.send(result)
     } catch (error) {

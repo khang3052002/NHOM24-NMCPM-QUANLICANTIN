@@ -29,7 +29,14 @@
                         <div class="card-header cart-header">
                             <h3 class="card-title text-center ">GIỎ HÀNG</h3>
                         </div>
-                        <div class="card-body">
+                        
+                        <div class="card-body" >
+                            <div class="d-flex " style="margin-left: 7.11rem">
+                                <div class="fw-bold">Chọn tất cả</div>
+                                <input class="form-check-input " id ="select-all" type="checkbox" value="" 
+                                style="margin-left:4rem">
+
+                            </div>
                             <div class="row justify-content-center">
                                 <div class="col-lg-12 col-xl-10">
                                     <div class="cart-container">
@@ -63,9 +70,11 @@
                                                                         name="cartQty1" value="{{this.so_luong}}">
                                                                 </div>
                                                             </td>
-                                                            <td class="text-center quantity-item-store">{{this.so_luong_hang}}</td>
+                                                            <td class="text-center quantity-item-store">
+                                                                {{this.so_luong_hang}}</td>
                                                             <td>{{ConvertToVND this.gia_ban}}</td>
-                                                            <td class="text-right">{{ConvertToVND this.thanh_tien}}</td>
+                                                            <td class="text-right money">{{ConvertToVND
+                                                                this.thanh_tien}}</td>
                                                             {{!-- {{#if ../showEdit}} --}}
                                                             <td class="visibility-change visibility-hidden text-center">
                                                                 <button type="button"
@@ -74,6 +83,20 @@
                                                                     <i class="fa-solid fa-trash"></i>
                                                                 </button>
                                                             </td>
+                                                            <td class="visibility-change">
+                                                                <div class="form-check ">
+                                                                    <input class="form-check-input select-product"
+                                                                        type="checkbox" value="" >
+
+                                                                </div>
+                                                            </td>
+                                                            {{!-- <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                    id="flexCheckDefault">
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    Default checkbox
+                                                                </label>
+                                                            </div> --}}
                                                             {{!-- {{/if}} --}}
                                                         </tr>
                                                         {{/each}}
@@ -95,7 +118,7 @@
                                                                         <h4>Tổng tiền :</h4>
                                                                     </td>
                                                                     <td class="f-w-7 font-18">
-                                                                        <h4 id="total">{{ ConvertToVND total}}</h4>
+                                                                        <h4 id="total">{{ ConvertToVND 0}}</h4>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -137,15 +160,15 @@
 
                 <div class="d-flex flex-row-reverse">
                     <div class="payment-class mt-3 mb-3">
-                    <a class="btn btn-info my-1" id="payment">Thanh toán
-                        <i class="ri-arrow-right-line ml-2"></i></a>
+                        <a class="btn btn-info my-1" id="payment">Thanh toán
+                            <i class="ri-arrow-right-line ml-2"></i></a>
+                    </div>
+                    <div class="view-receipt mt-3 mb-3 ">
+                        <a class="btn btn-info my-1 hidden" id="view-receipt-btn">Xem hóa đơn
+                            <i class="ri-arrow-right-line ml-2"></i></a>
+                    </div>
                 </div>
-                <div class="view-receipt mt-3 mb-3 ">
-                    <a class="btn btn-info my-1 hidden" id="view-receipt-btn">Xem hóa đơn
-                        <i class="ri-arrow-right-line ml-2"></i></a>
-                </div>
-                </div>
-                
+
             </div>
 
 
@@ -238,7 +261,7 @@
                                 <h2>Tổng cộng</h2>
                             </td>
                             <td class="payment">
-                                <h2>{{ConvertToVND this.total}}</h2>
+                                <h2 class="pos-total">{{ConvertToVND 0}}</h2>
                             </td>
                         </tr>
 
@@ -258,7 +281,7 @@
             </div>
             <!--End InvoiceBot-->
         </div>
-        
+
     </div>
 
 

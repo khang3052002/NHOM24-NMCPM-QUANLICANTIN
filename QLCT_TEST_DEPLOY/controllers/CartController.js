@@ -19,7 +19,8 @@ const getCart = async(req,res)=>
             {
                 total = total + result[i].thanh_tien
             }
-            // console.log(total)
+
+           
             user = {}
             if (req.session.user) {
                 user = req.session.user
@@ -163,6 +164,7 @@ const createOrder = async(req,res)=>
         const result = await dbModel.createOrder(idUser,queryStr)
         if(result.rows)
         {
+            console.log(result.rows)
             serverSocket.targetProxy.id=req.session.user.id
             orderID = result.rows[0].madonhang
             res.send({result: 'OK', orderID: orderID})

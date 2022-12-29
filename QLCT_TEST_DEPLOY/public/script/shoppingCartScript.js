@@ -1,9 +1,12 @@
 
 // const config = require('./CONST.json')
+
+// const { CopyResponse } = require("pg-protocol/dist/messages")
+
 // import config from './CONST.json'
 const WEB = "https://nhom24-qlct.onrender.com"
 
-{/* <script type="module" src="./file.js"></script> */}
+{/* <script type="module" src="./file.js"></script> */ }
 
 
 function CreateOrder(params = {}) {
@@ -18,7 +21,7 @@ function xuLiThanhToan() {
     return $.ajax({
         type: 'post',
         url: '/callback',
-        
+
     })
 }
 
@@ -26,28 +29,129 @@ var arr = []
 var count = 1
 var click = 1
 
-$('#payment').click(function () {       
+$('#select-all').click(function()
+{
+    arrMoney = []
+    console.log('da vao')
+    if ($(this).is(':checked')) {
+        console.log('dung roi')
+        $('.select-product').each(function (index) {
+
+            console.log(this)
+            $(this).prop('checked', true);
+
+        })
+
+        $('.money').each(function (e) {
+            // console.log($(this).attr('id'))
+    
+            value = $(this).html().split('&')[0];
+            value = value * 1000;
+            arrMoney.push(parseInt(value))
+            
+        })
+        var total = 0
+        for (i = 0; i < arrMoney.length; i++) {
+            total += arrMoney[i];
+        }
+       
+        strTotal = convertToVND(total)
+        $('#total').html(strTotal)
+        $('.pos-total').html(strTotal)
+
+    }
+    else{
+        $('.select-product').each(function (index) {
+            console.log(this)
+
+            $(this).prop('checked', false);
+        })
+        $('#total').html("0 VND")
+        $('.pos-total').html("0 VND")
+    }
+})
+
+$('.select-product').change(function () {
+    arrMoney = []
+    arrSelectedProduct = []
+    console.log(this)
+   
+    if (!$(this).is(':checked') && $('#select-all').is(':checked')) {
+        $('#select-all').prop('checked', false);
+    }
+
+    $('.select-product').each(function (index) {
+        if ($(this).is(':checked')) {
+            arrSelectedProduct.push(index)
+        }
+        
+    })
+    $('.money').each(function (e) {
+        // console.log($(this).attr('id'))
+
+        value = $(this).html().split('&')[0];
+        value = value * 1000;
+        arrMoney.push(parseInt(value))
+        // arrQuantity.push()
+    })
+    arrMoney = arrSelectedProduct.map(i => arrMoney[i])
+    var total = 0
+    console.log(arrMoney)
+    for (i = 0; i < arrMoney.length; i++) {
+        total += arrMoney[i];
+    }
+    // console.log(total)
+    strTotal = convertToVND(total)
+    $('#total').html(strTotal)
+    $('.pos-total').html(strTotal)
+})
+
+
+$('#payment').click(function () {
     var arrProductsID = []
     var arrQuantity = []
     var arrProductsName = []
     var arrQuantityItemStore = []
     var strInfo = ''
     var check = true;
+
+    var arrSelectedProduct = []
+    $('.select-product').each(function (index) {
+        if ($(this).is(':checked')) {
+            arrSelectedProduct.push(index)
+        }
+    })
+    console.log('Arr selected: ', arrSelectedProduct)
+
+    // console.log('arr pro id: ',arrProductsID)
+
     $('.product-item').each(function (e) {
         // console.log($(this).attr('id'))
         arrProductsID.push($(this).attr('id'))
         // arrQuantity.push()
     })
+    // arrProductsID.map((arrSelectedProduct))
+    arrProductsID = arrSelectedProduct.map(i => arrProductsID[i])
+
+    console.log('arr pro id: ', arrProductsID)
+
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
+    arrQuantity = arrSelectedProduct.map(i => arrQuantity[i])
+    console.log('arr quantity: ', arrQuantity)
     $('.quantity-item-store').each(function () {
         arrQuantityItemStore.push(parseInt($(this).html()))
     })
+    arrQuantityItemStore = arrSelectedProduct.map(i => arrQuantityItemStore[i])
+    console.log('arr item store: ', arrQuantityItemStore)
+
     // console.log(arrProductsID, arrQuantity)
     $('.name-pro').each(function () {
         arrProductsName.push($(this).html())
     })
+    arrProductsName = arrSelectedProduct.map(i => arrProductsName[i])
+    console.log('arr name: ', arrProductsName)
 
     for (i = 0; i < arrQuantity.length; i++) {
         if (arrQuantity[i] > arrQuantityItemStore[i]) {
@@ -65,13 +169,28 @@ $('#payment').click(function () {
     var total = $('#total').text()
     var numTotal = convertVNDToNumber(total) // giá tiền
 
+
+    console.log(numTotal)
+
+
     var balance = $('#user-balance').text()
     var numBalance = convertVNDToNumber(balance)
-
+    $('.service').each(function (index) {
+        $(this).removeClass('hidden')
+        
+    })
+    $('.service').each(function (index) {
+        if(!arrSelectedProduct.includes(index))
+        {
+            console.log(index)
+            $(this).addClass('hidden')
+        }
+        
+    })
 
     // console.log(typeof typePayment, numTotal)
     // thanh toán tiền tài khoản
-    
+
     if (typePayment == 1) {
         if (numTotal == 0) {
             $(".noti-content").html('Không có mặt hàng trong giỏ');
@@ -113,7 +232,11 @@ $('#payment').click(function () {
     }
     // thanh toán Momo
     else if (typePayment == 2) {
-        if (check == false) {
+        if (numTotal == 0) {
+            $(".noti-content").html('Không có mặt hàng trong giỏ');
+            $('.pop-up').removeClass('hidden')
+        }
+        else if (check == false) {
             $(".noti-content").html('Không đủ mặt hàng trong kho');
 
             $('.pop-up').removeClass('hidden')

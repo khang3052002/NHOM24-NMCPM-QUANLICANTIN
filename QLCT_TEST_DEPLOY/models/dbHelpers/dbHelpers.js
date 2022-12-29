@@ -507,8 +507,7 @@ const createOrder = async (idUser, strQuery) => {
   try {
     console.log(`call themdonhang('${idUser}',${strQuery})`)
     const res = await dbConnector.query(`call themdonhang('${idUser}',${strQuery})`)
-    // console.log(res)
-    // return 1
+    console.log(res)
     return res
   } catch (err) {
     return err.message
