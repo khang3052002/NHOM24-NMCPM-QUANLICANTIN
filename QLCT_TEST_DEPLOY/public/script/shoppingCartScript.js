@@ -387,14 +387,14 @@ $('.delete-product-btn').click(function (e) {
 
 
     $('#' + id).remove()
-    $.ajax({
-        method: 'post',
-        url: '/shopping-cart',
-        data: { id: id },
-        success: function (data) {
+    // $.ajax({
+    //     method: 'post',
+    //     url: '/shopping-cart',
+    //     data: { id: id },
+    //     success: function (data) {
 
-        }
-    })
+    //     }
+    // })
 
 
 })
