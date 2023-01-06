@@ -47,7 +47,7 @@ const updateUserBalance=async(req,res,next)=>{
         var allUserInfo=await dbModel.setUsersBalance(users);
         console.log(allUserInfo)
         if(allUserInfo.rows){
-            res.send('Cập nhật giá thành công')
+            res.send('Cập nhật thành công')
         }
         else{
             res.send('Đã xảy ra lỗi')

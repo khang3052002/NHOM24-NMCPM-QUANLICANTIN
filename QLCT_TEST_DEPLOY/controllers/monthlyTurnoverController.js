@@ -189,35 +189,33 @@ const updateState = async (req, res, next) => {
 };
 
 const getCSV = async (req, res, next) => {
-  user = {};
+
+ 
+
   if (req.session.user) {
     user = req.session.user;
   }
   try {
+    const d = new Date();
+    var month = d.getMonth() + 1;
+    var year=d.getFullYear();
     if(req.body.month){
       month=req.body.month
+      
     }
-    var updateTurnover = await dbModel.updateMonthTurnover(month);
+    if(req.body.year){
+      year=req.body.year
+    }
+    var updateTurnover = await dbModel.updateMonthTurnover(month,year);
+
     updateTurnover = updateTurnover.rows[0]
-
-    if (req.query.page) {
-      if (req.query.page != "") {
-        currentPage = parseInt(req.query.page);
-      }
-    }
-
+    
     var receiptIDArr;
     date=[]
     turnover=[]
     profit=[]
-    if (req.query.month) {
-   
-        receiptIDArr = await dbModel.getTurnoverByMonth(req.query.month);
-    
-    } else {
-      receiptIDArr = await dbModel.getThisMonthTurnover();
+    receiptIDArr = await dbModel.getTurnoverByMonth(month,year);
 
-    }
 
     if (receiptIDArr.rows) {
       receiptIDArr = receiptIDArr.rows
