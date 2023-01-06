@@ -51,7 +51,7 @@ $('.add-to-cart-btn').click(function(e){
   e.preventDefault()
   e.stopPropagation()
   id=$(this).attr('id')
-  quantity=$('.quantity-input').val();
+  quantity=$(`.quantity-input-${id}`).val();
   name=$(this).attr('name')
   console.log(id,quantity,name)
   $.ajax({
