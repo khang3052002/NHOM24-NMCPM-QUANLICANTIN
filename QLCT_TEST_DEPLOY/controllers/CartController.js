@@ -146,7 +146,6 @@ const createOrder = async(req,res)=>
         idStr='ARRAY['
         amountStr='ARRAY['
         
-        
 
         for(i=0;i<arrProID.length;i++){
             if(i!=arrProID.length-1){

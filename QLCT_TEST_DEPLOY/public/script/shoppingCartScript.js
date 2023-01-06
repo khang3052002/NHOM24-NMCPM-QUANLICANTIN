@@ -29,8 +29,7 @@ var arr = []
 var count = 1
 var click = 1
 
-$('#select-all').click(function()
-{
+$('#select-all').click(function () {
     arrMoney = []
     console.log('da vao')
     if ($(this).is(':checked')) {
@@ -44,23 +43,23 @@ $('#select-all').click(function()
 
         $('.money').each(function (e) {
             // console.log($(this).attr('id'))
-    
+
             value = $(this).html().split('&')[0];
             value = value * 1000;
             arrMoney.push(parseInt(value))
-            
+
         })
         var total = 0
         for (i = 0; i < arrMoney.length; i++) {
             total += arrMoney[i];
         }
-       
+
         strTotal = convertToVND(total)
         $('#total').html(strTotal)
         $('.pos-total').html(strTotal)
 
     }
-    else{
+    else {
         $('.select-product').each(function (index) {
             console.log(this)
 
@@ -75,7 +74,7 @@ $('.select-product').change(function () {
     arrMoney = []
     arrSelectedProduct = []
     console.log(this)
-   
+
     if (!$(this).is(':checked') && $('#select-all').is(':checked')) {
         $('#select-all').prop('checked', false);
     }
@@ -84,7 +83,7 @@ $('.select-product').change(function () {
         if ($(this).is(':checked')) {
             arrSelectedProduct.push(index)
         }
-        
+
     })
     $('.money').each(function (e) {
         // console.log($(this).attr('id'))
@@ -177,15 +176,14 @@ $('#payment').click(function () {
     var numBalance = convertVNDToNumber(balance)
     $('.service').each(function (index) {
         $(this).removeClass('hidden')
-        
+
     })
     $('.service').each(function (index) {
-        if(!arrSelectedProduct.includes(index))
-        {
+        if (!arrSelectedProduct.includes(index)) {
             console.log(index)
             $(this).addClass('hidden')
         }
-        
+
     })
 
     // console.log(typeof typePayment, numTotal)
@@ -281,7 +279,7 @@ $('#payment').click(function () {
                                             console.log(data)
                                             // $('.notify').html(`<h1>GIAO DỊCH THÀNH CÔNG</h1>`)
                                             // $('#spin').addClass('d-none')
-                                            $(".noti-content").html('Thanh toán thành công');
+                                           
                                             console.log(arrProductsID, arrQuantity)
                                             $.ajax({
 
@@ -289,17 +287,19 @@ $('#payment').click(function () {
                                                 url: '/shopping-cart',
                                                 data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
                                                 success: function (data) {
+                                                    console.log('data Momo1 : ', data)
                                                     if (data) {
-                                                        // window.location.href='/shopping-cart'
+                                                        if (data.result == "OK") {
+                                                            console.log('data Momo2 : ', data)
+                                                            $(".noti-content").html('Thanh toán thành công');
+                                                            $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
 
-                                                        // setTimeout(function () {
-                                                        //     window.location.reload()
-                                                        // }, 2000)
-                                                        $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
+                                                            $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${WEB}/trading-details?id=${data.orderID}`);
 
-                                                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${WEB}/trading-details?id=${data.orderID}`);
+                                                            $('#view-receipt-btn').removeClass('hidden')
+                                                        }
+                                                       
 
-                                                        $('#view-receipt-btn').removeClass('hidden')
 
                                                     }
                                                 }
