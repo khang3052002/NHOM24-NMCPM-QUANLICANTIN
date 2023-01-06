@@ -104,6 +104,7 @@ app.use('/payment-momo', restrictForUser, momoPaymentRoutes)
 app.use('/user-profile', restrictForUser, getUserInfoRoutes)
 app.use('/recharge', restrictForUser, rechargeRoutes)
 app.use('/customer-cart-history', restrictForUser, customerCartHistoryRoutes);
+app.use('/manage-user-info', restrictForUser, rechargeRoutes)
 //admin routes
 app.use('/import-goods', restrictForAdmin, importGoodsRoutes)
 app.use('/import-goods-history', restrictForAdmin, importGoodsHistoryRoutes)

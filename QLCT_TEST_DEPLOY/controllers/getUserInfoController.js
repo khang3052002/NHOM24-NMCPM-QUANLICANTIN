@@ -43,7 +43,14 @@ const updateUser=async(req,res,next)=>{
     const email = req.body.email
     const phone = req.body.phone
     try {
-        var res = await dbModel.updateUserInfo(idUser,name,email,phone)
+        var result = await dbModel.updateUserInfo(idUser,name,email,phone)
+        if(result.rows)
+        {
+            res.send({result: 'OK', data: 'Cập nhật thành công'})
+        }
+        else{
+            res.send({result: 'FAIL', data:'Cập nhật thất bại'})
+        }
     } catch (error) {
         res.render('errorPage',{
             title:'Lỗi',

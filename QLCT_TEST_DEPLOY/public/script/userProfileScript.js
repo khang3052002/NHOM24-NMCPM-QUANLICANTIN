@@ -18,6 +18,26 @@ $('#update-btn').click(()=>
     $.ajax({
         method: 'put',
         data: {name: name, email:email, phone:phone},
-        url: '/get-user-info'
+        url: '/user-profile',
+        success: function(data)
+        {
+            $(".noti-content").html(data.data);
+            // if(data.result == 'OK')
+            // {
+                
+            // //    window.location.reload()
+            
+            // }
+            // else{
+
+            // }
+            setTimeout(function () {
+                window.location.reload()
+            }, 1300)
+            $('.fa-window-close').click(function () {
+                window.location.reload()
+              })
+            $(".pop-up").removeClass("hidden");
+        }
     })
 })

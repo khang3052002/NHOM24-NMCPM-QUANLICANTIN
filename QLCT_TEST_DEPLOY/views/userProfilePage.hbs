@@ -94,7 +94,7 @@
                                         <div class="row pt-1">
                                             <div class="col-6 mb-3">
                                                 <h6>Số dư tài khoản</h6>
-                                                <p class="text-muted">{{info.so_du}}</p>
+                                                <p class="text-muted">{{ConvertToVND info.so_du}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +106,21 @@
             </div>
         </div>
 
+    <div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
+    </div>
+    <script src="script/globalScript.js"></script>
     <script src="script/userProfileScript.js"></script>
 </body>
