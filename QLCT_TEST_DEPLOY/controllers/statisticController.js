@@ -88,17 +88,19 @@ const getCSV = async (req, res) => {
   message = "";
   try {
     var currentDate = new Date();
-    if (req.query.month) {
-      currentMonth = req.query.month;
+    if (req.body.month) {
+      currentMonth = req.body.month;
     } else {
       currentMonth = currentDate.getMonth() + 1;
     }
-    if (req.query.year) {
-      currentYear = req.query.year;
+    if (req.body.year) {
+      currentYear = req.body.year;
     } else {
       currentYear = currentDate.getFullYear();
     }
+    console.log(currentMonth,currentYear)
     var result = await dbModel.getStatistical(currentMonth, currentYear);
+    console.log(result.rows)
     if (result.rows) {
       result=result.rows
       data=JSON.parse(JSON.stringify(result))

@@ -20,7 +20,7 @@
     {{!--
     <link rel="stylesheet" href="css/homePageNeutralStyle.css"> --}}
     <link rel="stylesheet" href="css/searchGoodsPageStyle.css">
-    
+
     <div class="container" style="margin-top: 20px">
         <div class="row" style="margin-bottom: 20px">
             <h5>Kết quả tìm kiếm cho: "{{key}}"</h5>
@@ -41,7 +41,18 @@
                     {{else}} --}}
                     <h5 class="text-center">{{this.ten_mat_hang}}</h5>
                     <p class="text-center">{{ConvertToVND this.gia_ban_ra}}</p>
-                    {{!-- {{/if}} --}}
+                    <p class="text-center quantity-text">Còn lại: <span class="good-quantity">{{this.so_luong}}</span>
+                        {{!-- {{/if}} --}}
+                    <div class="add-to-cart-container card-text">
+
+                        <input type="number" id="quantity" class="form-control quantity-input quantity-input-{{this.ma_mat_hang}} text-center w-100"
+                            max="{{this.so_luong}}" min="1" value="1">
+
+                        <button class="btn btn-primary add-to-cart-btn" id="{{this.ma_mat_hang}}"
+                            name="{{this.ten_mat_hang}}">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             {{else}}
@@ -57,8 +68,19 @@
                     {{else}} --}}
                     <h5 class="text-center">{{this.ten_mon_an}}</h5>
                     <p class="text-center">{{ConvertToVND this.gia_ban}}</p>
-                    <p class="text-center quantity-text">Còn lại: <span class="good-quantity">{{this.so_luong}}</span></p>
+                    <p class="text-center quantity-text">Còn lại: <span class="good-quantity">{{this.so_luong}}</span>
+                    </p>
                     {{!-- {{/if}} --}}
+                    <div class="add-to-cart-container card-text">
+
+                        <input type="number" id="quantity" class="form-control quantity-input quantity-input-{{this.ma_mon_an}} text-center w-100"
+                            max="{{this.so_luong}}" min="1" value="1">
+
+                        <button class="btn btn-primary add-to-cart-btn" id="{{this.ma_mon_an}}"
+                            name="{{this.ten_mon_an}}">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             {{/if}}
@@ -66,7 +88,21 @@
 
         </div>
     </div>
+    <div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="script/itemSearchSelectScript.js"></script>
+    <script src="script/globalScript.js"></script>
 </body>
 
 {{!--
