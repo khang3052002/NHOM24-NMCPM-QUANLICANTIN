@@ -1,0 +1,32 @@
+.swap-panel-container{
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+.fade-out{
+    background-color:rgba(68, 118, 204, 0.221) !important ;
+    border: none;
+}
+.btn{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.input-field{
+    width: 400px;
+}
+.input-group-text{
+    color:black !important;
+    border: none !important;
+    background-color: transparent !important;
+}
+.rows-container{
+    width: max-content;
+    margin: 0 auto;
+}
+.one-row{
+    margin: 10px;
+}
+.uploaded-img{
+    width: 100px;
+}

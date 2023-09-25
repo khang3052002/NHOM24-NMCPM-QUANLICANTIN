@@ -17,6 +17,7 @@
 </head> --}}
 
 <body>
+    <h3>{{message}}</h3>
     <link rel="stylesheet" href="css/inStockPageStyle.css">
     <div class="pop-up  hidden">
         <div class="popup-container">
@@ -70,7 +71,7 @@
                                 <p class="user-info-display">{{this.so_luong}}</p>
                             </td>
                             <td>
-                                <p class="user-info-display">{{this.gia}}</p>
+                                <p class="user-info-display">{{ConvertToVND this.gia}}</p>
                             </td>
                         </tr>
                         {{/each}}

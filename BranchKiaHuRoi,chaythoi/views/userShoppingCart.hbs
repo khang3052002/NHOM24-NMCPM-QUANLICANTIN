@@ -18,6 +18,7 @@
 <body>
     <link rel="stylesheet" href="/css/shoppingCartStyle.css">
     <link rel="stylesheet" href="/css/receiptFormStyle.css">
+    <h3>{{message}}</h3>
     <div class="container">
         <div class="contentbar">
             <!-- Start row -->
@@ -110,10 +111,6 @@
                                             <button type="button" id="update-cart"
                                                 class="btn btn-info my-1 visibility-change visibility-hidden"><i
                                                     class="ri-save-line mr-2"></i>Cập nhật</button>
-
-
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -202,6 +199,7 @@
             <!--End Invoice Mid-->
             <div class="info">
                 <h2>HÓA ĐƠN BÁN HÀNG</h2>
+                <h3 id="orderID"></h3>
             </div>
             <div id="bot">
 
@@ -245,6 +243,10 @@
                         </tr>
 
                     </table>
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+                        <img id="qr-order" src="" alt="">
+
+                    </div>
                 </div>
                 <!--End Table-->
 

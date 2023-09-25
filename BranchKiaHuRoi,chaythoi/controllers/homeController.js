@@ -13,6 +13,7 @@ const loadHomePage=async(req,res,next)=>{
         popularList=await dbModel.getPopularItems(8)
         if(!(req.session&&req.session.role=='admin')){
             res.render('homePageNeutral',{
+                title:'Trang chủ',
                 role:req.session.role,
                 foodList:foodList,
                 user:user,
@@ -21,6 +22,7 @@ const loadHomePage=async(req,res,next)=>{
         }
         else if(req.session&&req.session.role=='admin'){
             res.render('homeAdminPage',{
+                title:'Trang chủ admin',
                 role:req.session.role,
                 user:user,
                 popularList:popularList

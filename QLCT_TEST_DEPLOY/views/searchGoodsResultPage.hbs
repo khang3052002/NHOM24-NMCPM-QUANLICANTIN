@@ -1,0 +1,110 @@
+{{!--
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="../css/style-homepage.css">
+
+    <title>Result Search</title>
+</head> --}}
+
+<body>
+    {{!--
+    <link rel="stylesheet" href="css/homePageNeutralStyle.css"> --}}
+    <link rel="stylesheet" href="css/searchGoodsPageStyle.css">
+
+    <div class="container" style="margin-top: 20px">
+        <div class="row" style="margin-bottom: 20px">
+            <h5>Kết quả tìm kiếm cho: "{{key}}"</h5>
+        </div>
+        <h3>{{message}}</h3>
+        <div class="row justify-content-center align-items-center">
+            {{#each arrResult}}
+            {{#if this.ma_mat_hang}}
+            <div class="col-md-2 col-margin-search">
+                <div class="card-sl item-result" id="{{this.ma_mat_hang}}">
+                    <div class="card-image-search text-center">
+                        <img src="{{this.img_url}}" />
+                    </div>
+
+                    {{!-- {{#if this.ten_mat_hang}}
+                    <h5 class="text-center">{{this.ten_mat_hang}}</h5>
+                    <p class="text-center">{{ConvertToVND this.gia}}</p>
+                    {{else}} --}}
+                    <h5 class="text-center">{{this.ten_mat_hang}}</h5>
+                    <p class="text-center">{{ConvertToVND this.gia_ban_ra}}</p>
+                    <p class="text-center quantity-text">Còn lại: <span class="good-quantity">{{this.so_luong}}</span>
+                        {{!-- {{/if}} --}}
+                    <div class="add-to-cart-container card-text">
+
+                        <input type="number" id="quantity" class="form-control quantity-input quantity-input-{{this.ma_mat_hang}} text-center w-100"
+                            max="{{this.so_luong}}" min="1" value="1">
+
+                        <button class="btn btn-primary add-to-cart-btn" id="{{this.ma_mat_hang}}"
+                            name="{{this.ten_mat_hang}}">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="col-md-2 col-margin-search">
+                <div class="card-sl item-result" id="{{this.ma_mon_an}}">
+                    <div class="card-image-search text-center">
+                        <img src="{{this.img_url}}" />
+                    </div>
+
+                    {{!-- {{#if this.ten_mat_hang}}
+                    <h5 class="text-center">{{this.ten_mat_hang}}</h5>
+                    <p class="text-center">{{ConvertToVND this.gia}}</p>
+                    {{else}} --}}
+                    <h5 class="text-center">{{this.ten_mon_an}}</h5>
+                    <p class="text-center">{{ConvertToVND this.gia_ban}}</p>
+                    <p class="text-center quantity-text">Còn lại: <span class="good-quantity">{{this.so_luong}}</span>
+                    </p>
+                    {{!-- {{/if}} --}}
+                    <div class="add-to-cart-container card-text">
+
+                        <input type="number" id="quantity" class="form-control quantity-input quantity-input-{{this.ma_mon_an}} text-center w-100"
+                            max="{{this.so_luong}}" min="1" value="1">
+
+                        <button class="btn btn-primary add-to-cart-btn" id="{{this.ma_mon_an}}"
+                            name="{{this.ten_mon_an}}">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+
+        </div>
+    </div>
+    <div class="pop-up hidden">
+        <div class="popup-container">
+            <div class="notification">
+                <div class="noti-header">
+                    <i class="fas fa-window-close"></i>
+                </div>
+                <div class="noti-content-container">
+                    <div class="noti-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script/itemSearchSelectScript.js"></script>
+    <script src="script/globalScript.js"></script>
+</body>
+
+{{!--
+
+</html> --}}

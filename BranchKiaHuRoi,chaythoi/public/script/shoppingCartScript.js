@@ -9,7 +9,7 @@ function CreateOrder(params = {}) {
 function xuLiThanhToan() {
     return $.ajax({
         type: 'post',
-        url: '/payment-momo/callback',
+        url: '/callback',
         // url: `https://webhook.site/67f5b308-2734-45a5-8d1a-1f32e4d2be66`,
         // data: {value: value,name:'Momo'},
     })
@@ -61,14 +61,20 @@ $('#payment').click(function () {
                 url: '/shopping-cart',
                 data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
                 success: function (data) {
-                    if (data) {
+                    if (data.result == 'OK') {
+                        
+                        console.log(data.orderID)
+                        $('#orderID').html(`Mã đơn hàng: ${data.orderID}`)
                         $(".noti-content").html('Thanh toán thành công');
                         // window.location.href='/shopping-cart'
 
-                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=hahah`);
+                        $('#qr-order').attr("src", `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.orderID}`);
                         // window.location.reload()
                         $('.pop-up').removeClass('hidden')
                         $('#view-receipt-btn').removeClass('hidden')
+                    }
+                    else{
+                        console.log(data)
                     }
                 }
             })
@@ -232,6 +238,8 @@ $('#update-cart').click(function (e) {
     console.log('heheheh')
     var arrProductsID = []
     var arrQuantity = []
+
+    
     $('.product-item').each(function (e) {
         // console.log($(this).attr('id'))
         arrProductsID.push($(this).attr('id'))
@@ -241,11 +249,15 @@ $('#update-cart').click(function (e) {
     $('.quantity-item').each(function () {
         arrQuantity.push(parseInt($(this).val()))
     })
+    console.log(arrProductsID,arrQuantity)
 
+    data= { arrProID: arrProductsID, arrQuantity: arrQuantity }
+
+    console.log(data)
     $.ajax({
         method: 'post',
         url: 'shopping-cart',
-        data: { arrProID: arrProductsID, arrQuantity: arrQuantity },
+        data: data,
         success: function (data) {
 
 
@@ -262,7 +274,7 @@ $('#update-cart').click(function (e) {
             });
         }
     })
-    console.log(arrProductsID, arrQuantity)
+    // console.log(arrProductsID, arrQuantity)
 
 
 })

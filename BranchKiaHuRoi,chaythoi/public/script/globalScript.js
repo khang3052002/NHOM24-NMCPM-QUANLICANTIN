@@ -27,4 +27,18 @@ $('.fa-window-close').click(function(){
   {
     event.stopPropagation()
   })
+
+  
+
+$('.container-pos').click(function()
+{
+  $(this).addClass('hidden')
+
+})
+
+$('#invoice-POS').click(function(event)
+{
+  event.stopPropagation()
+})
+
   

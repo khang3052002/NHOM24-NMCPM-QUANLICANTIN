@@ -7,7 +7,14 @@ const loadPage=async(req,res,next)=>{
             user=req.session.user
         }
         currentStorage=await dbModel.getCurrentStorage()
-        res.render('exportGoodsPage',{user:user,list:currentStorage})
+        if(currentStorage.rows){
+            currentStorage=currentStorage.rows
+            res.render('exportGoodsPage',{title:'Xuất sản phẩm',user:user,list:currentStorage})
+        }
+        else{
+            res.render('exportGoodsPage',{title:'Xuất sản phẩm',user:user,message:currentStorage})
+        }
+
     }
     catch(err){
         console.log(err)
@@ -49,6 +56,7 @@ const addNewCTReceipt =async(req,res,next)=>{
     }
     catch(err){
         res.render('errorPage',{
+            title:'Lỗi',
             user:user,
             message:err.message
         })

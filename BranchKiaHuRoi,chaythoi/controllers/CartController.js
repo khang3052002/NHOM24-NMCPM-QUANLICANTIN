@@ -26,6 +26,7 @@ const getCart = async(req,res)=>
                 user = req.session.user
             }
             res.render('userShoppingCart',{
+                title:'Giỏ hàng',
                 user:user,
                 arrProduct: result,
                 total: total,
@@ -81,45 +82,59 @@ const editCart = async(req,res) =>
 {
     try {
         // const idCart = req.session.user.cartID
-        const arrProID = req.body.arrProID
+        var arrProID =[]
+        var arrQuantity = []
+        if(req.body.arrProID && req.body.arrQuantity)
+        {
+            arrProID = req.body.arrProID  
+            arrQuantity = req.body.arrQuantity
+        }
+        // const arrProID = req.body.arrProID
         // const 
+        
         const idUser = req.session.user.id
-        const arrQuantity = req.body.arrQuantity
+        // const arrQuantity = req.body.arrQuantity
         console.log(arrProID,arrQuantity)
-
+        var queryStr = ''
 
         idStr='ARRAY['
         amountStr='ARRAY['
         
-        
-
-        for(i=0;i<arrProID.length;i++){
-            if(i!=arrProID.length-1){
-                idStr= idStr.concat("'",arrProID[i],"'",",")
-                amountStr= amountStr.concat(arrQuantity[i],",")
-       
+        if(arrProID.length > 0)
+        {
+            for(i=0;i<arrProID.length;i++){
+                if(i!=arrProID.length-1){
+                    idStr= idStr.concat("'",arrProID[i],"'",",")
+                    amountStr= amountStr.concat(arrQuantity[i],",")
+           
+                }
+                else{
+                    idStr= idStr.concat("'",arrProID[i],"'","]")
+                    amountStr= amountStr.concat(arrQuantity[i],"]")
+           
+                }
             }
-            else{
-                idStr= idStr.concat("'",arrProID[i],"'","]")
-                amountStr= amountStr.concat(arrQuantity[i],"]")
-       
-            }
+            queryStr=idStr+","+amountStr
         }
-        queryStr=idStr+","+amountStr
-
-
-        const resultDelete = await dbModel.editCart(idUser,queryStr)
+        var resultDelete = ''
+        if(queryStr != '')
+        {
+            resultDelete = await dbModel.editCart(idUser,queryStr)
+        }
+        else{
+            resultDelete = await dbModel.deleteUserCart(idUser)
+        }
 
         if(resultDelete.rows){
             res.send('Cập nhật thành công')
 
         }else{
-            res.send('Đã xảy ra lỗi')
+            res.send(resultDelete)
         }
 
 
     } catch (error) {
-        res.send('Đã xảy ra lỗi')
+        res.send(error.message)
     }
 }
 const createOrder = async(req,res)=>
@@ -150,7 +165,16 @@ const createOrder = async(req,res)=>
         queryStr=idStr+","+amountStr
         console.log(queryStr)
         const result = await dbModel.createOrder(idUser,queryStr)
-        res.send('OK')
+        console.log(result.rows)
+        if(result.rows)
+        {
+            orderID = result.rows[0].madonhang
+            res.send({result: 'OK', orderID: orderID})
+        }
+        else{
+            res.send({result: 'fail'})
+        }
+        
     } catch (error) {
         res.send('Đã xảy ra lỗi')
     }

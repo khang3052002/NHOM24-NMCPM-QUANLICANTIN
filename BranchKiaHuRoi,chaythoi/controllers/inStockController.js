@@ -7,20 +7,43 @@ loadStockPage= async (req,res,next)=>{
             user=req.session.user
         }
         if(req.query.section=='details'){
-            const productDetails=await dbModel.getCurrentCanteenDetails();
+            var productDetails=await dbModel.getCurrentCanteenDetails();
+            if(productDetails.rows){
+                productDetails=productDetails.rows
+                res.render('inStockDetailsPage',{
+                    title:'Hàng trong canteen',
+                    user:user,
+                    product:productDetails
+                })
+            }
+            else{
+                res.render('inStockDetailsPage',{
+                    title:'Hàng trong canteen',
+                    user:user,
+                    message:productDetails
+                })
+            }
             // console.log(productDetails)
-            res.render('inStockDetailsPage',{
-                user:user,
-                product:productDetails
-            })
+
         }
         else{
-            const product=await dbModel.getCurrentCanteen();
-            // console.log(product)
-            res.render('inStockPage',{
-                user:user,
-                product:product
-            })
+            var product=await dbModel.getCurrentCanteen();
+            if(product.rows){
+                product=product.rows
+                res.render('inStockPage',{
+                    title:'Hàng trong canteen',
+                    user:user,
+                    product:product
+                })
+            }
+            else{
+                res.render('inStockPage',{
+                    title:'Hàng trong canteen',
+                    user:user,
+                    message:product
+                })
+            }
+
         }
 
     }catch(err){

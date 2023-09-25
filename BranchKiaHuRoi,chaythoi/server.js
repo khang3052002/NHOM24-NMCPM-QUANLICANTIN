@@ -12,6 +12,7 @@ app.engine('hbs',exphbs.engine({
     layoutsDir:'views/_layouts',
     helpers:hbsHelper
 }))
+
 app.set('view engine', 'hbs')
 app.use(express.static(__dirname+ '/public/'))
 
@@ -54,10 +55,17 @@ const inStoreRoutes=require('./routers/inStoreRoutes')
 const getAllUsersInfoRoutes=require('./routers/getAllUserInfoRoutes')
 const inStockRoutes=require('./routers/inStockRoutes')
 const addNewItemRoutes=require('./routers/addNewItemRoutes')
+const rechargeRoutes = require('./routers/rechargeRoutes')
+const customerCartHistoryRoutes=require('./routers/customerCartHistoryRoutes')
 const tradingDetailsRoutes=require('./routers/tradingDetailsRoutes')
 // const tradingHistoryRoutes=require('./routers/tradingHistoryRoutes')
 const tradingHistoryRoutes=require('./routers/tradingHisRoutes')
+const manageCategoryRoutes=require('./routers/manageCategoryRoutes')
+const createBillRoutes=require('./routers/createBillRoutes')
 const momoPaymentRoutes = require('./routers/momoPaymentRoutes')
+const dailyTurnoverRoutes=require('./routers/dailyTurnoverRoutes')
+const monthlyTurnoverRoutes=require('./routers/monthlyTurnoverRoutes')
+const inStockFoodRoutes=require('./routers/inStockFoodRoutes')
 // const sign_inRoutes=require('./routes/sign_inRoutes');
 // const profileRoutes=require('./routes/profileRoutes');
 // const productDetailsRoutes = require('./routes/productDetailsRoutes');
@@ -90,8 +98,9 @@ app.use('/item-detail',restrictForNonAdmin, itemDetailRoutes)
 //user routes
 app.use('/shopping-cart',restrictForNonAdmin, shoppingCartRoutes)
 app.use('/payment-momo',restrictForUser,momoPaymentRoutes)
-app.use('/get-user-info',restrictForUser,getUserInfoRoutes)
-
+app.use('/user-profile',restrictForUser,getUserInfoRoutes)
+app.use('/recharge',restrictForUser,rechargeRoutes)
+app.use('/customer-cart-history',restrictForUser, customerCartHistoryRoutes);
 //admin routes
 app.use('/import-goods',restrictForAdmin,importGoodsRoutes)
 app.use('/import-goods-history',restrictForAdmin,importGoodsHistoryRoutes)
@@ -102,9 +111,35 @@ app.use('/in-store',restrictForAdmin, inStoreRoutes)
 app.use('/manage-users',restrictForAdmin, getAllUsersInfoRoutes);
 app.use('/add-new-item',restrictForAdmin, addNewItemRoutes);
 app.use('/in-stock',restrictForAdmin, inStockRoutes)
+app.use('/tradings-history',restrictForAdmin, tradingHistoryRoutes)
+app.use('/trading-details',restrictForAdmin, tradingDetailsRoutes)
+app.use('/manage-category',restrictForAdmin, manageCategoryRoutes)
+app.use('/create-new-bill',restrictForAdmin,createBillRoutes)
+app.use('/daily-turnover',restrictForAdmin, dailyTurnoverRoutes)
+app.use('/monthly-turnover',restrictForAdmin,monthlyTurnoverRoutes)
+app.use('/food-stock',inStockFoodRoutes)
 
-app.use('/tradings-history', tradingHistoryRoutes)
-app.use('/trading-details', tradingDetailsRoutes)
+
+var data = ''
+var arr = []
+app.post('/callback', (req, res) => {
+    console.log('da vao callback')
+    if (Object.keys(data).length !== 0) {
+        arr.push(data)
+    }
+    if (Object.keys(req.body).length !== 0) {
+
+        // NƠI LƯU KQ THANH TOÁN VÀO DATABASE
+        data = req.body
+        // res.send(data)
+        console.log('KET QUA THANH TOAN: ', data)
+
+        // console.log('da send')
+
+    }
+    console.log('arr: ', arr)
+    res.send(data)
+})
 
 app.get('/',(req,res)=>{
    res.redirect('/home');
